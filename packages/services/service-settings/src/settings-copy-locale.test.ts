@@ -15,7 +15,7 @@ import { SETTINGS_ACTION_COPY, settingsActionCopy } from './settings-action-copy
 /** The key each platform table tag is served by. */
 const KEY_OF_TAG: Record<PlatformLocaleTag, SettingsCopyLocale> = {
   en: 'en', 'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-Hant', es: 'es-ES', ar: 'ar', fr: 'fr',
-  'pt-BR': 'pt-BR', ru: 'ru', de: 'de', ja: 'ja-JP', ko: 'ko',
+  'pt-BR': 'pt-BR', ru: 'ru', uk: 'uk', de: 'de', ja: 'ja-JP', ko: 'ko',
 };
 const KEYS = PLATFORM_LOCALE_TAGS.map((tag) => KEY_OF_TAG[tag]);
 

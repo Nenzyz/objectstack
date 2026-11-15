@@ -31,7 +31,7 @@ describe('built-in position translations', () => {
   });
 
   it('the bundle carries translated locales', () => {
-    expect(TRANSLATED_LOCALES).toEqual(expect.arrayContaining(['zh-CN', 'ja-JP', 'es-ES']));
+    expect(TRANSLATED_LOCALES).toEqual(expect.arrayContaining(['zh-CN', 'ja-JP', 'es-ES', 'uk']));
   });
 
   describe.each(TRANSLATED_LOCALES)('%s', (locale) => {

@@ -14,6 +14,7 @@ export { ar } from './ar.js';
 export { fr } from './fr.js';
 export { ptBR } from './pt-BR.js';
 export { ru } from './ru.js';
+export { uk } from './uk.js';
 export { de } from './de.js';
 export { ko } from './ko.js';
 

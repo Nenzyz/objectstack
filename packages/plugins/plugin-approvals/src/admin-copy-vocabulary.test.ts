@@ -34,6 +34,7 @@ import { arObjects } from './translations/ar.objects.generated.js';
 import { frObjects } from './translations/fr.objects.generated.js';
 import { ptBRObjects } from './translations/pt-BR.objects.generated.js';
 import { ruObjects } from './translations/ru.objects.generated.js';
+import { ukObjects } from './translations/uk.objects.generated.js';
 import { deObjects } from './translations/de.objects.generated.js';
 import { koObjects } from './translations/ko.objects.generated.js';
 
@@ -100,7 +101,7 @@ function isObjectSchema(v: unknown): v is ObjectLike {
     && !!(v as ObjectLike).fields && typeof (v as ObjectLike).fields === 'object';
 }
 
-const OBJECT_BUNDLES = { en: enObjects, 'zh-CN': zhCNObjects, 'ja-JP': jaJPObjects, 'es-ES': esESObjects, 'zh-Hant': zhHantObjects, 'ar': arObjects, 'fr': frObjects, 'pt-BR': ptBRObjects, 'ru': ruObjects, 'de': deObjects, 'ko': koObjects } as const;
+const OBJECT_BUNDLES = { en: enObjects, 'zh-CN': zhCNObjects, 'ja-JP': jaJPObjects, 'es-ES': esESObjects, 'zh-Hant': zhHantObjects, 'ar': arObjects, 'fr': frObjects, 'pt-BR': ptBRObjects, 'ru': ruObjects, 'uk': ukObjects, 'de': deObjects, 'ko': koObjects } as const;
 
 describe('approval objects: admin-facing copy carries no design-record vocabulary', () => {
   it('the matcher recognises each kind of vocabulary it exists to keep out', () => {

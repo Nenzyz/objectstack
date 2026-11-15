@@ -30,7 +30,7 @@ import type {
 } from '@objectstack/spec/contracts';
 
 const NAME = 'auth.account_invitation';
-const LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES'] as const;
+const LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES', 'uk'] as const;
 type Locale = (typeof LOCALES)[number];
 
 const LINK = 'https://acme.test/api/v1/auth/reset-password/TOK123?callbackURL=https%3A%2F%2Facme.test%2F_console%2Freset-password';
@@ -81,6 +81,7 @@ const EXPECTED_SUBJECT: Record<Locale, string> = {
   'zh-CN': 'Dana Admin 邀请您使用 Acme',
   'ja-JP': 'Dana Admin さんから Acme への招待が届いています',
   'es-ES': 'Dana Admin te ha invitado a Acme',
+  uk: 'Dana Admin запрошує вас до Acme',
 };
 
 /** Who created the account, for which address — the invitation itself. */
@@ -89,6 +90,7 @@ const EXPECTED_CREATED: Record<Locale, string> = {
   'zh-CN': '已为您创建了 Acme 账号',
   'ja-JP': 'で Acme のアカウントを作成しました',
   'es-ES': 'ha creado una cuenta de Acme para ti',
+  uk: 'створив(-ла) для вас обліковий запис у Acme',
 };
 
 /** The link's real lifetime — a reset token expires, and the reader must know. */
@@ -97,6 +99,7 @@ const EXPECTED_EXPIRY: Record<Locale, string> = {
   'zh-CN': '该链接将在 45 分钟后失效',
   'ja-JP': 'このリンクは 45 分後に無効になります',
   'es-ES': 'Este enlace caduca en 45 minutos',
+  uk: 'Це посилання буде дійсним протягом 45 хвилин',
 };
 
 const EXPECTED_BUTTON: Record<Locale, string> = {
@@ -104,6 +107,7 @@ const EXPECTED_BUTTON: Record<Locale, string> = {
   'zh-CN': '设置密码',
   'ja-JP': 'パスワードを設定',
   'es-ES': 'Establecer contraseña',
+  uk: 'Встановити пароль',
 };
 
 /** The template's own footer: "if this wasn't you" fits no invitation. */
@@ -112,6 +116,7 @@ const EXPECTED_FOOTER: Record<Locale, string> = {
   'zh-CN': '您收到本邮件，是因为 Dana Admin 为此邮箱地址创建了 Acme 账号。',
   'ja-JP': 'Dana Admin さんがこのメールアドレスで Acme のアカウントを作成したため、本メールをお送りしています。',
   'es-ES': 'Recibes este correo porque Dana Admin ha creado una cuenta de Acme para esta dirección.',
+  uk: 'Ви отримали цього листа, оскільки Dana Admin створив(-ла) обліковий запис Acme для цієї адреси.',
 };
 
 /** The reset copy the import used to send — it must be absent from every locale. */
@@ -120,9 +125,10 @@ const RESET_COPY: Record<Locale, string[]> = {
   'zh-CN': ['我们收到了重置', '如果这不是您本人的操作'],
   'ja-JP': ['再設定するリクエストを受け付けました', '心当たりがない場合'],
   'es-ES': ['Hemos recibido una solicitud para restablecer', 'Si no has solicitado'],
+  uk: ['Ми отримали запит на скидання', 'Якщо ви не надсилали', 'проігноруйте цей лист'],
 };
 
-describe('[#23343] auth.account_invitation is a registered built-in in all four locales', () => {
+describe('[#23343] auth.account_invitation is a registered built-in in all five locales', () => {
   it('has exactly one row per supported locale, each a valid EmailTemplateDefinition', () => {
     const rows = BUILTIN_AUTH_TEMPLATES.filter((t) => t.name === NAME);
     // Registered, not merely exported: `EmailServicePlugin` declares exactly

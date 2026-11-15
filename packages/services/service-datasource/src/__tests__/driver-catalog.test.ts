@@ -189,6 +189,7 @@ describe('driverCatalogFor', () => {
       fr: 'Nom de fichier',
       'pt-BR': 'Nome do arquivo',
       ru: 'Имя файла',
+      uk: 'Назва файлу',
       de: 'Dateiname',
       ja: 'ファイル名',
       ko: '파일 이름',

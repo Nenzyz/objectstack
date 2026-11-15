@@ -161,10 +161,10 @@ describe('EmailServicePlugin — the statement Setup → Email makes', () => {
 // a caller's code finds its own language's entry: `zh-TW` the Traditional one
 // (never the Simplified), a stored alias its table language, anything else
 // English.
-describe('Setup → Email copy carries the eleven platform languages', () => {
+describe('Setup → Email copy carries the twelve platform languages', () => {
   const KEY_OF_TAG: Record<PlatformLocaleTag, MailDeliveryCopyLocale> = {
     en: 'en', 'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-Hant', es: 'es-ES', ar: 'ar', fr: 'fr',
-    'pt-BR': 'pt-BR', ru: 'ru', de: 'de', ja: 'ja-JP', ko: 'ko',
+    'pt-BR': 'pt-BR', ru: 'ru', uk: 'uk', de: 'de', ja: 'ja-JP', ko: 'ko',
   };
   const KEYS = PLATFORM_LOCALE_TAGS.map((tag) => KEY_OF_TAG[tag]);
   /** Every sentence of an entry, its functions called with sample arguments. */
@@ -184,7 +184,7 @@ describe('Setup → Email copy carries the eleven platform languages', () => {
 
   it('has exactly one entry per platform locale table language', () => {
     expect(Object.keys(MAIL_DELIVERY_COPY).sort()).toEqual([...KEYS].sort());
-    expect(KEYS).toHaveLength(11);
+    expect(KEYS).toHaveLength(12);
   });
 
   it('every entry carries every sentence, written in its own language (no English fill)', () => {
@@ -202,6 +202,7 @@ describe('Setup → Email copy carries the eleven platform languages', () => {
     for (const [code, key] of [
       ['zh-TW', 'zh-Hant'], ['zh-HK', 'zh-Hant'], ['zh-CN', 'zh-CN'], ['zh', 'zh-CN'],
       ['ja-JP', 'ja-JP'], ['es-ES', 'es-ES'], ['pt', 'pt-BR'], ['en-US', 'en'], ['fr-CA', 'fr'],
+      ['uk-UA', 'uk'],
     ] as const) {
       expect(mailDeliveryCopy(code), code).toBe(MAIL_DELIVERY_COPY[key]);
     }

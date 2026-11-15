@@ -37,7 +37,7 @@ import type { SourceHashes } from '@objectstack/platform-objects/apps';
 type PageTranslations = NonNullable<TranslationData['pages']>;
 
 /** The shipped locales, the same set the generated bundles carry. */
-export type ApprovalsLocale = 'en' | 'zh-CN' | 'ja-JP' | 'es-ES' | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ko';
+export type ApprovalsLocale = 'en' | 'zh-CN' | 'ja-JP' | 'es-ES' | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ko';
 
 export const approvalsPageTranslations: Readonly<Record<ApprovalsLocale, PageTranslations>> = {
   en: {
@@ -67,6 +67,9 @@ export const approvalsPageTranslations: Readonly<Record<ApprovalsLocale, PageTra
   ru: {
     sys_approval_request_detail: { label: 'Запрос на согласование' },
   },
+  uk: {
+    sys_approval_request_detail: { label: 'Запит на затвердження' },
+  },
   de: {
     sys_approval_request_detail: { label: 'Genehmigungsanfrage' },
   },
@@ -88,6 +91,7 @@ export const pageSourceHashes: Readonly<Record<Exclude<ApprovalsLocale, 'en'>, S
   fr: { 'pages.sys_approval_request_detail.label': '903e2bc9c8f36633' },
   'pt-BR': { 'pages.sys_approval_request_detail.label': '903e2bc9c8f36633' },
   ru: { 'pages.sys_approval_request_detail.label': '903e2bc9c8f36633' },
+  uk: { 'pages.sys_approval_request_detail.label': '903e2bc9c8f36633' },
   de: { 'pages.sys_approval_request_detail.label': '903e2bc9c8f36633' },
   ko: { 'pages.sys_approval_request_detail.label': '903e2bc9c8f36633' },
 };

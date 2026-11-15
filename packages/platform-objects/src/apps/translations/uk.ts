@@ -34,7 +34,7 @@ export const uk: TranslationData = {
         grp_account_ai_assistant: { label: 'ШІ-асистент' },
         nav_account_profile: { label: 'Профіль' },
         nav_account_notifications: { label: 'Сповіщення' },
-        nav_account_approvals: { label: 'Затвердження' },
+        nav_account_approvals: { label: 'Мої очікувані' },
         nav_account_memberships: { label: 'Мої організації' },
         nav_account_linked: { label: 'Підключені облікові записи' },
         nav_account_sessions: { label: 'Активні сеанси' },

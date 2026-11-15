@@ -23,6 +23,7 @@ import { arObjects } from './ar.objects.generated.js';
 import { frObjects } from './fr.objects.generated.js';
 import { ptBRObjects } from './pt-BR.objects.generated.js';
 import { ruObjects } from './ru.objects.generated.js';
+import { ukObjects } from './uk.objects.generated.js';
 import { deObjects } from './de.objects.generated.js';
 import { koObjects } from './ko.objects.generated.js';
 import { zhCNGeneratedSourceHashes } from './zh-CN.source-hashes.generated.js';
@@ -33,6 +34,7 @@ import { arGeneratedSourceHashes } from './ar.source-hashes.generated.js';
 import { frGeneratedSourceHashes } from './fr.source-hashes.generated.js';
 import { ptBRGeneratedSourceHashes } from './pt-BR.source-hashes.generated.js';
 import { ruGeneratedSourceHashes } from './ru.source-hashes.generated.js';
+import { ukGeneratedSourceHashes } from './uk.source-hashes.generated.js';
 import { deGeneratedSourceHashes } from './de.source-hashes.generated.js';
 import { koGeneratedSourceHashes } from './ko.source-hashes.generated.js';
 import { approvalsPageTranslations, pageSourceHashes } from './pages.js';
@@ -108,6 +110,10 @@ export const ApprovalsTranslations: TranslationBundle = {
   ru: withSourceFallback(
     { objects: ruObjects, pages: approvalsPageTranslations['ru'], messages: approvalMessages['ru'] },
     enSource, pageSourceHashes['ru'], ruGeneratedSourceHashes,
+  ),
+  uk: withSourceFallback(
+    { objects: ukObjects, pages: approvalsPageTranslations['uk'], messages: approvalMessages['uk'] },
+    enSource, pageSourceHashes['uk'], ukGeneratedSourceHashes,
   ),
   de: withSourceFallback(
     { objects: deObjects, pages: approvalsPageTranslations['de'], messages: approvalMessages['de'] },

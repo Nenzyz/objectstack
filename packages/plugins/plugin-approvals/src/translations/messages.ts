@@ -454,6 +454,49 @@ export const ruMessages: ApprovalMessages = {
   approvalSubmitterExcludedNoOne: 'Отправитель запроса исключён из согласующих, так как на этом этапе задан excludeSubmitter; больше никто не может его взять, поэтому решить может только привилегированное переопределение.',
 };
 
+export const ukMessages: ApprovalMessages = {
+  approvalRequestedTitle: 'Потрібне затвердження',
+  approvalRequestedBody: 'Рішення щодо {{object}} {{record}} очікує на вас.',
+  approvalReminderTitle: 'Нагадування про затвердження',
+  approvalReminderBody: 'Рішення щодо {{object}} {{record}} досі очікує на вас.',
+  approvalSlaBreachedTitle: 'SLA затвердження порушено',
+  approvalSlaBreachedBody: 'Рішення щодо {{object}} {{record}} прострочено.',
+  approvalSlaBreachedSubmitterTitle: 'SLA вашого запиту на затвердження порушено',
+  approvalSlaBreachedSubmitterBody: '{{object}} {{record}}: виконано дію ескалації «{{action}}».',
+  approvalApprovedTitle: 'Запит затверджено',
+  approvalApprovedBody: 'Ваш запит щодо {{object}} {{record}} затверджено.',
+  approvalApprovedWithCommentBody: 'Ваш запит щодо {{object}} {{record}} затверджено.\n\n{{comment}}',
+  approvalRejectedTitle: 'Запит відхилено',
+  approvalRejectedBody: 'Ваш запит щодо {{object}} {{record}} відхилено.',
+  approvalRejectedWithCommentBody: 'Ваш запит щодо {{object}} {{record}} відхилено.\n\n{{comment}}',
+  approvalOooSubstitutedTitle: 'Затвердження передано вам (заміна на час відсутності)',
+  approvalOooSubstitutedBody: 'Ви заміняєте {{person}} у затвердженні щодо {{object}} {{record}} на час відсутності.',
+  approvalOooSkippedTitle: 'Затвердження передано вашому заступнику',
+  approvalOooSkippedBody: 'На час вашої відсутності затвердження щодо {{object}} {{record}} передано {{person}}.',
+  approvalEscalatedTitle: 'Затвердження ескальовано вам',
+  approvalEscalatedBody: 'Прострочене затвердження щодо {{object}} {{record}} ескальовано вам.',
+  approvalReassignedTitle: 'Затвердження передано вам',
+  approvalReassignedBody: 'Тепер ви затверджувач щодо {{object}} {{record}}.',
+  approvalAutoRejectedTitle: 'Затвердження автоматично відхилено',
+  approvalAutoRejectedBody: 'Ваш запит щодо {{object}} {{record}} перевищив ліміт доопрацювань ({{limit}}), тому його відхилено.',
+  approvalReturnedTitle: 'Повернено на доопрацювання',
+  approvalReturnedBody: 'Ваш запит щодо {{object}} {{record}} потребує доопрацювання, перш ніж його можна буде затвердити.',
+  approvalRequestInfoTitle: 'Запрошено додаткову інформацію',
+  approvalCommentTitle: 'Новий коментар до затвердження',
+  approvalAdminRescueNote: 'Передано адміністраторам цієї організації, оскільки список затверджувачів не назвав нікого: {{reason}}.',
+  approvalAdminRescuePositionUnheld: 'посаду «{{value}}» ніхто не займає',
+  approvalAdminRescueSlotUnresolved: '{{type}} «{{value}}» не вказав ні на кого',
+  approvalAdminRescueNoApprover: 'жоден затверджувач вузла не вказав на особу',
+  approvalAdminRescueFallbackUnresolved: 'оголошені fallbackApprovers теж не вказали ні на кого',
+  approvalAdminRescueFallbackUndeclared: "onEmptyApprovers дорівнює 'fallback', але fallbackApprovers не оголошені",
+  approvalAdminRescueReasonSeparator: '; ',
+  approvalAdminRescueSubmitterExcluded: 'єдиним знайденим затверджувачем виявився подавач запиту, якого виключає excludeSubmitter',
+  approvalSubmitterExcludedRemaining: 'Подавача запиту виключено із затверджувачів, оскільки на цьому кроці задано excludeSubmitter; вирішують решта затверджувачів.',
+  approvalSubmitterExcludedFallback: 'Подавача запиту виключено із затверджувачів, оскільки на цьому кроці задано excludeSubmitter; вирішують оголошені fallbackApprovers.',
+  approvalSubmitterExcludedAdministrators: 'Подавача запиту виключено із затверджувачів, оскільки на цьому кроці задано excludeSubmitter; вирішують адміністратори цієї організації.',
+  approvalSubmitterExcludedNoOne: 'Подавача запиту виключено із затверджувачів, оскільки на цьому кроці задано excludeSubmitter; узяти запит більше нікому, тому вирішити його може лише привілейоване перевизначення.',
+};
+
 export const deMessages: ApprovalMessages = {
   approvalRequestedTitle: 'Genehmigung angefordert',
   approvalRequestedBody: 'Eine Entscheidung zu {{object}} {{record}} wartet auf Sie.',
@@ -541,7 +584,7 @@ export const koMessages: ApprovalMessages = {
 };
 
 /** The shipped locales, keyed as the bundle beside this file keys them. */
-export const approvalMessages: Readonly<Record<'en' | 'zh-CN' | 'ja-JP' | 'es-ES' | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ko', ApprovalMessages>> = {
+export const approvalMessages: Readonly<Record<'en' | 'zh-CN' | 'ja-JP' | 'es-ES' | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ko', ApprovalMessages>> = {
   en: enMessages,
   'zh-CN': zhCNMessages,
   'ja-JP': jaJPMessages,
@@ -551,6 +594,7 @@ export const approvalMessages: Readonly<Record<'en' | 'zh-CN' | 'ja-JP' | 'es-ES
   fr: frMessages,
   'pt-BR': ptBRMessages,
   ru: ruMessages,
+  uk: ukMessages,
   de: deMessages,
   ko: koMessages,
 };

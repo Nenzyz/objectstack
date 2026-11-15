@@ -29,6 +29,7 @@ import { arObjects } from './ar.objects.generated.js';
 import { frObjects } from './fr.objects.generated.js';
 import { ptBRObjects } from './pt-BR.objects.generated.js';
 import { ruObjects } from './ru.objects.generated.js';
+import { ukObjects } from './uk.objects.generated.js';
 import { deObjects } from './de.objects.generated.js';
 import { koObjects } from './ko.objects.generated.js';
 import { enObjects } from './en.objects.generated.js';
@@ -42,6 +43,7 @@ const LOCALES = [
   ['fr', frObjects],
   ['pt-BR', ptBRObjects],
   ['ru', ruObjects],
+  ['uk', ukObjects],
   ['de', deObjects],
   ['ko', koObjects],
 ] as const;

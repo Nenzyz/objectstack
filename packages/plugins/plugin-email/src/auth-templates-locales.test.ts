@@ -28,8 +28,12 @@ import type {
   TransportSendResult,
 } from '@objectstack/spec/contracts';
 
-/** The four locales this platform supports, spelled out — not imported. */
-const SUPPORTED_LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES'] as const;
+/**
+ * The locales this platform's auth mail ships in, spelled out — not imported.
+ * #8195 pinned the four of its era; uk joined the platform locale table after
+ * it and is pinned here in the same style.
+ */
+const SUPPORTED_LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES', 'uk'] as const;
 type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 /**
@@ -146,30 +150,35 @@ const EXPECTED_SUBJECT: Record<TemplateName, Record<Locale, string>> = {
     'zh-CN': '重置您的 Acme 密码',
     'ja-JP': 'Acme のパスワードを再設定してください',
     'es-ES': 'Restablece tu contraseña de Acme',
+    uk: 'Скидання пароля Acme',
   },
   'auth.verify_email': {
     'en-US': 'Verify your Acme email address',
     'zh-CN': '验证您的 Acme 邮箱地址',
     'ja-JP': 'Acme のメールアドレスを確認してください',
     'es-ES': 'Verifica tu dirección de correo de Acme',
+    uk: 'Підтвердіть свою адресу електронної пошти Acme',
   },
   'auth.magic_link': {
     'en-US': 'Your Acme sign-in link',
     'zh-CN': '您的 Acme 登录链接',
     'ja-JP': 'Acme のサインインリンク',
     'es-ES': 'Tu enlace de acceso a Acme',
+    uk: 'Ваше посилання для входу до Acme',
   },
   'auth.invitation': {
     'en-US': 'Dana invited you to Northwind',
     'zh-CN': 'Dana 邀请您加入 Northwind',
     'ja-JP': 'Dana さんが Northwind に招待しています',
     'es-ES': 'Dana te ha invitado a Northwind',
+    uk: 'Dana запрошує вас до Northwind',
   },
   'auth.two_factor_otp': {
     'en-US': 'Your Acme verification code',
     'zh-CN': '您的 Acme 验证码',
     'ja-JP': 'Acme の確認コード',
     'es-ES': 'Tu código de verificación de Acme',
+    uk: 'Ваш код підтвердження Acme',
   },
 };
 
@@ -180,30 +189,35 @@ const EXPECTED_BODY_PHRASE: Record<TemplateName, Record<Locale, string>> = {
     'zh-CN': '我们收到了重置',
     'ja-JP': 'パスワードを再設定するリクエストを受け付けました',
     'es-ES': 'Hemos recibido una solicitud para restablecer la contraseña',
+    uk: 'Ми отримали запит на скидання пароля',
   },
   'auth.verify_email': {
     'en-US': 'Thanks for signing up for Acme',
     'zh-CN': '感谢您注册 Acme',
     'ja-JP': 'ご登録いただきありがとうございます',
     'es-ES': 'Gracias por registrarte en Acme',
+    uk: 'Дякуємо за реєстрацію в Acme',
   },
   'auth.magic_link': {
     'en-US': 'may only be used once',
     'zh-CN': '只能使用一次',
     'ja-JP': '一度しか使用できません',
     'es-ES': 'solo puede usarse una vez',
+    uk: 'можна лише один раз',
   },
   'auth.invitation': {
     'en-US': 'has invited you to join',
     'zh-CN': '邀请您以',
     'ja-JP': '参加するようあなたを招待しました',
     'es-ES': 'te ha invitado a unirte a',
+    uk: 'запрошує вас приєднатися до',
   },
   'auth.two_factor_otp': {
     'en-US': 'Use this code to complete sign-in',
     'zh-CN': '请使用以下验证码完成登录',
     'ja-JP': 'サインインを完了してください',
     'es-ES': 'Usa este código para completar el inicio de sesión',
+    uk: 'Скористайтеся цим кодом, щоб завершити вхід:',
   },
 };
 
@@ -219,6 +233,7 @@ const EXPECTED_FOOTER: Record<Locale, string> = {
   'zh-CN': '可以放心忽略本邮件',
   'ja-JP': '本メールを破棄していただいて問題ありません',
   'es-ES': 'puedes ignorar este mensaje con tranquilidad',
+  uk: 'Якщо це були не ви, можна спокійно проігнорувати цей лист.',
 };
 
 /** The credential/link hole each template must still carry after translation. */
@@ -232,7 +247,7 @@ const REQUIRED_HOLE: Record<TemplateName, string> = {
 
 // ── the authoring half: rows exist, are valid, and are SEEDED ──────────────
 
-describe('#8195 — the five remaining auth templates ship in all four locales', () => {
+describe('#8195 — the five remaining auth templates ship in all five locales', () => {
   it.each(NEWLY_LOCALIZED)('%s has exactly one row per supported locale', (name) => {
     const rows = BUILTIN_AUTH_TEMPLATES.filter((t) => t.name === name);
     // Seeded, not merely exported: `EmailServicePlugin` upserts exactly this
@@ -247,16 +262,17 @@ describe('#8195 — the five remaining auth templates ship in all four locales',
     }
   });
 
-  it('adds exactly 15 rows and leaves the #8019 notice at its four', () => {
-    // 5 newly-localized templates x 3 new locales. Stated as a number so that
+  it('adds exactly 20 rows and leaves the #8019 notice at its five', () => {
+    // 5 newly-localized templates x 4 new locales — the #8195 three, then uk
+    // when it joined the platform locale table. Stated as a number so that
     // silently dropping a locale fails here rather than passing quietly.
     const newly = BUILTIN_AUTH_TEMPLATES.filter(
       (t) => (NEWLY_LOCALIZED as readonly string[]).includes(t.name) && t.locale !== 'en-US',
     );
-    expect(newly).toHaveLength(15);
+    expect(newly).toHaveLength(20);
     expect(
       BUILTIN_AUTH_TEMPLATES.filter((t) => t.name === 'auth.email_change_notice'),
-    ).toHaveLength(4);
+    ).toHaveLength(5);
   });
 });
 
@@ -293,9 +309,9 @@ describe('#8195 — a zh-CN send renders NO en-US text', () => {
     });
   }
 
-  it('and the same holds for ja-JP and es-ES', async () => {
+  it('and the same holds for ja-JP, es-ES and uk', async () => {
     for (const name of NEWLY_LOCALIZED) {
-      for (const locale of ['ja-JP', 'es-ES'] as const) {
+      for (const locale of ['ja-JP', 'es-ES', 'uk'] as const) {
         const { prose } = await render(name, locale);
         expect(prose, `${name} @ ${locale}`).not.toContain(EXPECTED_SUBJECT[name]['en-US']);
         expect(prose, `${name} @ ${locale}`).not.toContain(EXPECTED_FOOTER['en-US']);
@@ -392,6 +408,7 @@ const EXPIRY_FRAME: Record<Locale, [string, string]> = {
   'zh-CN': ['此邀请将于 ', ' 过期。'],
   'ja-JP': ['この招待の有効期限は ', ' です。'],
   'es-ES': ['Esta invitación caduca el ', '.'],
+  uk: ['Термін дії цього запрошення спливає ', '.'],
 };
 
 /**
@@ -482,6 +499,7 @@ const EXISTING_ACCOUNT_SUBJECT: Record<Locale, string> = {
   'zh-CN': '您已拥有 Acme 账号',
   'ja-JP': 'Acme のアカウントはすでにお持ちです',
   'es-ES': 'Ya tienes una cuenta de Acme',
+  uk: 'У вас уже є обліковий запис у Acme',
 };
 
 /** What happened, and that nothing changed — the reader who did not sign up needs both. */
@@ -490,6 +508,7 @@ const EXISTING_ACCOUNT_PHRASES: Record<Locale, string[]> = {
   'zh-CN': ['刚刚有人尝试使用', '没有创建新账号，您的账号也没有任何变化'],
   'ja-JP': ['の新しいアカウントを作成しようとする操作がありました', '新しいアカウントは作成されておらず、お客様のアカウントにも変更はありません'],
   'es-ES': ['Alguien acaba de intentar crear una cuenta nueva de Acme con', 'no se ha creado ninguna cuenta nueva y no ha cambiado nada en tu cuenta'],
+  uk: ['Хтось щойно спробував створити новий обліковий запис Acme з адресою', 'новий не створено, а у вашому обліковому записі нічого не змінилося'],
 };
 
 const EXISTING_ACCOUNT_BUTTON: Record<Locale, string> = {
@@ -497,9 +516,10 @@ const EXISTING_ACCOUNT_BUTTON: Record<Locale, string> = {
   'zh-CN': '登录',
   'ja-JP': 'サインイン',
   'es-ES': 'Iniciar sesión',
+  uk: 'Увійти',
 };
 
-describe('#25060 — auth.existing_account_sign_up is a registered built-in in all four locales', () => {
+describe('#25060 — auth.existing_account_sign_up is a registered built-in in all five locales', () => {
   it('has exactly one row per supported locale, each a valid EmailTemplateDefinition', () => {
     const rows = BUILTIN_AUTH_TEMPLATES.filter((t) => t.name === EXISTING_ACCOUNT);
     expect(rows.map((t) => t.locale).sort()).toEqual([...SUPPORTED_LOCALES].sort());
@@ -542,8 +562,8 @@ describe('#25060 — auth.existing_account_sign_up renders its own text in each 
     });
   }
 
-  it('a zh-CN, ja-JP or es-ES send carries none of the en-US text', async () => {
-    for (const locale of ['zh-CN', 'ja-JP', 'es-ES'] as const) {
+  it('a zh-CN, ja-JP, es-ES or uk send carries none of the en-US text', async () => {
+    for (const locale of ['zh-CN', 'ja-JP', 'es-ES', 'uk'] as const) {
       const sent = (await renderExistingAccount(locale)).sent[0]!;
       const prose = [sent.subject, sent.html, sent.text].join('\n');
       expect(prose, locale).not.toContain(EXISTING_ACCOUNT_SUBJECT['en-US']);

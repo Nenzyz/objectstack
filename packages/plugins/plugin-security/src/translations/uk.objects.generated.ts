@@ -16,138 +16,138 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_user_permission_set: {
-    label: "Набір дозволів користувача",
-    pluralLabel: "Набори дозволів користувача",
-    description: "Пряме призначення набору дозволів користувачу (необов'язково в межах організації).",
+    label: "User Permission Set",
+    pluralLabel: "User Permission Sets",
+    description: "Direct assignment of a permission set to a user (optionally scoped to an organization).",
     fields: {
       id: {
-        label: "ID призначення",
-        help: "UUID призначення."
+        label: "Assignment ID",
+        help: "UUID of the assignment."
       },
       display_title: {
-        label: "Назва",
-        help: "Назва запису: користувач і призначений йому набір дозволів (обчислюється під час читання)"
+        label: "Title",
+        help: "Record title: the user and the permission set assigned to them (computed on read)"
       },
       user_id: {
-        label: "Користувач",
-        help: "Користувач, який отримує цей набір дозволів."
+        label: "User",
+        help: "The user who receives this permission set."
       },
       permission_set: {
-        label: "Набір дозволів",
-        help: "Набір дозволів, який це призначення надає користувачу. Виберіть один із наборів дозволів, визначених у Налаштуванні; назва, що не збігається з жодним набором дозволів, буде відхилена."
+        label: "Permission Set",
+        help: "The permission set this assignment gives the user. Pick one of the permission sets defined in Setup; a name that matches no permission set is rejected."
       },
       organization_id: {
-        label: "Організація",
-        help: "Організація, до якої належить це надання."
+        label: "Organization",
+        help: "The organization this grant belongs to."
       },
       permission_set_package: {
-        label: "Пакет набору дозволів",
-        help: "Застосунок, з якого походить набір дозволів. Надання вказує його назву, щоб розрізнити застосунки, які надають набір з такою самою назвою; інакше платформа заповнює його сама. Порожньо, коли набір створено тут, або коли набір з такою назвою надає більше ніж один застосунок, а надання не вказує жодного."
+        label: "Permission Set Package",
+        help: "The app the permission set comes from. A grant names it to choose between apps that provide a set of the same name; otherwise the platform fills it in. Empty when the set was created here, or when more than one app provides a set of that name and the grant names none."
       },
       granted_by: {
-        label: "Ким надано",
-        help: "Користувач, який надав цей набір дозволів."
+        label: "Granted By",
+        help: "User who granted this permission set."
       },
       valid_from: {
-        label: "Діє з",
-        help: "У цей час призначення набирає чинності. Залишіть порожнім, щоб воно набрало чинності негайно. Початок відбувається точно в зазначений момент — без очікування на заплановане завдання."
+        label: "Valid From",
+        help: "The assignment takes effect at this time. Leave empty for it to take effect at once. It starts on time, with no scheduled job to wait for."
       },
       valid_until: {
-        label: "Діє до",
-        help: "У цей час (UTC) призначення завершується. Залишіть порожнім, щоб не задавати дати завершення. Обов'язково для екстреного доступу та призначення ШІ-агенту. Завершення відбувається точно в зазначений момент — без очікування на заплановане завдання."
+        label: "Valid Until",
+        help: "The assignment ends at this time (UTC). Leave empty for no end date. Required on emergency access and on an assignment to an AI agent. It ends on time, with no scheduled job to wait for."
       },
       reason: {
-        label: "Причина",
-        help: "Навіщо існує це призначення. Обов'язково для делегованих призначень і призначень екстреного доступу. Для ШІ-агента вкажіть завдання, для якого йому надано доступ."
+        label: "Reason",
+        help: "Why this assignment exists. Required on delegated and emergency-access assignments. For an AI agent, name the task it was given access for."
       },
       last_certified_at: {
-        label: "Дата останньої перевірки",
-        help: "Ще не використовується: збережено для майбутньої функції перевірки доступу. Ніщо не заповнює і не перевіряє цю дату, тож порожнє значення не означає, що призначення не було перевірено."
+        label: "Last Certified At",
+        help: "Not in use yet: kept for a future access-review feature. Nothing fills in or checks this date, so an empty value does not mean the assignment went unreviewed."
       },
       certified_by: {
-        label: "Ким перевірено",
-        help: "Ще не використовується: збережено для майбутньої функції перевірки доступу. Перевіряльник, записаний тут, не перевіряється і нічого не змінює в тому, що надає призначення."
+        label: "Certified By",
+        help: "Not in use yet: kept for a future access-review feature. A reviewer entered here is not verified and changes nothing about what the assignment grants."
       },
       created_at: {
-        label: "Дата створення"
+        label: "Created At"
       },
       updated_at: {
-        label: "Дата оновлення"
+        label: "Updated At"
       }
     },
     _validations: {
       validity_window_order: {
-        message: "«Діє до» має бути пізніше за «Діє з». Надання діє з «Діє з» до «Діє до», не включаючи сам момент завершення, тож проміжок, що закінчується в момент початку або раніше, не надає нічого. Залишіть одне з полів порожнім, щоб задати проміжок без кінця."
+        message: "Valid Until must be later than Valid From. The grant is active from Valid From up to, but not including, Valid Until, so a window that ends at or before it starts grants nothing. Leave either one empty for an open-ended window."
       }
     }
   },
   sys_user_position: {
-    label: "Посада користувача",
-    pluralLabel: "Посади користувачів",
-    description: "Посади, які обіймає кожен користувач, по одному рядку на призначення.",
+    label: "User Position",
+    pluralLabel: "User Positions",
+    description: "Which positions each user holds, one row per assignment.",
     fields: {
       id: {
-        label: "ID призначення",
-        help: "UUID призначення посади користувачу."
+        label: "Assignment ID",
+        help: "UUID of the user-position assignment."
       },
       display_title: {
-        label: "Назва",
-        help: "Назва запису: користувач і посада, яку він обіймає (обчислюється під час читання)"
+        label: "Title",
+        help: "Record title: the user and the position they hold (computed on read)"
       },
       user_id: {
-        label: "Користувач",
-        help: "Користувач, який обіймає цю посаду."
+        label: "User",
+        help: "The user who holds this position."
       },
       position: {
-        label: "Посада",
-        help: "Машинна назва посади, визначається в каталозі безпеки."
+        label: "Position",
+        help: "Position machine name, resolved in the security catalog."
       },
       business_unit_id: {
-        label: "Підрозділ",
-        help: "Прив'язка підрозділу на рівні призначення: де застосовується це призначення посади. Точка відліку глибини для readScope/writeScope, межа делегованого адміністрування та факт для аудиту. Null = без прив'язки (застаріле/усього клієнта); делеговані адміністратори ЗОБОВ'ЯЗАНІ прив'язувати призначення в межах власного піддерева."
+        label: "Business Unit",
+        help: "Assignment-level BU anchor: where this position assignment applies. Depth anchor for readScope/writeScope, delegated-admin boundary, and audit fact. Null = unanchored (legacy/tenant-wide); delegated admins MUST anchor assignments inside their subtree."
       },
       organization_id: {
-        label: "Організація",
-        help: "Організація, до якої належить це призначення."
+        label: "Organization",
+        help: "The organization this assignment belongs to."
       },
       granted_by: {
-        label: "Ким надано",
-        help: "Користувач, який надав це призначення посади (проставляється шлюзом делегованого адміністрування для делегованих записів)."
+        label: "Granted By",
+        help: "User who granted this position assignment (stamped by the delegated-admin gate for delegate writes)."
       },
       valid_from: {
-        label: "Діє з",
-        help: "У цей час призначення набирає чинності. Залишіть порожнім, щоб воно набрало чинності негайно. Початок відбувається точно в зазначений момент — без очікування на заплановане завдання."
+        label: "Valid From",
+        help: "The assignment takes effect at this time. Leave empty for it to take effect at once. It starts on time, with no scheduled job to wait for."
       },
       valid_until: {
-        label: "Діє до",
-        help: "У цей час (UTC) призначення завершується. Залишіть порожнім, щоб не задавати дати завершення. Обов'язково для делегованого призначення. Завершення відбувається точно в зазначений момент — без очікування на заплановане завдання."
+        label: "Valid Until",
+        help: "The assignment ends at this time (UTC). Leave empty for no end date. Required on a delegated assignment. It ends on time, with no scheduled job to wait for."
       },
       reason: {
-        label: "Причина",
-        help: "Навіщо існує це надання. Вільний текст; ОБОВ'ЯЗКОВО для рядків делегування та екстреного доступу (break-glass)."
+        label: "Reason",
+        help: "Why this grant exists. Free text; REQUIRED on delegation and break-glass rows."
       },
       delegated_from: {
-        label: "Делеговано від",
-        help: "Той, хто делегує, чиї повноваження несе цей рядок (делегування обов'язків). Рядок, у якому заповнено delegated_from, не можна делегувати далі і не можна самому поновити — ланцюжки обрізаються в обидва боки."
+        label: "Delegated From",
+        help: "The delegator whose authority this row carries (职务代理). A row with delegated_from set is not itself delegatable and not self-renewable — chains are cut both ways."
       },
       last_certified_at: {
-        label: "Дата останньої перевірки",
-        help: "Ще не використовується: збережено для майбутньої функції перевірки доступу. Ніщо не заповнює і не перевіряє цю дату, тож порожнє значення не означає, що призначення не було перевірено."
+        label: "Last Certified At",
+        help: "Not in use yet: kept for a future access-review feature. Nothing fills in or checks this date, so an empty value does not mean the assignment went unreviewed."
       },
       certified_by: {
-        label: "Ким перевірено",
-        help: "Ще не використовується: збережено для майбутньої функції перевірки доступу. Перевіряльник, записаний тут, не перевіряється і нічого не змінює в тому, що надає призначення."
+        label: "Certified By",
+        help: "Not in use yet: kept for a future access-review feature. A reviewer entered here is not verified and changes nothing about what the assignment grants."
       },
       created_at: {
-        label: "Дата створення"
+        label: "Created At"
       },
       updated_at: {
-        label: "Дата оновлення"
+        label: "Updated At"
       }
     },
     _validations: {
       reserved_identity_position: {
-        message: "'position' не може містити зарезервовану платформою назву вбудованої ідентичності (platform_admin, org_owner, org_admin, org_member, org_external). Ці назви — вбудовані ідентичності: платформа проєктує їх у current_user.positions з власних джерел істини, а рядок, що містить таку назву, не є призначенням цієї ідентичності. Виберіть іншу назву."
+        message: "'position' cannot spell a framework-reserved built-in identity name (platform_admin, org_owner, org_admin, org_member, org_external). These names are built-in identities: the platform projects them into current_user.positions from their own sources of truth, and a row spelling one is not an assignment of that identity. Choose a different name."
       }
     }
   }

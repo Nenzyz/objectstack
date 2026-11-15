@@ -26,8 +26,12 @@ import {
   BUILTIN_AUTH_TEMPLATES,
 } from './templates/auth-templates.js';
 
-/** The four locales this platform supports, spelled out — not imported. */
-const SUPPORTED_LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES'] as const;
+/**
+ * The locales this notice ships in, spelled out — not imported. #8019 pinned
+ * the four of its era; uk joined the platform locale table after it and is
+ * pinned here in the same style.
+ */
+const SUPPORTED_LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES', 'uk'] as const;
 
 const TEMPLATE_NAME = 'auth.email_change_notice';
 
@@ -38,7 +42,7 @@ const byLocale = (locale: string) => rows.find((t) => t.locale === locale);
 const proseOf = (t: (typeof rows)[number]): string =>
   [t.subject, t.bodyHtml, t.bodyText].filter(Boolean).join('\n');
 
-describe('#8019 — auth.email_change_notice ships in all four locales', () => {
+describe('#8019 — auth.email_change_notice ships in all five locales', () => {
   it('has exactly one row per supported locale, all under the same template name', () => {
     expect(rows.map((t) => t.locale).sort()).toEqual([...SUPPORTED_LOCALES].sort());
     expect(new Set(rows.map((t) => t.name))).toEqual(new Set([TEMPLATE_NAME]));
@@ -92,6 +96,7 @@ describe('#8019 — auth.email_change_notice ships in all four locales', () => {
           'zh-CN': /管理员或支持团队/,
           'ja-JP': /管理者またはサポート/,
           'es-ES': /administrador o el equipo de soporte/i,
+          uk: /адміністратора або служби підтримки/,
         };
         expect(prose).toMatch(support[locale]);
       });

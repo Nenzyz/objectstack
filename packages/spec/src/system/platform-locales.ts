@@ -6,10 +6,7 @@
  * The platform locale table: the one list of languages the platform
  * supports, with no tiers. It is the rule every surface (the Console UI,
  * platform metadata, the built-in emails) is held to: each surface carries
- * every language on it. That is the target, not yet the state: the Console
- * ships ten packs without `zh-Hant`, and platform metadata and the built-in
- * emails ship four locales (`en` or `en-US`, `zh-CN`, `ja-JP`, `es-ES`). The
- * surfaces are backfilled to the table in later phases.
+ * every language on it — and since uk joined, every surface does.
  *
  * Adding or removing a language is a change to this table followed by one
  * backfill of every surface. A change that adds a translatable string adds it

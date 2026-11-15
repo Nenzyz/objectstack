@@ -41,7 +41,7 @@ import { describe, it, expect } from 'vitest';
 import { APPROVAL_STATUSES, APPROVAL_STATUS_LABELS } from '@objectstack/spec/contracts';
 import { translateObject, resolveViewLabel } from '@objectstack/spec/system';
 import type { TranslationData } from '@objectstack/spec/system';
-import { zhCN, jaJP, esES, zhHant, ar, fr, ptBR, ru, de, ko } from '@objectstack/platform-objects/apps';
+import { zhCN, jaJP, esES, zhHant, ar, fr, ptBR, ru, uk, de, ko } from '@objectstack/platform-objects/apps';
 
 import { ApprovalsTranslations } from './index.js';
 import { SysApprovalRequest } from '../sys-approval-request.object.js';
@@ -115,7 +115,7 @@ describe('approval status vocabulary (#7232)', () => {
     // Ratchet for statuses and locales added later: a new entry that reaches a
     // bundle un-translated is seeded from the source text, which is the enum
     // value itself, so this case catches it without naming it.
-    for (const locale of ['en', 'zh-CN', 'ja-JP', 'es-ES', 'zh-Hant', 'ar', 'fr', 'pt-BR', 'ru', 'de', 'ko']) {
+    for (const locale of ['en', 'zh-CN', 'ja-JP', 'es-ES', 'zh-Hant', 'ar', 'fr', 'pt-BR', 'ru', 'uk', 'de', 'ko']) {
       const labels = resolvedStatusLabels(locale);
       expect(Object.keys(labels).sort()).toEqual([...APPROVAL_STATUSES].sort());
       const raw = Object.entries(labels)
@@ -130,6 +130,7 @@ describe('approval status vocabulary (#7232)', () => {
     expect(resolvedMyPendingLabel('zh-CN')).toBe('待我审批');
     expect(resolvedMyPendingLabel('ja-JP')).toBe('承認待ち');
     expect(resolvedMyPendingLabel('es-ES')).toBe('Aprobaciones pendientes');
+    expect(resolvedMyPendingLabel('uk')).toBe('Мої очікувані');
   });
 
   it('the my_pending view label matches the account-app nav label (problem 4)', () => {
@@ -145,6 +146,7 @@ describe('approval status vocabulary (#7232)', () => {
       ['fr', fr],
       ['pt-BR', ptBR],
       ['ru', ru],
+      ['uk', uk],
       ['de', de],
       ['ko', ko],
     ] as const) {
