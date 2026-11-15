@@ -16,7 +16,7 @@ import {
 import * as SystemBarrel from './index';
 
 describe('PLATFORM_LOCALES: the table, pinned whole', () => {
-  it('holds the eleven languages, in menu order, with their native labels and rtl only on ar', () => {
+  it('holds the twelve languages, in menu order, with their native labels and rtl only on ar', () => {
     expect(PLATFORM_LOCALES).toEqual([
       { tag: 'en', label: 'English', rtl: false },
       { tag: 'zh-Hans', label: '简体中文', rtl: false },
@@ -26,6 +26,7 @@ describe('PLATFORM_LOCALES: the table, pinned whole', () => {
       { tag: 'fr', label: 'Français', rtl: false },
       { tag: 'pt-BR', label: 'Português (Brasil)', rtl: false },
       { tag: 'ru', label: 'Русский', rtl: false },
+      { tag: 'uk', label: 'Українська', rtl: false },
       { tag: 'de', label: 'Deutsch', rtl: false },
       { tag: 'ja', label: '日本語', rtl: false },
       { tag: 'ko', label: '한국어', rtl: false },
@@ -70,6 +71,7 @@ describe('PLATFORM_LOCALE_READ_ALIASES: stored codes keep resolving', () => {
     ['ja-JP', 'ja'],
     ['es-ES', 'es'],
     ['pt', 'pt-BR'],
+    ['uk-UA', 'uk'],
     ['en-US', 'en'],
   ];
 
@@ -78,11 +80,11 @@ describe('PLATFORM_LOCALE_READ_ALIASES: stored codes keep resolving', () => {
     expect(platformLocaleTagOf(code)).toBe(tag);
   });
 
-  it('the map is exactly those fifteen aliases', () => {
+  it('the map is exactly those sixteen aliases', () => {
     expect(PLATFORM_LOCALE_READ_ALIASES).toEqual(Object.fromEntries(ALIASES));
   });
 
-  it('the map is typed on its fifteen literal keys: an unlisted code does not index it as defined', () => {
+  it('the map is typed on its sixteen literal keys: an unlisted code does not index it as defined', () => {
     const zhCN: 'zh-Hans' = PLATFORM_LOCALE_READ_ALIASES['zh-CN'];
     expect(zhCN).toBe('zh-Hans');
     const zhHantTW: 'zh-Hant' = PLATFORM_LOCALE_READ_ALIASES['zh-Hant-TW'];
@@ -120,6 +122,7 @@ describe('platformLocaleTagOf', () => {
     ['pt-br', 'pt-BR'],
     ['EN', 'en'],
     ['en-us', 'en'],
+    ['uk-ua', 'uk'],
     ['ja-jp', 'ja'],
     ['ZH-HANS-cn', 'zh-Hans'],
     ['zh-hans-sg', 'zh-Hans'],

@@ -30,6 +30,7 @@ const ROWS = [
   { tag: 'fr', label: 'Français', rtl: false },
   { tag: 'pt-BR', label: 'Português (Brasil)', rtl: false },
   { tag: 'ru', label: 'Русский', rtl: false },
+  { tag: 'uk', label: 'Українська', rtl: false },
   { tag: 'de', label: 'Deutsch', rtl: false },
   { tag: 'ja', label: '日本語', rtl: false },
   { tag: 'ko', label: '한국어', rtl: false },
@@ -89,6 +90,7 @@ export const PLATFORM_LOCALE_READ_ALIASES = Object.freeze({
   'ja-JP': 'ja',
   'es-ES': 'es',
   pt: 'pt-BR',
+  'uk-UA': 'uk',
   'en-US': 'en',
 } as const satisfies Record<string, PlatformLocaleTag>);
 
