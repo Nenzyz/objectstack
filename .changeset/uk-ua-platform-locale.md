@@ -13,7 +13,7 @@
 '@objectstack/service-mailbox': patch
 '@objectstack/service-messaging': patch
 '@objectstack/service-realtime': patch
-'@objectui/i18n': minor
+'@object-ui/i18n': minor
 '@object-ui/components': patch
 '@object-ui/app-shell': patch
 '@objectstack/console': patch
