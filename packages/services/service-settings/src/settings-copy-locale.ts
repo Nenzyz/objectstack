@@ -17,7 +17,7 @@
  * English.
  */
 export type SettingsCopyLocale =
-  'en' | 'zh-CN' | 'zh-Hant' | 'es-ES' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ja-JP' | 'ko';
+  'en' | 'zh-CN' | 'zh-Hant' | 'es-ES' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ja-JP' | 'ko';
 
 /** A count of `n` in Arabic, given the noun's five forms (1, 2, 3–10, 11–99, else). */
 export function arabicCount(

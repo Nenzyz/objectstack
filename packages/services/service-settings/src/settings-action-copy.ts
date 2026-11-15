@@ -114,6 +114,14 @@ export const SETTINGS_ACTION_COPY: Record<SettingsCopyLocale, SettingsActionCopy
     resetStillPinned: (n) => ` Настроек, по-прежнему закреплённых переменными окружения: ${n}.`,
     noHandler: (actionId, namespace) => `Для действия «${actionId}» в «${namespace}» не зарегистрирован обработчик.`,
   },
+  uk: {
+    resetCleared: (n) =>
+      `Очищено збережених значень: ${n}; знову діють налаштування з середовища або типові налаштування.`,
+    resetNothing:
+      'Немає збережених значень для очищення: вже використовуються налаштування з середовища або типові налаштування.',
+    resetStillPinned: (n) => ` Налаштувань, які досі закріплено змінними середовища: ${n}.`,
+    noHandler: (actionId, namespace) => `Для дії «${actionId}» у «${namespace}» не зареєстровано обробника.`,
+  },
   de: {
     resetCleared: (n) =>
       `${n === 1 ? '1 gespeicherter Wert gelöscht' : `${n} gespeicherte Werte gelöscht`}; die Konfiguration aus `

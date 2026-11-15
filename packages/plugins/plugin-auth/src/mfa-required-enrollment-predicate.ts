@@ -122,6 +122,11 @@ export const MFA_REQUIRED_ENROLLMENT_COPY = {
     'приоритет над этой настройкой, поэтому никто не сможет подключить приложение-аутентификатор и требование не ' +
     'будет действовать. Установите OS_AUTH_TWO_FACTOR=true (или удалите переменную) в развёртывании и перезапустите ' +
     'его, затем включите этот параметр.',
+  uk:
+    'На цьому розгортанні поки не можна вимагати багатофакторної перевірки: OS_AUTH_TWO_FACTOR вимкнено, і ця ' +
+    'змінна має пріоритет над цим налаштуванням, тому ніхто не зміг би зареєструвати застосунок-автентифікатор, а ' +
+    'вимога не застосовувалася б. Установіть OS_AUTH_TWO_FACTOR=true (або видаліть змінну) у розгортанні та ' +
+    'перезапустіть його, а потім увімкніть цей параметр.',
   de:
     'Die Multi-Faktor-Authentifizierung kann in dieser Bereitstellung noch nicht verlangt werden: OS_AUTH_TWO_FACTOR ' +
     'ist ausgeschaltet und hat Vorrang vor dieser Einstellung, sodass niemand eine Authenticator-App einrichten ' +

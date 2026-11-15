@@ -116,6 +116,12 @@ export const STORAGE_TEST_COPY: Record<StorageTestCopyLocale, StorageTestCopy> =
     s3SettingsIncomplete: 'Для адаптера S3 нужно указать бакет (s3_bucket) и регион (s3_region).',
     failed: (reason) => `Проверка подключения к хранилищу не удалась: ${reason}`,
   },
+  uk: {
+    succeeded: (adapter) => `Перевірку підключення до сховища успішно виконано (адаптер: ${adapter}).`,
+    downloadMismatch: 'Завантажений тестовий файл не збігається з надісланим.',
+    s3SettingsIncomplete: 'Для адаптера S3 потрібно вказати бакет (s3_bucket) і регіон (s3_region).',
+    failed: (reason) => `Перевірку підключення до сховища не вдалося виконати: ${reason}`,
+  },
   de: {
     succeeded: (adapter) => `Der Verbindungstest zum Speicher war erfolgreich (Adapter: ${adapter}).`,
     downloadMismatch: 'Die heruntergeladene Testdatei stimmt nicht mit der hochgeladenen überein.',

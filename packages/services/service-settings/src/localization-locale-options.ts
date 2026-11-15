@@ -93,6 +93,7 @@ export const NOT_OFFERED_COPY: Record<SettingsCopyLocale, string> = {
   fr: 'plus disponible',
   'pt-BR': 'não está mais disponível',
   ru: 'больше не предлагается',
+  uk: 'більше не пропонується',
   de: 'nicht mehr angeboten',
   ko: '더 이상 제공되지 않음',
 };

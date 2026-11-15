@@ -119,6 +119,14 @@ export const ORGANIZATION_MFA_REFUSAL_COPY: Readonly<Record<CopyLocale, string>>
     'Если там OS_AUTH_TWO_FACTOR не установлен в false (он имеет приоритет над настройками), подойдёт и включение ' +
     'настройки auth.mfa_required: она требует многофакторную аутентификацию во всех организациях и вместе с этим ' +
     'включает подключение.',
+  uk:
+    'Ця організація поки не може вимагати багатофакторної перевірки: реєстрація двофакторної перевірки на цьому ' +
+    'розгортанні вимкнена, тож після завершення пільгового періоду всі учасники, включно з власником, були б ' +
+    'заблоковані без можливості зареєструвати застосунок-автентифікатор. Спочатку увімкніть двофакторну перевірку, ' +
+    'а потім вимагайте її тут: установіть OS_AUTH_TWO_FACTOR=true у розгортанні. Якщо там OS_AUTH_TWO_FACTOR не ' +
+    'встановлено в false (вона має пріоритет над налаштуваннями), підійде й увімкнення налаштування ' +
+    'auth.mfa_required: воно вимагає багатофакторної перевірки для кожної організації та разом із цим увімкнює ' +
+    'реєстрацію.',
   de:
     'Diese Organisation kann die Multi-Faktor-Authentifizierung noch nicht verlangen: Die Einrichtung der ' +
     'Zwei-Faktor-Authentifizierung ist in dieser Bereitstellung ausgeschaltet. Nach Ablauf der Schonfrist wäre daher ' +

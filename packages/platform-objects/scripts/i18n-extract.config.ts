@@ -8,7 +8,7 @@
  * pointed at this file via `bundle-require`:
  *
  *   os i18n extract packages/platform-objects/scripts/i18n-extract.config.ts \
- *     --locales=zh-CN,ja-JP,es-ES,zh-Hant,ar,fr,pt-BR,ru,de,ko \
+ *     --locales=zh-CN,ja-JP,es-ES,zh-Hant,ar,fr,pt-BR,ru,uk,de,ko \
  *     --fill=default \
  *     --source-hashes \
  *     --out=packages/platform-objects/src/apps/translations

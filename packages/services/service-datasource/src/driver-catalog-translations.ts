@@ -613,6 +613,74 @@ const ru: CatalogWords = {
     + 'данных, а при записи не отклоняются.',
 };
 
+/** Українська. */
+const uk: CatalogWords = {
+  memoryLabel: 'У пам\'яті',
+  memoryDescription: 'Тимчасовий драйвер у пам\'яті для розробки, тестування та прототипування. Параметри підключення не потрібні.',
+  sqliteDescription:
+    'База даних SQL у файлі (або в пам\'яті). Підходить для локальної розробки та невеликих розгортань.',
+  postgresDescription: 'Підключення до PostgreSQL. Вкажіть хост, порт і базу даних або URL підключення.',
+  mysqlDescription: 'Підключення до MySQL або MariaDB.',
+  mongodbDescription: 'Підключення до MongoDB через URI підключення.',
+  initialDataDescription: 'Попередньо завантажені дані, згруповані за назвою об\'єкта',
+  strictModeDescription: 'Викликати помилку, якщо запис відсутній, замість повернення null',
+  persistenceDescription: 'Налаштування збереження (необов\'язково; за замовчуванням лише в пам\'яті)',
+  filename: {
+    title: 'Назва файлу',
+    description: 'Шлях до файлу бази даних або ":memory:" для тимчасової бази даних',
+  },
+  autoMigrate: {
+    title: 'Автоматична міграція схеми',
+    description: 'Лише для розробки: неруйнівне автоматичне виправлення схеми',
+  },
+  connectionUrlTitle: 'URL підключення',
+  connectionUriTitle: 'URI підключення',
+  postgresUrlDescription:
+    'URI підключення (замінює окремі поля; має бути URL, який `pg` вміє розібрати; '
+    + 'не має містити пароль: натомість прив\'яжіть секрет)',
+  urlDescription: 'URI підключення (замінює окремі поля; не має містити пароль: натомість прив\'яжіть секрет)',
+  host: { title: 'Хост', description: 'Адреса хоста' },
+  port: { title: 'Порт', description: 'Номер порту' },
+  database: { title: 'База даних', description: 'Назва бази даних' },
+  username: { title: 'Користувач', description: 'Користувач для автентифікації' },
+  password: {
+    title: 'Пароль',
+    description:
+      'Задається у полі секрету форми підключення або через `external.credentialsRef`: шифрується у `sys_secret` '
+      + 'і ніколи не зберігається у `config`. Джерело даних, визначене в коді (`defineDatasource`), не містить '
+      + 'облікових даних у своєму оголошенні: під час підключення вони читаються зі змінної середовища виконання, '
+      + 'утвореної від назви джерела даних (`OS_DATASOURCE_WAREHOUSE_PASSWORD` для джерела даних під назвою '
+      + '`warehouse`); `os serve` / `os start` враховують її за замовчуванням (`OS_DATASOURCE_ENV_CREDENTIALS=on`).',
+  },
+  ssl: {
+    title: 'Використовувати SSL/TLS',
+    description: 'Увімкнює TLS. Сертифікати задаються у блоці `ssl` на рівні джерела даних.',
+  },
+  schema: { title: 'Схема', description: 'Схема за замовчуванням (knex searchPath)' },
+  applicationName: { title: 'Назва застосунку', description: 'application_name в Postgres' },
+  statementTimeout: {
+    title: 'Час очікування запиту (мс)',
+    description: 'Перериває запити, які виконуються довше за це значення (мс)',
+  },
+  authSource: { title: 'Джерело автентифікації', description: 'База даних автентифікації' },
+  oracleDescription: 'Oracle Database 12c R1 або новіша. Лише федерація: наявні таблиці використовуються як є і ніколи не створюються й не змінюються.',
+  mssqlDescription: 'Microsoft SQL Server. Лише федерація: наявні таблиці використовуються як є і ніколи не створюються й не змінюються.',
+  connectString: { title: 'Рядок підключення', description: 'Рядок підключення Oracle: Easy Connect або повний дескриптор (має перевагу над хостом, портом і назвою служби)' },
+  listenerHostDescription: 'Адреса хоста прослуховувача',
+  listenerPortDescription: 'Порт прослуховувача',
+  serviceName: { title: 'Назва служби', description: 'Назва служби бази даних' },
+  oracleUsernameDescription: 'Користувач для автентифікації (він же схема за замовчуванням)',
+  instanceName: { title: 'Назва екземпляра', description: 'Іменований екземпляр, який визначається через службу SQL Server Browser (залишіть порожнім для типового екземпляра)' },
+  mssqlUsernameDescription: 'Ім\'я входу з автентифікацією SQL',
+  encryptTitle: 'Шифрування (TLS)',
+  mongoOptionsDescription:
+    'Додаткові параметри MongoClient (replicaSet, tls, часи очікування, …). Ключі з назвами облікових даних '
+    + '(`password`, `authToken` і їхні колишні псевдоніми) відхиляються на будь-якому рівні вкладеності: '
+    + 'прив\'яжіть секрет через форму підключення або external.credentialsRef. `proxyPassword`, '
+    + '`tlsCertificateKeyFilePassword`, `key` і `passphrase` приймаються та зберігаються у відкритому вигляді; '
+    + 'вони маскуються лише під час повторного читання джерела даних, а під час запису не відхиляються.',
+};
+
 /** Deutsch. */
 const de: CatalogWords = {
   memoryLabel: 'Im Arbeitsspeicher',
@@ -814,6 +882,7 @@ export const DRIVER_CATALOG_TRANSLATIONS: Readonly<Record<DriverCatalogLocale, D
   fr: catalogText(fr),
   'pt-BR': catalogText(ptBR),
   ru: catalogText(ru),
+  uk: catalogText(uk),
   de: catalogText(de),
   ja: catalogText(ja),
   ko: catalogText(ko),

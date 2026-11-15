@@ -11,7 +11,7 @@
  * decomposition (see that package's extract config).
  *
  *   os i18n extract packages/services/service-storage/scripts/i18n-extract.config.ts \
- *     --locales=zh-CN,ja-JP,es-ES,zh-Hant,ar,fr,pt-BR,ru,de,ko --fill=default --objects-only --no-metadata-forms \
+ *     --locales=zh-CN,ja-JP,es-ES,zh-Hant,ar,fr,pt-BR,ru,uk,de,ko --fill=default --objects-only --no-metadata-forms \
  *     --source-hashes \
  *     --out=packages/services/service-storage/src/translations
  *

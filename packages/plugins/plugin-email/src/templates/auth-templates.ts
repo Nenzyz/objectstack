@@ -45,6 +45,9 @@ const FOOTER_JA_JP = `{{appName}} アカウントでの操作にともない、�
 const FOOTER_ES_ES = `Recibes este correo por una actividad en tu cuenta de {{appName}}.<br>
 Si no has sido tú, puedes ignorar este mensaje con tranquilidad.`;
 
+const FOOTER_UK = `Ви отримали цього листа через дії у вашому обліковому записі {{appName}}.<br>
+Якщо це були не ви, можна спокійно проігнорувати цей лист.`;
+
 /**
  * `footerHtml` overrides the default footer. Two templates need that: any
  * non-`en-US` row (the default footer is English prose, and a localized body
@@ -168,12 +171,37 @@ Si no has solicitado este cambio, ignora este correo.`,
   description: 'Se envía cuando una persona solicita restablecer su contraseña mediante better-auth.',
 };
 
+export const AUTH_PASSWORD_RESET_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_PASSWORD_RESET_TEMPLATE,
+  locale: 'uk',
+  label: 'Скидання пароля',
+  subject: 'Скидання пароля {{appName}}',
+  bodyHtml: wrap('Скидання пароля', `
+<p>Вітаємо, {{user.name}}!</p>
+<p>Ми отримали запит на скидання пароля облікового запису, пов'язаного з адресою <strong>{{user.email}}</strong>.</p>
+<p>Натисніть кнопку нижче, щоб задати новий пароль. Це посилання буде дійсним протягом {{expiresInMinutes}} хвилин.</p>
+<p style="margin:24px 0"><a href="{{{resetUrl}}}" style="${buttonStyles}">Скинути пароль</a></p>
+<p style="font-size:13px;color:#6b7280">Або скопіюйте та вставте це посилання у свій браузер:<br><span style="word-break:break-all">{{resetUrl}}</span></p>
+<p>Якщо ви не надсилали цей запит, нічого робити не потрібно — ваш пароль залишиться без змін.</p>
+`, FOOTER_UK),
+  bodyText: `Вітаємо, {{user.name}}!
+
+Ми отримали запит на скидання пароля облікового запису {{user.email}}.
+
+Скиньте пароль за цим посиланням (дійсне протягом {{expiresInMinutes}} хвилин):
+{{resetUrl}}
+
+Якщо ви не надсилали цей запит, проігноруйте цей лист.`,
+  description: 'Надсилається, коли користувач запитує скидання пароля через better-auth.',
+};
+
 /** Every locale row of the password-reset template, in one enumerable list. */
 export const AUTH_PASSWORD_RESET_TEMPLATES: EmailTemplate[] = [
   AUTH_PASSWORD_RESET_TEMPLATE,
   AUTH_PASSWORD_RESET_TEMPLATE_ZH_CN,
   AUTH_PASSWORD_RESET_TEMPLATE_JA_JP,
   AUTH_PASSWORD_RESET_TEMPLATE_ES_ES,
+  AUTH_PASSWORD_RESET_TEMPLATE_UK,
 ];
 
 export const AUTH_VERIFY_EMAIL_TEMPLATE: EmailTemplate = {
@@ -255,12 +283,31 @@ Verifica tu dirección de correo ({{user.email}}) abriendo este enlace:
   description: 'Se envía cuando better-auth necesita verificar una dirección de correo recién registrada.',
 };
 
+export const AUTH_VERIFY_EMAIL_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_VERIFY_EMAIL_TEMPLATE,
+  locale: 'uk',
+  label: 'Підтвердження адреси електронної пошти',
+  subject: 'Підтвердіть свою адресу електронної пошти {{appName}}',
+  bodyHtml: wrap('Підтвердження адреси електронної пошти', `
+<p>Вітаємо, {{user.name}}!</p>
+<p>Дякуємо за реєстрацію в {{appName}}! Будь ласка, підтвердьте, що <strong>{{user.email}}</strong> належить вам.</p>
+<p style="margin:24px 0"><a href="{{{verificationUrl}}}" style="${buttonStyles}">Підтвердити адресу електронної пошти</a></p>
+<p style="font-size:13px;color:#6b7280">Або скопіюйте та вставте це посилання у свій браузер:<br><span style="word-break:break-all">{{verificationUrl}}</span></p>
+`, FOOTER_UK),
+  bodyText: `Вітаємо, {{user.name}}!
+
+Будь ласка, підтвердьте свою адресу електронної пошти ({{user.email}}), відкривши це посилання:
+{{verificationUrl}}`,
+  description: 'Надсилається, коли better-auth має підтвердити щойно зареєстровану адресу електронної пошти.',
+};
+
 /** Every locale row of the email-verification template, in one enumerable list. */
 export const AUTH_VERIFY_EMAIL_TEMPLATES: EmailTemplate[] = [
   AUTH_VERIFY_EMAIL_TEMPLATE,
   AUTH_VERIFY_EMAIL_TEMPLATE_ZH_CN,
   AUTH_VERIFY_EMAIL_TEMPLATE_JA_JP,
   AUTH_VERIFY_EMAIL_TEMPLATE_ES_ES,
+  AUTH_VERIFY_EMAIL_TEMPLATE_UK,
 ];
 
 export const AUTH_MAGIC_LINK_TEMPLATE: EmailTemplate = {
@@ -329,12 +376,28 @@ export const AUTH_MAGIC_LINK_TEMPLATE_ES_ES: EmailTemplate = {
   description: 'Enlace de inicio de sesión sin contraseña enviado por el plugin magic-link.',
 };
 
+export const AUTH_MAGIC_LINK_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_MAGIC_LINK_TEMPLATE,
+  locale: 'uk',
+  label: 'Вхід за магічним посиланням',
+  subject: 'Ваше посилання для входу до {{appName}}',
+  bodyHtml: wrap('Вхід до {{appName}}', `
+<p>Натисніть кнопку нижче, щоб увійти. Це посилання буде дійсним протягом {{expiresInMinutes}} хвилин, і скористатися ним можна лише один раз.</p>
+<p style="margin:24px 0"><a href="{{{magicLinkUrl}}}" style="${buttonStyles}">Увійти</a></p>
+<p style="font-size:13px;color:#6b7280">Або вставте це посилання:<br><span style="word-break:break-all">{{magicLinkUrl}}</span></p>
+`, FOOTER_UK),
+  bodyText: `Вхід до {{appName}} (дійсно {{expiresInMinutes}} хв):
+{{magicLinkUrl}}`,
+  description: 'Посилання для входу без пароля, яке надсилає плагін magic-link.',
+};
+
 /** Every locale row of the magic-link template, in one enumerable list. */
 export const AUTH_MAGIC_LINK_TEMPLATES: EmailTemplate[] = [
   AUTH_MAGIC_LINK_TEMPLATE,
   AUTH_MAGIC_LINK_TEMPLATE_ZH_CN,
   AUTH_MAGIC_LINK_TEMPLATE_JA_JP,
   AUTH_MAGIC_LINK_TEMPLATE_ES_ES,
+  AUTH_MAGIC_LINK_TEMPLATE_UK,
 ];
 
 export const AUTH_INVITATION_TEMPLATE: EmailTemplate = {
@@ -445,12 +508,32 @@ Esta invitación caduca el {{ expiresAt | datetime:long }}.`,
   description: 'Lo envía el plugin de organización de better-auth cuando se invita a alguien a una organización.',
 };
 
+export const AUTH_INVITATION_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_INVITATION_TEMPLATE,
+  locale: 'uk',
+  label: 'Запрошення до організації',
+  subject: '{{inviter.name}} запрошує вас до {{organization.name}}',
+  bodyHtml: wrap('Вас запрошено', `
+<p><strong>{{inviter.name}}</strong> ({{inviter.email}}) запрошує вас приєднатися до <strong>{{organization.name}}</strong> у {{appName}} як <em>{{role}}</em>.</p>
+<p style="margin:24px 0"><a href="{{{acceptUrl}}}" style="${buttonStyles}">Прийняти запрошення</a></p>
+<p style="font-size:13px;color:#6b7280">Або вставте це посилання:<br><span style="word-break:break-all">{{acceptUrl}}</span></p>
+<p style="font-size:13px;color:#6b7280">Термін дії цього запрошення спливає {{ expiresAt | datetime:long }}.</p>
+`, FOOTER_UK),
+  bodyText: `{{inviter.name}} ({{inviter.email}}) запрошує вас приєднатися до {{organization.name}} у {{appName}} як {{role}}.
+
+Прийняти: {{acceptUrl}}
+
+Термін дії цього запрошення спливає {{ expiresAt | datetime:long }}.`,
+  description: 'Надсилається плагіном organization better-auth, коли користувача запрошують до організації.',
+};
+
 /** Every locale row of the invitation template, in one enumerable list. */
 export const AUTH_INVITATION_TEMPLATES: EmailTemplate[] = [
   AUTH_INVITATION_TEMPLATE,
   AUTH_INVITATION_TEMPLATE_ZH_CN,
   AUTH_INVITATION_TEMPLATE_JA_JP,
   AUTH_INVITATION_TEMPLATE_ES_ES,
+  AUTH_INVITATION_TEMPLATE_UK,
 ];
 
 /**
@@ -576,12 +659,37 @@ Si el enlace ha caducado, solicita uno nuevo desde la página de inicio de sesi�
   description: 'Se envía cuando un administrador crea una cuenta para otra persona (la importación de identidades), con el enlace para establecer su primera contraseña.',
 };
 
+export const AUTH_ACCOUNT_INVITATION_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_ACCOUNT_INVITATION_TEMPLATE,
+  locale: 'uk',
+  label: 'Запрошення до облікового запису',
+  subject: '{{inviter.name}} запрошує вас до {{appName}}',
+  bodyHtml: wrap('Встановіть свій пароль', `
+<p>Вітаємо, {{user.name}}!</p>
+<p><strong>{{inviter.name}}</strong> ({{inviter.email}}) створив(-ла) для вас обліковий запис у {{appName}} з адресою електронної пошти <strong>{{user.email}}</strong>.</p>
+<p>Встановіть пароль, щоб почати ним користуватися. Це посилання буде дійсним протягом {{expiresInMinutes}} хвилин.</p>
+<p style="margin:24px 0"><a href="{{{setPasswordUrl}}}" style="${buttonStyles}">Встановити пароль</a></p>
+<p style="font-size:13px;color:#6b7280">Або скопіюйте та вставте це посилання у свій браузер:<br><span style="word-break:break-all">{{setPasswordUrl}}</span></p>
+<p>Якщо термін дії посилання минув, отримайте нове на сторінці входу: оберіть «Забули пароль?» і введіть {{user.email}}. Якщо це не допоможе, зверніться до {{inviter.name}}.</p>
+`, 'Ви отримали цього листа, оскільки {{inviter.name}} створив(-ла) обліковий запис {{appName}} для цієї адреси.'),
+  bodyText: `Вітаємо, {{user.name}}!
+
+{{inviter.name}} ({{inviter.email}}) створив(-ла) для вас обліковий запис у {{appName}} з адресою електронної пошти {{user.email}}.
+
+Встановіть пароль (посилання дійсне протягом {{expiresInMinutes}} хвилин):
+{{setPasswordUrl}}
+
+Якщо термін дії посилання минув, отримайте нове на сторінці входу: оберіть «Забули пароль?» і введіть {{user.email}}. Якщо це не допоможе, зверніться до {{inviter.name}}.`,
+  description: 'Надсилається, коли адміністратор створює обліковий запис для іншої особи (імпорт ідентичностей), разом із посиланням для встановлення початкового пароля.',
+};
+
 /** Every locale row of the account-invitation template, in one enumerable list. */
 export const AUTH_ACCOUNT_INVITATION_TEMPLATES: EmailTemplate[] = [
   AUTH_ACCOUNT_INVITATION_TEMPLATE,
   AUTH_ACCOUNT_INVITATION_TEMPLATE_ZH_CN,
   AUTH_ACCOUNT_INVITATION_TEMPLATE_JA_JP,
   AUTH_ACCOUNT_INVITATION_TEMPLATE_ES_ES,
+  AUTH_ACCOUNT_INVITATION_TEMPLATE_UK,
 ];
 
 export const AUTH_TWO_FACTOR_OTP_TEMPLATE: EmailTemplate = {
@@ -652,12 +760,28 @@ export const AUTH_TWO_FACTOR_OTP_TEMPLATE_ES_ES: EmailTemplate = {
   description: 'Código de un solo uso con caducidad para el inicio de sesión en dos pasos o con OTP por correo.',
 };
 
+export const AUTH_TWO_FACTOR_OTP_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_TWO_FACTOR_OTP_TEMPLATE,
+  locale: 'uk',
+  label: 'Код двофакторної перевірки',
+  subject: 'Ваш код підтвердження {{appName}}',
+  bodyHtml: wrap('Ваш код підтвердження', `
+<p>Скористайтеся цим кодом, щоб завершити вхід:</p>
+<p style="${otpCodeStyles}">{{otp}}</p>
+<p style="color:#6b7280;font-size:13px">Цей код буде дійсним протягом {{expiresInMinutes}} хвилин. Якщо ви не намагалися увійти, змініть свій пароль — ваш обліковий запис може бути під загрозою.</p>
+`, FOOTER_UK),
+  bodyText: `Ваш код підтвердження {{appName}}: {{otp}}
+(дійсний протягом {{expiresInMinutes}} хвилин)`,
+  description: 'Одноразовий код з обмеженим терміном дії для входу з двофакторною перевіркою або одноразовим кодом на електронну пошту.',
+};
+
 /** Every locale row of the two-factor OTP template, in one enumerable list. */
 export const AUTH_TWO_FACTOR_OTP_TEMPLATES: EmailTemplate[] = [
   AUTH_TWO_FACTOR_OTP_TEMPLATE,
   AUTH_TWO_FACTOR_OTP_TEMPLATE_ZH_CN,
   AUTH_TWO_FACTOR_OTP_TEMPLATE_JA_JP,
   AUTH_TWO_FACTOR_OTP_TEMPLATE_ES_ES,
+  AUTH_TWO_FACTOR_OTP_TEMPLATE_UK,
 ];
 
 // ───────────────────────────────────────────────────────────────────────────
@@ -816,6 +940,36 @@ y cambia tu contraseña para cerrar las demás sesiones.`,
   description: 'Se envía a la dirección ANTERIOR cuando se acepta una solicitud de cambio de correo, para que una sesión secuestrada no pueda trasladar la identidad de la cuenta sin aviso. Solo notificación; nunca bloquea el cambio.',
 };
 
+export const AUTH_EMAIL_CHANGE_NOTICE_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_EMAIL_CHANGE_NOTICE_TEMPLATE,
+  locale: 'uk',
+  label: 'Сповіщення про зміну адреси електронної пошти (попередня адреса)',
+  subject: 'Сповіщення безпеки: адресу електронної пошти вашого облікового запису {{appName}} змінюють',
+  bodyHtml: wrap(
+    'Адресу електронної пошти вашого облікового запису змінюють',
+    `
+<p>Вітаємо, {{user.name}}!</p>
+<p>У вашому обліковому записі {{appName}} активний сеанс надіслав запит на зміну адреси електронної пошти з <strong>{{user.email}}</strong> на <strong>{{newEmail}}</strong>.</p>
+<p>Зміна набере чинності після підтвердження <strong>{{newEmail}}</strong>. Нічого робити, щоб її дозволити, не потрібно — цей лист є лише сповіщенням, а не запитом на затвердження.</p>
+<p style="margin:24px 0;padding:16px;background:#fef2f2;border-left:4px solid #dc2626;border-radius:4px"><strong>Якщо ви не надсилали цей запит, ваш обліковий запис може бути скомпрометований.</strong> Негайно зверніться до адміністратора або служби підтримки {{appName}} і змініть свій пароль, щоб завершити інші сеанси.</p>
+`,
+    'Ви отримали цього листа, оскільки адресу вашого облікового запису {{appName}} змінюють.<br>Це сповіщення надіслано на попередню адресу облікового запису.',
+  ),
+  bodyText: `Вітаємо, {{user.name}}!
+
+У вашому обліковому записі {{appName}} активний сеанс надіслав запит на
+зміну адреси електронної пошти з {{user.email}} на {{newEmail}}.
+
+Зміна набере чинності після підтвердження {{newEmail}}. Нічого робити, щоб
+її дозволити, не потрібно — цей лист є лише сповіщенням, а не запитом на
+затвердження.
+
+Якщо ви не надсилали цей запит, ваш обліковий запис може бути
+скомпрометований. Негайно зверніться до адміністратора або служби підтримки
+{{appName}} і змініть свій пароль, щоб завершити інші сеанси.`,
+  description: 'Надсилається на ПОПЕРЕДНЮ адресу, коли запит на зміну адреси електронної пошти прийнято, щоб перехоплений зловмисником сеанс не міг непомітно перенести ідентичність облікового запису. Лише сповіщення — ніколи не блокує зміну.',
+};
+
 /**
  * Every locale row of the change-email notice, in one list so the
  * `(name, locale)` set is enumerable rather than re-derived per call site.
@@ -825,6 +979,7 @@ export const AUTH_EMAIL_CHANGE_NOTICE_TEMPLATES: EmailTemplate[] = [
   AUTH_EMAIL_CHANGE_NOTICE_TEMPLATE_ZH_CN,
   AUTH_EMAIL_CHANGE_NOTICE_TEMPLATE_JA_JP,
   AUTH_EMAIL_CHANGE_NOTICE_TEMPLATE_ES_ES,
+  AUTH_EMAIL_CHANGE_NOTICE_TEMPLATE_UK,
 ];
 
 // ───────────────────────────────────────────────────────────────────────────
@@ -980,6 +1135,35 @@ Si no has sido tú, puedes ignorar este mensaje con tranquilidad.`,
   description: 'Se envía a una dirección que ya tiene una cuenta cuando alguien se registra con ella (posturas de audiencia open y email_domain, mientras el correo se entrega de verdad), para que la respuesta del registro no revele la cuenta y su titular sepa del intento.',
 };
 
+export const AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATE_UK: EmailTemplate = {
+  ...AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATE,
+  locale: 'uk',
+  label: 'Спроба реєстрації з уже наявним обліковим записом',
+  subject: 'У вас уже є обліковий запис у {{appName}}',
+  bodyHtml: wrap('У вас уже є обліковий запис', `
+<p>Вітаємо, {{user.name}}!</p>
+<p>Хтось щойно спробував створити новий обліковий запис {{appName}} з адресою <strong>{{user.email}}</strong>. Ця адреса вже має обліковий запис, тому новий не створено, а у вашому обліковому записі нічого не змінилося.</p>
+<p>Якщо це були ви, увійдіть за допомогою свого наявного облікового запису:</p>
+<p style="margin:24px 0"><a href="{{{signInUrl}}}" style="${buttonStyles}">Увійти</a></p>
+<p>Забули пароль? <a href="{{{resetPasswordUrl}}}" style="${linkStyles}">Скиньте його тут</a>.</p>
+<p style="font-size:13px;color:#6b7280">Або скопіюйте та вставте ці посилання у свій браузер:<br>Вхід: <span style="word-break:break-all">{{signInUrl}}</span><br>Скидання пароля: <span style="word-break:break-all">{{resetPasswordUrl}}</span></p>
+`, FOOTER_UK),
+  bodyText: `Вітаємо, {{user.name}}!
+
+Хтось щойно спробував створити новий обліковий запис {{appName}} з адресою
+{{user.email}}. Ця адреса вже має обліковий запис, тому новий не створено,
+а у вашому обліковому записі нічого не змінилося.
+
+Якщо це були ви, увійдіть за допомогою свого наявного облікового запису:
+{{signInUrl}}
+
+Забули пароль? Скиньте його тут:
+{{resetPasswordUrl}}
+
+Якщо це були не ви, можна спокійно проігнорувати цей лист.`,
+  description: 'Надсилається на адресу, що вже має обліковий запис, коли хтось реєструється з нею (режими аудиторії open та email_domain, і лише тоді, коли листи справді доставляються), щоб відповідь на реєстрацію не розкривала існування облікового запису, а його власник дізнався про спробу.',
+};
+
 /**
  * Every locale row of the existing-account sign-up notice, in one list so the
  * `(name, locale)` set is enumerable rather than re-derived per call site.
@@ -989,6 +1173,7 @@ export const AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATES: EmailTemplate[] = [
   AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATE_ZH_CN,
   AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATE_JA_JP,
   AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATE_ES_ES,
+  AUTH_EXISTING_ACCOUNT_SIGN_UP_TEMPLATE_UK,
 ];
 
 /**

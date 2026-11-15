@@ -111,6 +111,7 @@ const LAZY_LOCALE_LOADERS: Readonly<
   fr: () => import('./fr.js'),
   'pt-BR': () => import('./pt-BR.js'),
   ru: () => import('./ru.js'),
+  uk: () => import('./uk.js'),
   de: () => import('./de.js'),
   ja: () => import('./ja.js'),
   ko: () => import('./ko.js'),

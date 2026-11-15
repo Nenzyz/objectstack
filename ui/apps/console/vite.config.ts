@@ -1222,6 +1222,7 @@ export default defineConfig({
             { name: 'i18n-locale-fr', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]fr\.ts$/, priority: 84 },
             { name: 'i18n-locale-pt-BR', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]pt-BR\.ts$/, priority: 84 },
             { name: 'i18n-locale-ru', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]ru\.ts$/, priority: 84 },
+            { name: 'i18n-locale-uk', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]uk\.ts$/, priority: 84 },
             { name: 'i18n-locale-de', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]de\.ts$/, priority: 84 },
             { name: 'i18n-locale-ja', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]ja\.ts$/, priority: 84 },
             { name: 'i18n-locale-ko', test: /[\\/]packages[\\/]i18n[\\/]src[\\/]locales[\\/]ko\.ts$/, priority: 84 },

@@ -21,7 +21,7 @@ import { platformLocaleTagOf, type PlatformLocaleTag } from '@objectstack/spec/s
 
 /** A table's keys: the platform locale table's languages, the first four under their older codes. */
 export type CopyLocale =
-  'en' | 'zh-CN' | 'zh-Hant' | 'es-ES' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ja-JP' | 'ko';
+  'en' | 'zh-CN' | 'zh-Hant' | 'es-ES' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ja-JP' | 'ko';
 
 /** Each platform locale table tag → the key that serves it. */
 const KEY_BY_TABLE_TAG: Record<PlatformLocaleTag, CopyLocale> = {
@@ -33,6 +33,7 @@ const KEY_BY_TABLE_TAG: Record<PlatformLocaleTag, CopyLocale> = {
   fr: 'fr',
   'pt-BR': 'pt-BR',
   ru: 'ru',
+  uk: 'uk',
   de: 'de',
   ja: 'ja-JP',
   ko: 'ko',

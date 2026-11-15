@@ -16,4 +16,4 @@
  * language here answers `undefined`, which every table serves in English.
  */
 export type SettingsCopyLocale =
-  'en' | 'zh-CN' | 'zh-Hant' | 'es-ES' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ja-JP' | 'ko';
+  'en' | 'zh-CN' | 'zh-Hant' | 'es-ES' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ja-JP' | 'ko';

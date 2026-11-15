@@ -377,6 +377,11 @@ export const ACCESS_POLICY_FLOOR_COPY: Readonly<Record<SettingsCopyLocale, Floor
     limitAbove: (n, d) => `${n} больше лимита развёртывания ${d}. Организация может только сократить его: укажите ${d} или меньше либо 0, чтобы сохранить лимит развёртывания.`,
     mfaBelow: (l, d) => `«${l}» слабее требования многофакторной аутентификации развёртывания «${d}». Организация может только усилить его: выберите «${d}» или строже либо «off», чтобы сохранить требование развёртывания.`,
   },
+  uk: {
+    rangeOutside: (r, d) => `${r} не входить до дозволених діапазонів IP розгортання (${d}). Організація може лише звузити їх: укажіть діапазони всередині них.`,
+    limitAbove: (n, d) => `${n} перевищує ліміт розгортання ${d}. Організація може лише зменшити його: укажіть ${d} або менше, або 0, щоб зберегти ліміт розгортання.`,
+    mfaBelow: (l, d) => `«${l}» слабше, ніж вимога багатофакторної перевірки розгортання «${d}». Організація може лише посилити її: виберіть «${d}» або суворіший рівень, або «off», щоб зберегти вимогу розгортання.`,
+  },
   de: {
     rangeOutside: (r, d) => `${r} liegt nicht innerhalb der erlaubten IP-Bereiche der Bereitstellung (${d}). Eine Organisation kann sie nur einschränken: Verwenden Sie Bereiche innerhalb davon.`,
     limitAbove: (n, d) => `${n} ist länger als das Limit der Bereitstellung von ${d}. Eine Organisation kann es nur verkürzen: Geben Sie ${d} oder weniger an oder 0, um das Limit der Bereitstellung zu behalten.`,

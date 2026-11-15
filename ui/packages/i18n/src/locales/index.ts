@@ -44,6 +44,7 @@ import frPack from './fr.js';
 import esPack from './es.js';
 import ptBrPack from './pt-BR.js';
 import ruPack from './ru.js';
+import ukPack from './uk.js';
 import arPack from './ar.js';
 import enMarketplace from '../namespaces/marketplace/en.js';
 import zhHansMarketplace from '../namespaces/marketplace/zh-Hans.js';
@@ -55,6 +56,7 @@ import frMarketplace from '../namespaces/marketplace/fr.js';
 import esMarketplace from '../namespaces/marketplace/es.js';
 import ptBrMarketplace from '../namespaces/marketplace/pt-BR.js';
 import ruMarketplace from '../namespaces/marketplace/ru.js';
+import ukMarketplace from '../namespaces/marketplace/uk.js';
 import arMarketplace from '../namespaces/marketplace/ar.js';
 import enDeveloper from '../namespaces/developer/en.js';
 import zhHansDeveloper from '../namespaces/developer/zh-Hans.js';
@@ -66,6 +68,7 @@ import frDeveloper from '../namespaces/developer/fr.js';
 import esDeveloper from '../namespaces/developer/es.js';
 import ptBrDeveloper from '../namespaces/developer/pt-BR.js';
 import ruDeveloper from '../namespaces/developer/ru.js';
+import ukDeveloper from '../namespaces/developer/uk.js';
 import arDeveloper from '../namespaces/developer/ar.js';
 import type { PlatformLocaleTag } from '@objectstack/spec/system';
 
@@ -173,6 +176,12 @@ export const ru: typeof ruPack & typeof ruMarketplace & typeof ruDeveloper = com
   ruDeveloper,
   'ru',
 );
+export const uk: typeof ukPack & typeof ukMarketplace & typeof ukDeveloper = complete(
+  ukPack,
+  ukMarketplace,
+  ukDeveloper,
+  'uk',
+);
 export const ar: typeof arPack & typeof arMarketplace & typeof arDeveloper = complete(
   arPack,
   arMarketplace,
@@ -203,6 +212,7 @@ export const builtInLocales: {
   readonly fr: typeof fr;
   readonly 'pt-BR': typeof pt;
   readonly ru: typeof ru;
+  readonly uk: typeof uk;
   readonly de: typeof de;
   readonly ja: typeof ja;
   readonly ko: typeof ko;
@@ -215,6 +225,7 @@ export const builtInLocales: {
   fr,
   'pt-BR': pt,
   ru,
+  uk,
   de,
   ja,
   ko,
