@@ -72,6 +72,11 @@ const BANNED: Record<LocaleCode, readonly string[]> = {
   es: ['automat', 'alerta', 'recordar', 'recordatorio', 'notifi', 'flujo', 'disparador'],
   'pt-BR': ['automa', 'alerta', 'lembr', 'notifi', 'fluxo', 'gatilho'],
   ru: ['автомат', 'оповещ', 'уведомл', 'напомин', 'триггер', 'процесс', 'поток'],
+  // Read off the pack's own vocabulary: автоматизація (automation), сповіщення
+  // (the pack's notification word), нагадування (reminder), потік (its word for
+  // a flow), тригер, процес, розклад (schedule) — and тривога, which is how
+  // Ukrainian monitoring UIs spell alert. None of these occurs in any shipped chip.
+  uk: ['автоматизац', 'сповіщ', 'нагадув', 'тривог', 'потік', 'тригер', 'процес', 'розклад'],
   ja: ['自動', '通知', 'アラート', 'リマイン', 'ワークフロー', 'フロー', 'トリガー'],
   ko: ['자동', '알림', '알람', '워크플로', '흐름', '트리거'],
   ar: ['أتمتة', 'مؤتمت', 'تنبيه', 'إشعار', 'تذكير', 'سير عمل'],
@@ -99,6 +104,11 @@ const RETIRED: Record<LocaleCode, readonly string[]> = {
   es: ['Diseña una mesa de ayuda — tickets con prioridad, un flujo de estados y vínculos con los clientes.'],
   'pt-BR': ['Projete uma central de suporte — chamados com prioridade, um fluxo de status e vínculos com clientes.'],
   ru: ['Спроектируй службу поддержки — заявки с приоритетом, процесс статусов и связи с клиентами.'],
+  // The pack landed after cloud#1984, so no chip it ever shipped carried this
+  // wording; its control sample is that English sentence read in uk's own
+  // idiom (спроектуйте підтримку, тикети, потік статусів), and the banned list
+  // must still flag it.
+  uk: ["Спроектуйте службу підтримки — тикети з пріоритетом, потік статусів і зв'язки з клієнтами."],
   ja: ['サポートデスクを設計して — 優先度つきチケット、ステータスのワークフロー、顧客との紐付け。'],
   ko: ['고객 지원 데스크를 설계해 줘 — 우선순위가 있는 티켓, 상태 워크플로, 고객 연결.'],
   ar: ['صمّم مكتب دعم — تذاكر بأولوية وسير عمل للحالات وروابط بالعملاء.', 'أنشئ تطبيق مخزون — منتجات ومستويات مخزون وموردين وتنبيه لانخفاض المخزون.'],

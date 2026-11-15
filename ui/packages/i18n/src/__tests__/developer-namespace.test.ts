@@ -40,6 +40,7 @@ import frPack from '../locales/fr.js';
 import esPack from '../locales/es.js';
 import ptBrPack from '../locales/pt-BR.js';
 import ruPack from '../locales/ru.js';
+import ukPack from '../locales/uk.js';
 import arPack from '../locales/ar.js';
 import enNs from '../namespaces/developer/en.js';
 import zhHansNs from '../namespaces/developer/zh-Hans.js';
@@ -51,6 +52,7 @@ import frNs from '../namespaces/developer/fr.js';
 import esNs from '../namespaces/developer/es.js';
 import ptBrNs from '../namespaces/developer/pt-BR.js';
 import ruNs from '../namespaces/developer/ru.js';
+import ukNs from '../namespaces/developer/uk.js';
 import arNs from '../namespaces/developer/ar.js';
 import {
   DEVELOPER_LANGUAGE_CODES,
@@ -66,11 +68,11 @@ const INDEX_PATH = join(HERE, '..', 'namespaces', 'developer', 'index.ts');
 type Tree = Record<string, unknown>;
 const PACKS: Record<string, Tree> = {
   en: enPack, 'zh-Hans': zhHansPack, 'zh-Hant': zhHantPack, ja: jaPack, ko: koPack, de: dePack,
-  fr: frPack, es: esPack, 'pt-BR': ptBrPack, ru: ruPack, ar: arPack,
+  fr: frPack, es: esPack, 'pt-BR': ptBrPack, ru: ruPack, uk: ukPack, ar: arPack,
 };
 const CATALOGUES: Record<string, Tree> = {
   en: enNs, 'zh-Hans': zhHansNs, 'zh-Hant': zhHantNs, ja: jaNs, ko: koNs, de: deNs,
-  fr: frNs, es: esNs, 'pt-BR': ptBrNs, ru: ruNs, ar: arNs,
+  fr: frNs, es: esNs, 'pt-BR': ptBrNs, ru: ruNs, uk: ukNs, ar: arNs,
 };
 
 function leaves(node: unknown, prefix = ''): string[] {

@@ -579,10 +579,20 @@ describe('objectui#3546 slice five — the marketplace and preview namespaces', 
     // revisited — which is why it says so out loud.
     expect(at(builtInLocales.en, 'preview.history.revertAction')).toBe('Revert');
     expect(at(builtInLocales.en, 'grid.bulk.undo')).toBe('Undo');
+    // `uk` is the deliberate departure, the way `ko`'s spacing note below is a
+    // deliberate departure of the count phrase: its history family draws the
+    // revert/undo distinction the other packs do not have — `revertLabel`
+    // "Зміну відкочено", `revert` "відкочування", `reverted` "Відкочено — зміну
+    // скасовано.", `revertFailed` "Помилка відкочування" all say відкотити,
+    // while `grid.bulk.undo` is "Скасувати". Borrowing the undo verb would give
+    // the pack's revert a second name alongside the one its history block
+    // already uses, so its value is pinned as the word it ships.
+    const UNDO_BORROW_DEPARTURES: Partial<Record<LocaleCode, string>> = { uk: 'Відкотити' };
     for (const lang of LANGS.filter((l) => l !== 'en')) {
-      expect(at(builtInLocales[lang], 'preview.history.revertAction'), `${lang} revertAction`).toBe(
-        at(builtInLocales[lang], 'grid.bulk.undo'),
-      );
+      expect(
+        at(builtInLocales[lang], 'preview.history.revertAction'),
+        `${lang} revertAction`,
+      ).toBe(UNDO_BORROW_DEPARTURES[lang] ?? at(builtInLocales[lang], 'grid.bulk.undo'));
     }
   });
 
@@ -621,6 +631,7 @@ describe('objectui#3546 slice five — the marketplace and preview namespaces', 
       es: 'Elementos: {{count}}',
       'pt-BR': 'Itens: {{count}}',
       ru: 'Элементов: {{count}}',
+      uk: 'Позицій: {{count}}',
       ar: 'العناصر: {{count}}',
     };
     for (const lang of LANGS) {
@@ -670,6 +681,16 @@ describe('objectui#3546 slice five — the marketplace and preview namespaces', 
     // not rewrite copy that reads correctly. A later card may take it.
     expect(at(builtInLocales.ko, 'preview.history.items')).toBe('{{count}} 항목');
     expect(at(builtInLocales.ko, 'common.itemCount')).toBe('{{count}}개 항목');
+
+    // `uk` is the other deliberate departure, same treatment as `ko`: its
+    // `common.itemCount` base is numeral-first («{{count}} елементів») because
+    // uk carries a one/few/many count family there, so its history count took
+    // the count-INVARIANT label form («Позицій: {{count}}») — and it names the
+    // entry with the pack's own line-item word позиція (cf. its `noItems`:
+    // "Немає позицій"), not a borrowing of «елементів». Pinned so a later edit
+    // of either side surfaces here, the way the UNIT premise does for ten packs.
+    expect(at(builtInLocales.uk, 'preview.history.items')).toBe('Позицій: {{count}}');
+    expect(at(builtInLocales.uk, 'common.itemCount')).toBe('{{count}} елементів');
 
     // And no pack reintroduced a parenthesised plural marker here. The class is
     // Unicode-aware on purpose (objectui#3866): JS `\w` is [A-Za-z0-9_] with or

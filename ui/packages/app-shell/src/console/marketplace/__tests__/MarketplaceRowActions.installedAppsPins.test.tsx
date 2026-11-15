@@ -308,7 +308,7 @@ describe('every pack\'s kernel note is plain text (objectui#12610)', () => {
 
   it('the walk below reads every pack', () => {
     expect(packs.map(([lang]) => lang).sort()).toEqual(
-      ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt-BR', 'ru', 'zh-Hans', 'zh-Hant'],
+      ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt-BR', 'ru', 'uk', 'zh-Hans', 'zh-Hant'],
     );
   });
 
@@ -343,6 +343,11 @@ const RETIRED_RESTART_CLAIM: Record<string, RegExp> = {
   fr: /jusqu'au redémarrage|Redémarrez le runtime|uniquement additive/,
   'pt-BR': /até reiniciar|Reinicie o runtime|apenas aditiva/,
   ru: /до перезапуска|Перезапустите рантайм|только аддитивный/,
+  // uk's wordings of the same retired claims: «до перезапуску», the imperative
+  // «перезапустіть …» (the pack's own texts instead say перезапуск не потрібен,
+  // a negation this stem cannot match), the additive-only claim as «лише
+  // додатков…» / «адитивн…».
+  uk: /до перезапуску|перезапустіть|лише додатков|адитивн/,
   ar: /حتى إعادة التشغيل|أعد تشغيل|إضافية فقط/,
 };
 

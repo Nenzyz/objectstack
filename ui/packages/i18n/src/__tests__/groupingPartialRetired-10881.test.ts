@@ -36,8 +36,8 @@ function leaves(node: unknown, prefix = ''): Array<[string, unknown]> {
 const PACKS = Object.entries(builtInLocales);
 
 describe('the grouped grid marker is retired from every locale pack (objectui#10881)', () => {
-  it('reads all ten packs', () => {
-    expect(PACKS.map(([code]) => code).sort()).toEqual(['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt-BR', 'ru', 'zh-Hans', 'zh-Hant']);
+  it('reads all twelve packs', () => {
+    expect(PACKS.map(([code]) => code).sort()).toEqual(['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt-BR', 'ru', 'uk', 'zh-Hans', 'zh-Hant']);
   });
 
   it.each(PACKS)('%s carries no grid.grouping.partial* key', (_code, pack) => {

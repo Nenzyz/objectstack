@@ -1,10 +1,10 @@
 # @object-ui/i18n
 
-Internationalization for Object UI — 11 built-in locales, RTL support, and date/currency formatting.
+Internationalization for Object UI — 12 built-in locales, RTL support, and date/currency formatting.
 
 ## Features
 
-- 🌍 **11 Built-in Locales** - English, Simplified Chinese, Traditional Chinese, Spanish, Arabic, French, Portuguese (Brazil), Russian, German, Japanese, Korean
+- 🌍 **12 Built-in Locales** - English, Simplified Chinese, Traditional Chinese, Spanish, Arabic, French, Portuguese (Brazil), Russian, Ukrainian, German, Japanese, Korean
 - 🔄 **RTL Support** - Automatic right-to-left layout for Arabic and other RTL languages
 - 📅 **Date Formatting** - Locale-aware date, datetime, and relative time formatting
 - 💰 **Currency & Number Formatting** - Locale-aware currency and number formatting
@@ -284,7 +284,7 @@ import {
   getLoadedBuiltInLocales,   // synchronous snapshot of what is resident
 } from '@object-ui/i18n';
 
-BUILT_IN_LANGUAGE_CODES;            // ['en','zh-Hans','zh-Hant','es','ar','fr','pt-BR','ru','de','ja','ko']
+BUILT_IN_LANGUAGE_CODES;            // ['en','zh-Hans','zh-Hant','es','ar','fr','pt-BR','ru','uk','de','ja','ko']
 await loadBuiltInLocale('zh-Hans'); // the Simplified catalogue, fetched once and memoised
 await loadBuiltInLocale('zh-CN');   // the same catalogue — `zh-CN` reads as `zh-Hans`
 await loadBuiltInLocale('zh-TW');   // the Traditional catalogue — `zh-TW` reads as `zh-Hant`

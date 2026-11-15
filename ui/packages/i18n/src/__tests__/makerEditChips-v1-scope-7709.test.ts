@@ -83,6 +83,10 @@ const BANNED: Record<LocaleCode, readonly string[]> = {
   es: ['automat', 'alerta', 'recordar', 'recordatorio', 'notifi', 'flujo', 'disparador', 'aprob'],
   'pt-BR': ['automa', 'alerta', 'lembr', 'notifi', 'fluxo', 'gatilho', 'aprova'],
   ru: ['автомат', 'оповещ', 'уведомл', 'напомин', 'триггер', 'процесс', 'поток', 'согласован', 'утвержд'],
+  // The 1984 list verbatim in uk's own words, plus the approval half: uk spells
+  // approve/approval затвердити/затвердження (затверд covers both). None of it
+  // occurs in any shipped chip.
+  uk: ['автоматизац', 'сповіщ', 'нагадув', 'тривог', 'потік', 'тригер', 'процес', 'розклад', 'затверд'],
   ja: ['自動', '通知', 'アラート', 'リマイン', 'ワークフロー', 'フロー', 'トリガー', '承認'],
   ko: ['자동', '알림', '알람', '워크플로', '흐름', '트리거', '승인'],
   ar: ['أتمتة', 'مؤتمت', 'تنبيه', 'إشعار', 'تذكير', 'سير عمل', 'موافقة', 'اعتماد'],
@@ -108,6 +112,9 @@ const RETIRED: Record<LocaleCode, string> = {
   es: 'Añade una automatización — una aprobación, un flujo de estados o una notificación.',
   'pt-BR': 'Adicione uma automação — uma aprovação, um fluxo de status ou uma notificação.',
   ru: 'Добавь автоматизацию — согласование, процесс статусов или уведомление.',
+  // The pack landed after the ruling; the control sample is the English retired
+  // sentence read in uk's own imperatives (the pack's edit chips say "Додай").
+  uk: 'Додай автоматизацію — затвердження, потік статусів або сповіщення.',
   ja: '自動化を追加してください — 承認、ステータスフロー、または通知。',
   ko: '자동화를 추가해 주세요 — 승인, 상태 흐름 또는 알림.',
   ar: 'أضف أتمتة — موافقة أو سير حالات أو إشعارًا.',

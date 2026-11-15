@@ -85,6 +85,11 @@ const RETIRED: Record<string, RegExp> = {
   es: /dupliqu|duplic|copi/i,
   'pt-BR': /dupliqu|duplic|copi/i,
   ru: /копир|скопир/i,
+  // The pack landed after the retirement, so its stem is defensive: uk spells
+  // copy as "копіювати" (cf. its own `linkCopyFailed`) and duplicate as
+  // "дублювати". Same vocabulary a uk duplicate-to-customize sentence would
+  // have shipped.
+  uk: /дублюв|копіюв/i,
   ar: /نسخ|انسخ/,
 };
 
@@ -105,6 +110,9 @@ const ANCHORS: Record<string, { systemView: RegExp; inCode: RegExp; readOnly: Re
   es: { systemView: /Vista del sistema/i, inCode: /código/i, readOnly: /solo lectura/i },
   'pt-BR': { systemView: /Exibição do sistema/i, inCode: /código/i, readOnly: /somente leitura/i },
   ru: { systemView: /Системное представление/i, inCode: /код/i, readOnly: /чтени/i },
+  // Lifted from the pack's own neighbours: "системне подання" and "лише для
+  // читання" are how uk.ts words this key's subject and its read-only clause.
+  uk: { systemView: /Системне подання/i, inCode: /код/i, readOnly: /лише для читання/i },
   ar: { systemView: /عرض النظام/, inCode: /كود/, readOnly: /قراءة/ },
 };
 
@@ -119,11 +127,12 @@ const NATIVE_SCRIPT: Partial<Record<LocaleCode, RegExp>> = {
   ja: /\p{Script=Hiragana}|\p{Script=Katakana}|\p{Script=Han}/u,
   ko: /\p{Script=Hangul}/u,
   ru: /\p{Script=Cyrillic}/u,
+  uk: /\p{Script=Cyrillic}/u,
   ar: /\p{Script=Arabic}/u,
 };
 
 describe('view.readonlyTooltip semantic coverage (objectui#3625)', () => {
-  it('covers all ten built-in packs', () => {
+  it('covers all twelve built-in packs', () => {
     expect(LANGS).toHaveLength(PLATFORM_LOCALE_TAGS.length);
     expect(Object.keys(RETIRED).sort()).toEqual([...LANGS].sort());
     expect(Object.keys(ANCHORS).sort()).toEqual([...LANGS].sort());
@@ -180,7 +189,7 @@ describe('view.readonlyTooltip semantic coverage (objectui#3625)', () => {
     ).toBe(true);
   });
 
-  it('all ten packs differ from one another', () => {
+  it('all twelve packs differ from one another', () => {
     // Also green before this fix (10/10 distinct even while eight were stale),
     // for the same reason: eight idiomatic translations of a wrong sentence
     // are still ten different strings. It guards cross-pack copy-paste only.

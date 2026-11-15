@@ -301,9 +301,9 @@ describe('every plural family carries a base key (objectui#3863)', () => {
     );
   });
 
-  it('the rule bites — five of the packs select categories beyond one/other', () => {
+  it('the rule bites — six of the packs select categories beyond one/other', () => {
     // Why the per-language slots are not cosmetic, stated as data rather than prose.
-    // `en`/`de` and `zh-Hans`/`zh-Hant`/`ja`/`ko` are fully served by `_one`/`_other`; these five
+    // `en`/`de` and `zh-Hans`/`zh-Hant`/`ja`/`ko` are fully served by `_one`/`_other`; these six
     // are the packs that need the extra slots the section below requires, and that
     // the base key alone served — in-language but in one form — before objectui#11432.
     const reachable = ALL_LOCALES.filter((l) =>
@@ -311,7 +311,7 @@ describe('every plural family carries a base key (objectui#3863)', () => {
         .resolvedOptions()
         .pluralCategories.some((c) => c !== 'one' && c !== 'other'),
     );
-    expect(reachable.sort()).toEqual(['ar', 'es', 'fr', 'pt-BR', 'ru']);
+    expect(reachable.sort()).toEqual(['ar', 'es', 'fr', 'pt-BR', 'ru', 'uk']);
     // …and `ru`/`ar` meet them at everyday counts, which is what made the
     // one-form base a user-visible defect rather than a theoretical one:
     // `fr`/`es`/`pt-BR` only use `many` at exact millions.

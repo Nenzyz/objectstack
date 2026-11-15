@@ -179,17 +179,17 @@ const LANGS = Object.keys(builtInLocales) as LocaleCode[];
  *
  * Exactly one string is in this class, and for one reason: `phonePlaceholder`
  * is the E.164 EXAMPLE number `+1 555 000 0000`, the same kind of token as
- * `emailPlaceholder: 'name@example.com'`, which all ten packs already carry
+ * `emailPlaceholder: 'name@example.com'`, which every pack already carries
  * untranslated at `auth.login.emailPlaceholder` and `auth.setup.emailPlaceholder`.
- * Inventing nine locale-specific example numbers would be a formatting claim
- * about nine dialling plans that nothing in this repo can check, so the packs
+ * Inventing eleven locale-specific example numbers would be a formatting claim
+ * about eleven dialling plans that nothing in this repo can check, so the packs
  * keep the one placeholder and translate the sentence around it (which is why
  * `emailOrPhonePlaceholder`, containing the same number plus a translated
  * conjunction, is NOT in this list in any pack).
  *
- * The comparison below is exact set equality, not a subset: a nineteenth
+ * The comparison below is exact set equality, not a subset: an unlisted
  * identical value fails, and localising one of these fails too and forces the
- * line out. `18 = 2 keys x 9 packs` is the whole permitted set.
+ * line out. `22 = 2 keys x 11 packs` is the whole permitted set.
  */
 const UNTRANSLATED_TOKENS = [
   'ar :: auth.forgotPassword.phonePlaceholder',
@@ -208,6 +208,8 @@ const UNTRANSLATED_TOKENS = [
   'pt-BR :: auth.login.phonePlaceholder',
   'ru :: auth.forgotPassword.phonePlaceholder',
   'ru :: auth.login.phonePlaceholder',
+  'uk :: auth.forgotPassword.phonePlaceholder',
+  'uk :: auth.login.phonePlaceholder',
   'zh-Hans :: auth.forgotPassword.phonePlaceholder',
   'zh-Hant :: auth.forgotPassword.phonePlaceholder',
   'zh-Hans :: auth.login.phonePlaceholder',
@@ -257,11 +259,11 @@ describe('objectui#3546 slice three — the auth / oauth namespaces', () => {
     }
   });
 
-  it('the nine non-en packs carry real translations, not the English strings', () => {
+  it('the eleven non-en packs carry real translations, not the English strings', () => {
     // The failure this catches is a backfill that copy-pastes `en` into the
-    // other nine packs: full key parity, ten packs green, nine languages still
-    // reading English. `all-locales-key-parity.test.ts` cannot see it, because
-    // it compares key sets and never looks at a value.
+    // other eleven packs: full key parity, twelve packs green, eleven
+    // languages still reading English. `all-locales-key-parity.test.ts` cannot
+    // see it, because it compares key sets and never looks at a value.
     const identical: string[] = [];
     for (const lang of LANGS.filter((l) => l !== 'en')) {
       for (const key of KEYS) {
@@ -269,11 +271,11 @@ describe('objectui#3546 slice three — the auth / oauth namespaces', () => {
       }
     }
     expect(identical.sort()).toEqual(UNTRANSLATED_TOKENS);
-    // 20 permitted pairs out of 420 — i.e. 40 of the 42 live keys are translated
+    // 22 permitted pairs out of 462 — i.e. 40 of the 42 live keys are translated
     // in every single pack. The set equality above is vacuous if the packs were
     // empty, so pin the two facts it rests on separately: the exempt value is
     // really the shared token, and a neighbour that embeds it is really not.
-    expect(UNTRANSLATED_TOKENS).toHaveLength(20);
+    expect(UNTRANSLATED_TOKENS).toHaveLength(22);
     expect(at(builtInLocales.ja, 'auth.login.phonePlaceholder')).toBe('+1 555 000 0000');
     expect(at(builtInLocales.ja, 'auth.login.emailOrPhonePlaceholder')).not.toBe(
       at(builtInLocales.en, 'auth.login.emailOrPhonePlaceholder'),

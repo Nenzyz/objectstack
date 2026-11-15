@@ -80,13 +80,16 @@ const PACKS: Record<LocaleCode, { orgStem: string; retiredStems: string[] }> = {
   ko: { orgStem: '조직', retiredStems: ['워크스페이스', '작업 공간'] },
   'pt-BR': { orgStem: 'organizaç', retiredStems: ['workspace', 'trabalho'] },
   ru: { orgStem: 'организац', retiredStems: ['пространств'] },
+  // The pack landed after objectui#12851 (which retired "workspace" everywhere),
+  // so it has no retired workspace stem to refuse — org-stem only.
+  uk: { orgStem: 'організац', retiredStems: [] },
 };
 
 const at = (pack: unknown, path: string): unknown =>
   path.split('.').reduce<unknown>((n, k) => (n as Record<string, unknown> | undefined)?.[k], pack);
 
 describe('objectui#12851 — the organisation speaks one noun per pack, and it is "organization"', () => {
-  it('covers all ten packs', () => {
+  it('covers all twelve packs', () => {
     expect(Object.keys(PACKS).sort()).toEqual(Object.keys(builtInLocales).sort());
   });
 

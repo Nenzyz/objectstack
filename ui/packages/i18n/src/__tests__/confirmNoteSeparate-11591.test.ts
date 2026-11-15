@@ -50,6 +50,9 @@ const CLAIM: Record<LocaleCode, RegExp> = {
   fr: /tous sont mis en ligne, ou aucun|il est mis en ligne, ou rien ne change/u,
   'pt-BR': /ou todos entram no ar, ou nenhum|ele entra no ar, ou nada muda/u,
   ru: /либо публикуются все, либо ни один|он публикуется, либо ничего не меняется/u,
+  // Read off the pack's own confirmNote family: the all-or-nothing clause in
+  // its plural form and in the _one form's "вона потрапляє…" shape.
+  uk: /або всі потрапляють у систему, або ні|вона потрапляє в систему, або нічого не змінюється/u,
   ar: /إما أن تُنشر/u,
   ja: /どちらかです/u,
   ko: /하나도 게시되지 않습니다|아무것도 바뀌지 않습니다/u,
@@ -65,6 +68,8 @@ const PACKAGE_WORD: Record<LocaleCode, RegExp> = {
   fr: /paquet/u,
   'pt-BR': /pacote/u,
   ru: /пакет/u,
+  // uk's package word: «пакета» (genitive) in every confirmNote form.
+  uk: /пакет/u,
   ar: /الحزمة/u,
   ja: /パッケージ/u,
   ko: /패키지/u,

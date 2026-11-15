@@ -37,6 +37,7 @@ import frNs from '../namespaces/marketplace/fr.js';
 import esNs from '../namespaces/marketplace/es.js';
 import ptBrNs from '../namespaces/marketplace/pt-BR.js';
 import ruNs from '../namespaces/marketplace/ru.js';
+import ukNs from '../namespaces/marketplace/uk.js';
 import arNs from '../namespaces/marketplace/ar.js';
 import { MARKETPLACE_LANGUAGE_CODES } from '../namespaces/marketplace/index.js';
 
@@ -44,7 +45,7 @@ type Group = Record<string, unknown>;
 
 const CATALOGUES: Record<string, { marketplace: Record<string, unknown> }> = {
   en: enNs, 'zh-Hans': zhHansNs, 'zh-Hant': zhHantNs, ja: jaNs, ko: koNs, de: deNs,
-  fr: frNs, es: esNs, 'pt-BR': ptBrNs, ru: ruNs, ar: arNs,
+  fr: frNs, es: esNs, 'pt-BR': ptBrNs, ru: ruNs, uk: ukNs, ar: arNs,
 };
 
 /** Each label group, and the spec enum whose `.options` are its keys. */
