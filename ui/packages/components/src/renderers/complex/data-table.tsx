@@ -52,6 +52,7 @@ import {
   Trash2,
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
   ChevronsLeft,
   ChevronsRight,
   GripVertical,
@@ -3902,7 +3903,7 @@ const DataTableRenderer = ({ schema }: { schema: DataTableSchema }) => {
                           {!selectable && schema.onRowClick && (
                             <button
                               type="button"
-                              className="absolute inset-0 hidden group-hover/row:flex items-center justify-center gap-0.5 text-xs font-medium text-primary hover:text-primary/80"
+                              className="absolute inset-0 hidden group-hover/row:flex items-center justify-center text-primary hover:text-primary/80"
                               data-testid="row-expand-button"
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -3916,9 +3917,10 @@ const DataTableRenderer = ({ schema }: { schema: DataTableSchema }) => {
                                 schema.onRowClick?.(row, e);
                               }}
                               title={t('table.openRecord')}
+                              aria-label={t('table.openRecord')}
                             >
-                              <span>{t('table.open')}</span>
-                              <ChevronRight className="h-3 w-3" />
+                              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                              <span className="sr-only">{t('table.openRecord')}</span>
                             </button>
                           )}
                         </TableCell>

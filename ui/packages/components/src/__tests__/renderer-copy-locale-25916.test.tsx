@@ -133,6 +133,20 @@ describe('renderer copy under zh (#25916)', () => {
     expect(within(row).getByTitle(zh.table.saveRow)).toBeTruthy();
   });
 
+  it('data-table: the open affordance is an icon-only control labelled in every locale, never a clipped text label', () => {
+    withLanguage(<DataTable onRowClick={() => undefined} />, 'zh');
+    const button = screen.getByTestId('row-expand-button');
+    expect(button.getAttribute('aria-label')).toBe(zh.table.openRecord);
+    expect(button.querySelector('svg')).not.toBeNull();
+    // The only text is the screen-reader one; nothing visible competes for the 40px cell.
+    const visibleText = Array.from(button.childNodes)
+      .filter((n) => !(n instanceof HTMLElement && n.classList.contains('sr-only')))
+      .map((n) => n.textContent ?? '')
+      .join('');
+    expect(visibleText).toBe('');
+    expect(button.querySelector('.sr-only')?.textContent).toBe(zh.table.openRecord);
+  });
+
   it('react page, capability off: the notice is zh, its three <code> chips where the zh string put them', async () => {
     const { container } = withLanguage(<ReactPage source="function Page() { return null; }" />, 'zh');
     expect(await screen.findByText(zh.reactPage.disabledTitle)).toBeTruthy();

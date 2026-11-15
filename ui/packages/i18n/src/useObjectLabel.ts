@@ -277,14 +277,18 @@ export function useObjectLabel() {
       : [`fields.${objectName}.${fieldName}`];
   };
 
+  /**
+   * Option-label candidates: the adapter shape `fieldOptions.<obj>.<fld>.<value>`
+   * first, then the shape the server and the per-locale bundles emit,
+   * `objects.<obj>.fields.<fld>.options.<value>` (`ObjectTranslationDataSchema`).
+   */
   const optionSuffixes = (objectName: string, fieldName: string, optionValue: string): string[] => {
     const base = stripNamespace(objectName);
-    return base !== objectName
-      ? [
-          `fieldOptions.${objectName}.${fieldName}.${optionValue}`,
-          `fieldOptions.${base}.${fieldName}.${optionValue}`,
-        ]
-      : [`fieldOptions.${objectName}.${fieldName}.${optionValue}`];
+    const names = base !== objectName ? [objectName, base] : [objectName];
+    return [
+      ...names.map((n) => `fieldOptions.${n}.${fieldName}.${optionValue}`),
+      ...objectSuffixes(objectName, `fields.${fieldName}.options.${optionValue}`),
+    ];
   };
 
   /**
