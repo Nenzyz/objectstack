@@ -16,160 +16,160 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_mailbox: {
-    label: "Mailbox",
-    pluralLabel: "Mailboxes",
-    description: "An inbound mailbox the platform mirrors mail from: its address and its owner",
+    label: "Поштова скринька",
+    pluralLabel: "Поштові скриньки",
+    description: "Вхідна поштова скринька, з якої платформа дзеркалить пошту: її адреса та її власник",
     fields: {
       id: {
-        label: "Mailbox ID"
+        label: "ID поштової скриньки"
       },
       name: {
-        label: "Name",
-        help: "Display name of the mailbox (for example \"Sales inbox\")"
+        label: "Назва",
+        help: "Відображувана назва поштової скриньки (наприклад \"Вхідні продажів\")"
       },
       address: {
-        label: "Address",
-        help: "The mailbox address. Never matched as a participant: a message to this mailbox is not about the mailbox itself."
+        label: "Адреса",
+        help: "Адреса поштової скриньки. Ніколи не зіставляється як учасник: лист на цю скриньку не стосується самої скриньки."
       },
       owner_user_id: {
-        label: "Owner",
-        help: "The user who owns this mailbox. The owner is served every message that arrived in it, unassociated ones included."
+        label: "Власник",
+        help: "Користувач, якому належить ця скринька. Власник отримує кожен лист, що надійшов у неї, зокрема неприв'язані."
       },
       imap_folder: {
-        label: "Synced Folder",
-        help: "The IMAP folder the sync cursor belongs to. When the mailbox is synced from another folder, the cursor starts over."
+        label: "Синхронізована папка",
+        help: "Папка IMAP, до якої належить курсор синхронізації. Якщо скриньку синхронізують з іншої папки, курсор починає заново."
       },
       imap_uid_validity: {
         label: "UIDVALIDITY",
-        help: "The folder UIDVALIDITY the cursor was taken under. When the server reports another value, its UIDs name other messages and the cursor starts over."
+        help: "Значення UIDVALIDITY папки, за якого було знято курсор. Коли сервер повідомляє інше значення, його UID позначають інші листи, і курсор починає заново."
       },
       imap_last_uid: {
-        label: "Last Synced UID",
-        help: "The highest UID of the folder already handed to ingest (stored, found already stored, suppressed or skipped). The next sync fetches the UIDs above it."
+        label: "Останній синхронізований UID",
+        help: "Найбільший UID папки, уже переданий на надходження (збережений, визнаний уже збереженим, придушений або пропущений). Наступна синхронізація обирає UID понад ним."
       },
       imap_synced_at: {
-        label: "Last Synced At",
-        help: "When the sync last finished a pass over the folder."
+        label: "Остання синхронізація",
+        help: "Коли синхронізація востаннє завершила прохід по папці."
       }
     }
   },
   sys_mail_message: {
-    label: "Mail Message",
-    pluralLabel: "Mail Messages",
-    description: "Inbound mail message mirrored from a mailbox",
+    label: "Електронний лист",
+    pluralLabel: "Електронні листи",
+    description: "Вхідний електронний лист, відзеркалений із поштової скриньки",
     fields: {
       id: {
-        label: "Message ID"
+        label: "ID повідомлення"
       },
       mailbox_id: {
-        label: "Mailbox",
-        help: "The mailbox the message arrived in"
+        label: "Поштова скринька",
+        help: "Скринька, до якої надійшов лист"
       },
       message_id: {
         label: "Message-ID",
-        help: "The Message-ID header, angle brackets stripped"
+        help: "Заголовок Message-ID без кутових дужок"
       },
       in_reply_to: {
         label: "In-Reply-To",
-        help: "The In-Reply-To header: the message ids this message replies to, space-separated"
+        help: "Заголовок In-Reply-To: ідентифікатори повідомлень, на які відповідає цей лист, розділені пробілами"
       },
       reference_ids: {
         label: "References",
-        help: "The References header: the message ids of the thread, space-separated"
+        help: "Заголовок References: ідентифікатори повідомлень ланцюжка, розділені пробілами"
       },
       from_address: {
-        label: "From",
-        help: "The first From address. A message without one is still mirrored, never dropped."
+        label: "Від",
+        help: "Перша адреса «Від». Лист без неї все одно відзеркалюється, ніколи не відкидається."
       },
       from_name: {
-        label: "From Name",
-        help: "The display name of the first From address"
+        label: "Ім'я відправника (From)",
+        help: "Показуване ім'я першої адреси «Від»"
       },
       sender_address: {
-        label: "Sender",
-        help: "The Sender header, when the message carries one"
+        label: "Відправник (Sender)",
+        help: "Заголовок Sender, коли лист його несе"
       },
       reply_to: {
         label: "Reply-To",
-        help: "Comma-separated Reply-To addresses"
+        help: "Адреси Reply-To, розділені комами"
       },
       to_addresses: {
-        label: "To",
-        help: "Comma-separated To addresses"
+        label: "Кому",
+        help: "Адреси «Кому», розділені комами"
       },
       cc_addresses: {
-        label: "Cc",
-        help: "Comma-separated Cc addresses"
+        label: "Копія",
+        help: "Адреси «Копія», розділені комами"
       },
       sent_at: {
-        label: "Sent At",
-        help: "The Date header: when the sender says the message was written"
+        label: "Надіслано",
+        help: "Заголовок Date: коли відправник указує, що лист було написано"
       },
       received_at: {
-        label: "Received At",
-        help: "When the mailbox received the message"
+        label: "Отримано",
+        help: "Коли скринька отримала лист"
       },
       subject: {
-        label: "Subject"
+        label: "Тема"
       },
       body_text: {
-        label: "Body (text)"
+        label: "Тіло (текст)"
       },
       body_html: {
-        label: "Body (HTML)",
-        help: "The HTML part as the sender wrote it, stored verbatim and never rendered unsanitized"
+        label: "Тіло (HTML)",
+        help: "HTML-частина так, як її написав відправник: зберігається дослівно й ніколи не показується без очищення"
       },
       match_addresses: {
-        label: "Match Addresses",
-        help: "The participant addresses records were matched against, minus the mailbox’s own address; a re-match replays exactly these"
+        label: "Адреси для зіставлення",
+        help: "Адреси учасників, з якими зіставлялися записи, без власної адреси скриньки; повторне зіставлення відтворює рівно їх"
       },
       association_state: {
-        label: "Association",
-        help: "Whether any record matched the message. An unassociated message waits in the restricted pool.",
+        label: "Зв'язок",
+        help: "Чи знайшовся запис, що відповідає листу. Неприв'язаний лист чекає в обмеженому пулі.",
         options: {
-          associated: "Associated",
-          unassociated: "Unassociated"
+          associated: "Прив'язано",
+          unassociated: "Неприв'язано"
         }
       },
       dedupe_key: {
-        label: "Dedupe Key",
-        help: "Hash of the normalized Message-ID (or of the header block when there is none); one row per message per mailbox"
+        label: "Ключ дедуплікації",
+        help: "Геш нормалізованого Message-ID (або блока заголовків, коли його немає); один рядок на лист у межах скриньки"
       }
     }
   },
   sys_mail_association: {
-    label: "Mail Association",
-    pluralLabel: "Mail Associations",
-    description: "Links a mirrored inbound message to a record it belongs to",
+    label: "Зв'язок листа",
+    pluralLabel: "Зв'язки листів",
+    description: "Зв'язує відзеркалений вхідний лист із записом, до якого він належить",
     fields: {
       id: {
-        label: "Association ID"
+        label: "ID зв'язку"
       },
       mail_message_id: {
-        label: "Message"
+        label: "Лист"
       },
       object_name: {
-        label: "Object",
-        help: "Machine name of the object the associated record belongs to"
+        label: "Об'єкт",
+        help: "Машинна назва об'єкта, до якого належить пов'язаний запис"
       },
       record_id: {
-        label: "Record ID",
-        help: "Id of the associated record, in the object named by Object"
+        label: "ID запису",
+        help: "Ідентифікатор пов'язаного запису в об'єкті, названому в полі «Об'єкт»"
       },
       matched_address: {
-        label: "Matched Address",
-        help: "The participant address that matched the record"
+        label: "Зіставлена адреса",
+        help: "Адреса учасника, за якою знайдено запис"
       },
       matched_field: {
-        label: "Matched Field",
-        help: "The email field of the record whose value equalled the matched address"
+        label: "Зіставлене поле",
+        help: "Поле електронної адреси запису, значення якого збіглося зі зіставленою адресою"
       },
       matched_by: {
-        label: "Matched By",
-        help: "Whether the link was stamped when the message arrived or added by a later re-match",
+        label: "Спосіб зіставлення",
+        help: "Чи проставлено зв'язок у момент надходження листа, чи додано пізнішим повторним зіставленням",
         options: {
-          ingest: "Ingest",
-          rematch: "Re-match"
+          ingest: "Надходження",
+          rematch: "Повторне зіставлення"
         }
       }
     }

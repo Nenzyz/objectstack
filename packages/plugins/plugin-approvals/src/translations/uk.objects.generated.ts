@@ -16,392 +16,392 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_approval_request: {
-    label: "Approval Request",
-    pluralLabel: "Approval Requests",
-    description: "Live approval instance tracked per submission",
+    label: "Запит на затвердження",
+    pluralLabel: "Запити на затвердження",
+    description: "Чинний примірник затвердження, що відстежується окремо для кожного подання",
     fields: {
       id: {
-        label: "Request ID"
+        label: "ID запиту"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the label of the flow that opened this request, else its source (computed on read)"
+        label: "Назва",
+        help: "Назва запису: назва потоку, що відкрив цей запит, інакше — його джерело (обчислюється під час читання)"
       },
       organization_id: {
-        label: "Organization",
-        help: "Organization of the record this request is about (falls back to the acting context when the record has none)"
+        label: "Організація",
+        help: "Організація запису, якого стосується цей запит (якщо в запису її немає, береться з чинного контексту)"
       },
       process_name: {
-        label: "Source",
-        help: "Origin of the request — `flow:<flowName|nodeId>` for node-driven approvals"
+        label: "Джерело",
+        help: "Походження запиту — `flow:<flowName|nodeId>` для затверджень, що запускаються вузлом потоку"
       },
       process_package: {
-        label: "Source Package",
-        help: "The app the flow that opened this request comes from. Filled in by the platform; empty for flows created here."
+        label: "Пакет джерела",
+        help: "Застосунок, з якого походить потік, що відкрив цей запит. Заповнюється платформою; для потоків, створених тут, порожнє."
       },
       process_label: {
-        label: "Flow",
-        help: "Label of the flow that opened this request, as it stood when the request was opened"
+        label: "Потік",
+        help: "Назва потоку, що відкрив цей запит, у тому вигляді, в якому вона була на момент відкриття запиту"
       },
       object_name: {
-        label: "Object"
+        label: "Об'єкт"
       },
       record_id: {
-        label: "Record"
+        label: "Запис"
       },
       submitter_id: {
-        label: "Submitter"
+        label: "Автор запиту"
       },
       submitter_comment: {
-        label: "Submitter Comment"
+        label: "Коментар автора запиту"
       },
       status: {
-        label: "Status",
-        help: "Lifecycle state of the request",
+        label: "Статус",
+        help: "Стан життєвого циклу запиту",
         options: {
-          pending: "Pending",
-          approved: "Approved",
-          rejected: "Rejected",
-          recalled: "Recalled",
-          returned: "Returned",
-          cancelled: "Cancelled"
+          pending: "Очікує розгляду",
+          approved: "Затверджено",
+          rejected: "Відхилено",
+          recalled: "Відкликано",
+          returned: "Повернено",
+          cancelled: "Скасовано"
         }
       },
       cancel_reason: {
-        label: "Cancellation Reason",
-        help: "Why the platform voided this request (set only when the status is cancelled)",
+        label: "Причина скасування",
+        help: "Чому платформа анулювала цей запит (заповнюється лише тоді, коли статус — скасовано)",
         options: {
-          record_deleted: "Related record deleted"
+          record_deleted: "Пов'язаний запис видалено"
         }
       },
       current_step: {
-        label: "Current Step",
-        help: "Machine name of the step awaiting approval"
+        label: "Поточний крок",
+        help: "Машинна назва кроку, що очікує затвердження"
       },
       current_step_label: {
-        label: "Approval Step",
-        help: "Label of the step awaiting approval, as it stood when the request reached it"
+        label: "Крок затвердження",
+        help: "Назва кроку, що очікує затвердження, у тому вигляді, в якому вона була, коли запит дійшов до нього"
       },
       current_step_index: {
-        label: "Current Step Index"
+        label: "Індекс поточного кроку"
       },
       pending_approvers: {
-        label: "Pending Approvers",
-        help: "Comma-separated user ids who can act on the current step"
+        label: "Затверджувачі на черзі",
+        help: "Ідентифікатори користувачів через кому, які можуть діяти на поточному кроці"
       },
       pending_approver_labels: {
-        label: "Waiting On",
-        help: "Who the request is waiting on: the name of each pending approver, or the slot address when it names no person"
+        label: "Очікує від",
+        help: "На кого чекає запит: ім'я кожного затверджувача на черзі або адреса слота, коли той не вказує на особу"
       },
       payload_json: {
-        label: "Snapshot",
-        help: "Record snapshot at submission time"
+        label: "Знімок",
+        help: "Знімок запису на момент подання"
       },
       flow_run_id: {
-        label: "Flow Run",
-        help: "Suspended automation run id this request gates. The decision resumes it."
+        label: "Запуск потоку",
+        help: "Ідентифікатор призупиненого запуску автоматизації, який цей запит тримає відкритим. Рішення відновлює його виконання."
       },
       flow_node_id: {
-        label: "Flow Node",
-        help: "Approval node id within the flow that opened this request."
+        label: "Вузол потоку",
+        help: "Ідентифікатор вузла затвердження в потоці, що відкрив цей запит."
       },
       node_config_json: {
-        label: "Node Config",
-        help: "Snapshot of the Approval node config (approvers/behavior) for node-driven requests."
+        label: "Конфігурація вузла",
+        help: "Знімок конфігурації вузла Затвердження (затверджувачі/поведінка) для запитів, що запускаються вузлом."
       },
       completed_at: {
-        label: "Completed At"
+        label: "Дата завершення"
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Дата оновлення"
       }
     },
     _views: {
       all_requests: {
-        label: "All"
+        label: "Усі"
       },
       my_pending: {
-        label: "My Pending",
+        label: "Мої очікувані",
         emptyState: {
-          title: "No pending approvals",
-          message: "You're all caught up."
+          title: "Немає запитів на затвердження",
+          message: "Усе опрацьовано."
         }
       },
       submitted_by_me: {
-        label: "I Submitted"
+        label: "Подані мною"
       },
       completed: {
-        label: "Completed"
+        label: "Завершені"
       }
     },
     _actions: {
       approval_approve: {
-        label: "Approve",
-        description: "Approve this request? Your approval is recorded, and the request moves on once this step has the approvals it requires.",
-        successMessage: "Approved \"{{ result.request.record_title }}\"",
+        label: "Затвердити",
+        description: "Затвердити цей запит? Ваше затвердження буде зафіксовано, і запит просунеться далі, щойно цей крок збере потрібні йому затвердження.",
+        successMessage: "Затверджено «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "Comment"
+            label: "Коментар"
           },
           attachments: {
-            label: "Attachments"
+            label: "Вкладення"
           }
         }
       },
       approval_reject: {
-        label: "Reject",
-        description: "Reject this request? A rejection is final for every approver.",
-        successMessage: "Rejected \"{{ result.request.record_title }}\"",
+        label: "Відхилити",
+        description: "Відхилити цей запит? Відхилення є остаточним для всіх затверджувачів.",
+        successMessage: "Відхилено «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "Comment"
+            label: "Коментар"
           },
           attachments: {
-            label: "Attachments"
+            label: "Вкладення"
           }
         }
       },
       approval_reassign: {
-        label: "Reassign",
-        successMessage: "Reassigned \"{{ result.request.record_title }}\"",
+        label: "Перепризначити",
+        successMessage: "Перепризначено «{{ result.request.record_title }}»",
         params: {
           to: {
-            label: "New approver",
-            helpText: "User to hand this step to"
+            label: "Новий затверджувач",
+            helpText: "Користувач, якому передається цей крок"
           },
           comment: {
-            label: "Comment"
+            label: "Коментар"
           }
         }
       },
       approval_send_back: {
-        label: "Send back",
-        successMessage: "Sent \"{{ result.request.record_title }}\" back for revision",
+        label: "Повернути на доопрацювання",
+        successMessage: "«{{ result.request.record_title }}» повернуто на доопрацювання",
         params: {
           comment: {
-            label: "Reason"
+            label: "Причина"
           }
         }
       },
       approval_request_info: {
-        label: "Request info",
-        successMessage: "Information requested on \"{{ result.request.record_title }}\"",
+        label: "Запросити інформацію",
+        successMessage: "Запитано інформацію щодо «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "What do you need?"
+            label: "Що вам потрібно?"
           }
         }
       },
       approval_remind: {
-        label: "Send reminder",
-        successMessage: "Reminder sent for \"{{ result.request.record_title }}\"",
+        label: "Надіслати нагадування",
+        successMessage: "Нагадування надіслано щодо «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "Note"
+            label: "Примітка"
           }
         }
       },
       approval_recall: {
-        label: "Recall",
-        description: "Recall this request? Approvers can no longer act on it and the record is unlocked.",
-        successMessage: "Recalled \"{{ result.request.record_title }}\"",
+        label: "Відкликати",
+        description: "Відкликати цей запит? Затверджувачі більше не зможуть його розглядати, а запис буде розблоковано.",
+        successMessage: "Відкликано «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "Comment"
+            label: "Коментар"
           }
         }
       },
       approval_resubmit: {
-        label: "Resubmit",
-        successMessage: "Resubmitted \"{{ result.request.record_title }}\"",
+        label: "Подати повторно",
+        successMessage: "Повторно подано «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "What changed?"
+            label: "Що змінилося?"
           }
         }
       },
       approval_comment: {
-        label: "Reply",
-        successMessage: "Reply posted on \"{{ result.request.record_title }}\"",
+        label: "Відповісти",
+        successMessage: "Відповідь додано до «{{ result.request.record_title }}»",
         params: {
           comment: {
-            label: "Comment"
+            label: "Коментар"
           },
           attachments: {
-            label: "Attachments"
+            label: "Вкладення"
           }
         }
       }
     }
   },
   sys_approval_action: {
-    label: "Approval Action",
-    pluralLabel: "Approval Actions",
-    description: "Append-only audit trail for approval actions",
+    label: "Дія затвердження",
+    pluralLabel: "Дії затвердження",
+    description: "Журнал аудиту дій затвердження, у який можна лише додавати записи",
     fields: {
       id: {
-        label: "Action ID"
+        label: "ID дії"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the action and, when recorded, its step (computed on read)"
+        label: "Назва",
+        help: "Назва запису: дія і, коли відомо, її крок (обчислюється під час читання)"
       },
       organization_id: {
-        label: "Organization",
-        help: "Tenant that owns this action (mirrors the parent request)"
+        label: "Організація",
+        help: "Організація, якій належить ця дія (збігається з батьківським запитом)"
       },
       request_id: {
-        label: "Request"
+        label: "Запит"
       },
       step_name: {
-        label: "Step",
-        help: "Machine name of the step at the time of the action"
+        label: "Крок",
+        help: "Машинна назва кроку на момент дії"
       },
       step_label: {
-        label: "Approval Step",
-        help: "Label of the step at the time of the action"
+        label: "Крок затвердження",
+        help: "Назва кроку на момент дії"
       },
       object_name: {
-        label: "Object",
-        help: "Object of the record the request is about"
+        label: "Об'єкт",
+        help: "Об'єкт запису, якого стосується запит"
       },
       record_id: {
-        label: "Record",
-        help: "The record the request is about"
+        label: "Запис",
+        help: "Запис, якого стосується запит"
       },
       step_index: {
-        label: "Step Index"
+        label: "Індекс кроку"
       },
       action: {
-        label: "Action",
+        label: "Дія",
         options: {
-          submit: "Submit",
-          approve: "Approve",
-          reject: "Reject",
-          recall: "Recall",
-          escalate: "Escalate",
-          reassign: "Reassign",
-          remind: "Remind",
-          request_info: "Request Info",
-          comment: "Comment",
-          revise: "Revise",
-          resubmit: "Resubmit",
-          ooo_substitute: "Out-of-Office Substitution",
-          cancel: "Cancel"
+          submit: "Подання",
+          approve: "Затвердження",
+          reject: "Відхилення",
+          recall: "Відкликання",
+          escalate: "Ескалація",
+          reassign: "Перепризначення",
+          remind: "Нагадування",
+          request_info: "Запит інформації",
+          comment: "Коментар",
+          revise: "Доопрацювання",
+          resubmit: "Повторне подання",
+          ooo_substitute: "Заміщення на час відсутності",
+          cancel: "Скасування"
         }
       },
       actor_id: {
-        label: "Actor",
-        help: "The user who took this action. Empty when no person is recorded: a system-initiated action, or a decision recorded before the deciding user was captured, which still shows the slot it was taken as."
+        label: "Виконавець",
+        help: "Користувач, який учинив цю дію. Порожнє, коли не записано особи: дія, ініційована системою, або рішення, записане до того, як було зафіксовано користувача, який його ухвалив, — таке рішення все одно показує слот, від імені якого його вчинено."
       },
       acted_as: {
-        label: "Acted As",
-        help: "The pending-approver slot this action was taken as, in the slot’s stored spelling: a user id, an email, or a position address. Empty when no slot admitted the action, such as the submitter’s own actions, system actions and admin overrides."
+        label: "Дія від імені",
+        help: "Слот затверджувача на черзі, від імені якого вчинено цю дію, у тому вигляді, в якому слот збережено: ідентифікатор користувача, електронна пошта або адреса посади. Порожнє, коли жоден слот не пропускав цю дію — як у власних діях автора запиту, системних діях і діях за адміністративним перевизначенням."
       },
       acted_as_label: {
-        label: "Acting As",
-        help: "The slot this action was taken as, for display: the name of the person it names, or its address when it names no person"
+        label: "Діє від імені",
+        help: "Слот, від імені якого вчинено цю дію, для показу: ім'я особи, яку він вказує, або його адреса, якщо він не вказує на особу"
       },
       comment: {
-        label: "Comment"
+        label: "Коментар"
       },
       via_override: {
-        label: "Via Admin Override",
-        help: "True when the actor held no slot in the request’s pending-approver slate and was admitted to this action only by the privileged override, which lets a platform or organization admin act on any pending request so that one nobody in its slate can decide never stays stuck."
+        label: "Через адміністративне перевизначення",
+        help: "Істина, коли виконавець не мав слота серед затверджувачів запита на черзі й отримав допуск до цієї дії лише через привілейоване перевизначення, яке дозволяє адміністратору платформи чи організації діяти з будь-яким запитом на черзі, щоб запит, який ніхто зі списку не може ухвалити, не зависав назавжди."
       },
       reassign_from: {
-        label: "Reassigned From",
-        help: "The pending-approver slot that was handed over, in the slot’s stored spelling: a user id, an email, or a position address (reassign actions only)."
+        label: "Перепризначено з",
+        help: "Слот затверджувача на черзі, який було передано, у збереженому написанні слота: ідентифікатор користувача, електронна пошта або адреса посади (лише для дій перепризначення)."
       },
       reassign_to: {
-        label: "Reassigned To",
-        help: "The pending-approver address the slot was handed to, in its stored spelling: a user id, an email, or a position address (reassign actions only)."
+        label: "Перепризначено на",
+        help: "Адреса затверджувача на черзі, якій передано слот, у збереженому написанні: ідентифікатор користувача, електронна пошта або адреса посади (лише для дій перепризначення)."
       },
       attachments: {
-        label: "Attachments",
-        help: "Files supporting this action — e.g. a signed contract or evidence."
+        label: "Вкладення",
+        help: "Файли, що підтверджують цю дію — наприклад, підписаний договір або докази."
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       }
     },
     _views: {
       recent: {
-        label: "Recent",
+        label: "Недавні",
         emptyState: {
-          title: "No approval actions yet",
-          message: "Actions are logged automatically when approvals progress."
+          title: "Дій затвердження ще не було",
+          message: "Дії записуються в журнал автоматично в міру просування затверджень."
         }
       },
       by_actor: {
-        label: "By Actor"
+        label: "За виконавцем"
       },
       all_actions: {
-        label: "All"
+        label: "Усі"
       }
     }
   },
   sys_approval_delegation: {
-    label: "Approval Delegation",
-    pluralLabel: "Approval Delegations",
-    description: "While someone is away, approvals assigned to them personally go to their delegate.",
+    label: "Делегування затверджень",
+    pluralLabel: "Делегування затверджень",
+    description: "Поки когось немає на місці, затвердження, призначені йому особисто, надходять до заступника.",
     fields: {
       id: {
-        label: "Delegation ID"
+        label: "ID делегування"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the delegator and the delegate (computed on read)"
+        label: "Назва",
+        help: "Назва запису: делегатор і заступник (обчислюється під час читання)"
       },
       delegator_id: {
-        label: "Delegator",
-        help: "The user going out of office. You can delegate only your own approvals, so this is always you: it starts as you and offers no one else. Their individually-routed approver slots are rerouted while active."
+        label: "Делегатор",
+        help: "Користувач, який іде у відпустку чи відрядження. Делегувати можна лише власні затвердження, тому це завжди ви: за замовчуванням тут ви, і нікого іншого запропоновано не буде. Поки правило активне, його персонально спрямовані слоти затверджувача перенаправляються."
       },
       delegate_id: {
-        label: "Delegate",
-        help: "The backup who receives the delegator's approvals while this rule is active. Acts under their own identity."
+        label: "Заступник",
+        help: "Заміна, яка отримує затвердження делегатора, доки це правило активне. Діє від власного імені."
       },
       valid_from: {
-        label: "Valid From",
-        help: "Rule is inactive before this instant. Null = active immediately. Checked each time an approval is routed, so the rule starts on time without any scheduled job."
+        label: "Діє з",
+        help: "До цього моменту правило не діє. Null = діє негайно. Перевіряється щоразу під час маршрутизації затвердження, тому правило починає діяти вчасно без жодного запланованого завдання."
       },
       valid_until: {
-        label: "Valid Until",
-        help: "The rule stops applying at this time (UTC). Leave empty for no end date."
+        label: "Діє до",
+        help: "У цей час (UTC) правило перестає застосовуватися. Залиште порожнім, якщо кінцевої дати немає."
       },
       reason: {
-        label: "Reason",
-        help: "Why the delegation exists (e.g. \"Annual leave 5/26–5/30\"). Recorded on the substitution audit row."
+        label: "Причина",
+        help: "Чому існує делегування (наприклад, «Річна відпустка 26.05–30.05»). Записується в рядок аудиту заміщення."
       },
       organization_id: {
-        label: "Organization",
-        help: "The organization this delegation belongs to. It reroutes only the approvals opened in this organization."
+        label: "Організація",
+        help: "Організація, до якої належить це делегування. Вона перенаправляє лише затвердження, відкриті в цій організації."
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Дата оновлення"
       }
     },
     _views: {
       active: {
-        label: "Active",
+        label: "Активні",
         emptyState: {
-          title: "No delegations",
-          message: "Declare an out-of-office delegation so approvals route to a backup while you are away."
+          title: "Немає делегувань",
+          message: "Оголосіть делегування на час відсутності, щоб затвердження надходили до заміни, поки вас немає."
         }
       }
     },
     _validations: {
       validity_window_order: {
-        message: "Valid Until must be later than Valid From. The delegation applies from Valid From up to, but not including, Valid Until, so a window that ends at or before it starts never reroutes an approval. Leave either one empty for an open-ended window."
+        message: "«Діє до» має бути пізніше за «Діє з». Делегування застосовується від «Діє з» до, але не включно, «Діє до», тож вікно, що завершується в момент початку чи раніше, ніколи не перенаправить жодне затвердження. Залиште одне з полів порожнім, щоб мати вікно без кінця."
       },
       delegate_not_delegator: {
-        message: "Delegate must be someone other than the Delegator. A delegation hands your approvals to another user while you are away, so naming yourself as the delegate never reroutes an approval."
+        message: "Заступник має бути іншою особою, ніж делегатор. Делегування передає ваші затвердження іншому користувачу, поки вас немає, тому якщо вказати себе заступником, жодне затвердження не буде перенаправлено."
       }
     }
   }

@@ -16,91 +16,91 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_inbox_message: {
-    label: "Inbox Message",
-    pluralLabel: "Inbox Messages",
-    description: "User-facing in-app notification rows materialized by the inbox messaging channel.",
+    label: "Повідомлення вхідних",
+    pluralLabel: "Повідомлення вхідних",
+    description: "Рядки сповіщень у застосунку, які бачить користувач і які матеріалізує канал вхідних.",
     fields: {
       id: {
-        label: "Inbox Message ID"
+        label: "ID повідомлення вхідних"
       },
       user_id: {
-        label: "Recipient User"
+        label: "Користувач-одержувач"
       },
       notification_id: {
-        label: "Notification Event",
-        help: "The notification this message delivers. Marking the message read records it against this notification."
+        label: "Подія сповіщення",
+        help: "Сповіщення, яке доставляє це повідомлення. Позначення повідомлення прочитаним фіксується проти цього сповіщення."
       },
       delivery_id: {
-        label: "Delivery",
-        help: "The delivery record of this message. Not filled in for in-app messages."
+        label: "Доставка",
+        help: "Запис доставки цього повідомлення. Не заповнюється для повідомлень у застосунку."
       },
       actor_id: {
-        label: "Triggered By",
-        help: "The person whose action raised this notification, for example who mentioned or assigned the recipient. Empty when the message groups several notifications."
+        label: "Ініціатор",
+        help: "Людина, чия дія спричинила це сповіщення: наприклад, хто згадав одержувача чи призначив його. Порожньо, коли повідомлення групує кілька сповіщень."
       },
       topic: {
-        label: "Topic"
+        label: "Тема сповіщень"
       },
       title: {
-        label: "Title"
+        label: "Заголовок"
       },
       body_md: {
-        label: "Body"
+        label: "Тіло"
       },
       severity: {
-        label: "Severity",
+        label: "Серйозність",
         options: {
-          info: "Info",
-          warning: "Warning",
-          critical: "Critical"
+          info: "Інформація",
+          warning: "Попередження",
+          critical: "Критична"
         }
       },
       action_url: {
-        label: "Action URL"
+        label: "URL дії"
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       keyed_text: {
-        label: "Text Keys",
-        help: "The catalog keys and params the title and body were rendered from at delivery. A read re-renders the title and body from them in the reader's language; null when the notification carried no keys, and the stored title and body are then served as written."
+        label: "Текстові ключі",
+        help: "Ключі каталогу і параметри, з яких під час доставки зібрано заголовок і тіло. Читання знову збирає заголовок і тіло з них мовою читача; null, коли сповіщення не несло ключів, — тоді заголовок і тіло видаються так, як записані."
       }
     },
     _views: {
       mine: {
-        label: "Notifications",
+        label: "Сповіщення",
         emptyState: {
-          title: "Inbox zero",
-          message: "No notifications."
+          title: "У вхідних порожньо",
+          message: "Немає сповіщень."
         }
       }
     }
   },
   sys_notification_receipt: {
-    label: "Notification Receipt",
-    pluralLabel: "Notification Receipts",
-    description: "Per-recipient × channel receipt; the source of truth for notification read-state.",
+    label: "Квитанція сповіщення",
+    pluralLabel: "Квитанції сповіщень",
+    description: "Квитанція за парою одержувач × канал; джерело істини про стан прочитання сповіщень.",
     fields: {
       id: {
-        label: "Receipt ID"
+        label: "ID квитанції"
       },
       notification_id: {
-        label: "Notification Event",
-        help: "The notification whose state this receipt records."
+        label: "Подія сповіщення",
+        help: "Сповіщення, стан якого фіксує ця квитанція."
       },
       delivery_id: {
-        label: "Delivery",
-        help: "The delivery record this receipt belongs to. Not currently filled in."
+        label: "Доставка",
+        help: "Запис доставки, до якого належить ця квитанція. Нині не заповнюється."
       },
       user_id: {
-        label: "Recipient User"
+        label: "Користувач-одержувач"
       },
       channel: {
-        label: "Channel",
-        help: "Channel id this receipt is for (inbox / email / push / …)"
+        label: "Канал",
+        help: "Ідентифікатор каналу, для якого ця квитанція (inbox / email / push / …)"
       },
       state: {
-        label: "State",
+        label: "Стан",
         options: {
           delivered: "delivered",
           read: "read",
@@ -109,54 +109,54 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       at: {
-        label: "At",
-        help: "When the receipt reached its current state"
+        label: "Час",
+        help: "Коли квитанція набула поточного стану"
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       }
     }
   },
   sys_notification_delivery: {
-    label: "Notification Delivery",
-    pluralLabel: "Notification Deliveries",
-    description: "Durable per-recipient × channel delivery outbox.",
+    label: "Доставка сповіщення",
+    pluralLabel: "Доставки сповіщень",
+    description: "Стійка вихідна черга доставок за парою одержувач × канал.",
     fields: {
       id: {
-        label: "Delivery ID"
+        label: "ID доставки"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the delivery channel and the person it is for, or the address when the recipient is not a user (computed on read)"
+        label: "Заголовок",
+        help: "Заголовок запису: канал доставки й особа, для якої він призначений, або адреса, коли одержувач — не користувач (обчислюється під час читання)"
       },
       notification_id: {
-        label: "Notification Event",
-        help: "The notification this delivery sends."
+        label: "Подія сповіщення",
+        help: "Сповіщення, яке надсилає ця доставка."
       },
       recipient_id: {
-        label: "Recipient",
-        help: "The address the delivery is sent to: a user id, or an email address or phone number kept as given."
+        label: "Одержувач",
+        help: "Адреса, на яку надсилається доставка: ідентифікатор користувача, або адреса електронної пошти чи номер телефона в тому вигляді, як задано."
       },
       recipient_user_id: {
-        label: "Recipient User",
-        help: "The user the delivery is for. Empty when the recipient is an email address or phone number no user holds."
+        label: "Користувач-одержувач",
+        help: "Користувач, для якого ця доставка. Порожньо, коли одержувач — адреса електронної пошти чи номер телефона, якими не володіє жоден користувач."
       },
       channel: {
-        label: "Channel"
+        label: "Канал"
       },
       topic: {
-        label: "Topic"
+        label: "Тема сповіщень"
       },
       digest_key: {
-        label: "Digest Key",
-        help: "recipient|channel|window grouping key for batched (digest) deliveries; null for normal sends."
+        label: "Ключ дайджеста",
+        help: "ключ групування recipient|channel|window для пакетних (дайджест) доставок; null для звичайних надсилань."
       },
       payload: {
-        label: "Payload",
-        help: "Snapshot of the rendered notification content for dispatch."
+        label: "Корисне навантаження",
+        help: "Знімок сформованого вмісту сповіщення для відправлення."
       },
       status: {
-        label: "Status",
+        label: "Статус",
         options: {
           pending: "pending",
           in_flight: "in_flight",
@@ -167,66 +167,66 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       attempts: {
-        label: "Attempts"
+        label: "Спроби"
       },
       partition_key: {
-        label: "Partition Key"
+        label: "Ключ розділу"
       },
       claimed_by: {
-        label: "Claimed By",
-        help: "Node id while in_flight"
+        label: "Взято в обробку (вузол)",
+        help: "Ідентифікатор вузла, поки стан in_flight"
       },
       claimed_at: {
-        label: "Claimed At (ms)"
+        label: "Взято в обробку (мс)"
       },
       next_attempt_at: {
-        label: "Next Attempt At (ms)"
+        label: "Наступна спроба (мс)"
       },
       last_attempted_at: {
-        label: "Last Attempted At (ms)"
+        label: "Остання спроба (мс)"
       },
       error: {
-        label: "Error"
+        label: "Помилка"
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       }
     }
   },
   sys_notification_preference: {
-    label: "Notification Preference",
-    pluralLabel: "Notification Preferences",
-    description: "Which topics and channels each user receives; admins set the defaults.",
+    label: "Правило сповіщень",
+    pluralLabel: "Правила сповіщень",
+    description: "Які теми та канали отримує кожен користувач; типові значення задає адміністратор.",
     fields: {
       id: {
-        label: "Preference ID"
+        label: "ID правила"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the person (or All users), the topic and the channel this toggle covers (computed on read)"
+        label: "Заголовок",
+        help: "Заголовок запису: особа (або «Усі користувачі»), тема і канал, яких стосується цей перемикач (обчислюється під час читання)"
       },
       user_id: {
-        label: "User",
-        help: "The user this preference applies to. Leave empty for the default that applies to all users."
+        label: "Користувач",
+        help: "Користувач, до якого застосовується це правило. Залиште порожнім для типового правила, що застосовується до всіх користувачів."
       },
       topic: {
-        label: "Topic",
-        help: "The topic the notifications are sent under: the topic a flow's notify step names, or one the platform sends, such as approval.requested or collab.mention. Enter * for all topics. A topic nothing sends matches nothing."
+        label: "Тема сповіщень",
+        help: "Тема, під якою надсилаються сповіщення: тема, яку називає крок сповіщення потоку, або та, яку надсилає сама платформа, як-от approval.requested чи collab.mention. Введіть *, щоб охопити всі теми. Тема, яку ніщо не надсилає, не дасть збігів."
       },
       channel: {
-        label: "Channel",
-        help: "The channel: inbox (notifications shown inside the app, always available), email (once an email service is configured), sms (once an SMS service is configured), push (once a push service is configured, to the user's registered devices), or the id of a channel an installed plugin adds. Enter * for all channels. An id no channel uses matches nothing."
+        label: "Канал",
+        help: "Канал: inbox (сповіщення, що показуються в застосунку, доступні завжди), email (коли налаштовано службу електронної пошти), sms (коли налаштовано службу SMS), push (коли налаштовано службу push, на зареєстровані пристрої користувача) або ідентифікатор каналу, який додає встановлений плагін. Введіть *, щоб охопити всі канали. Ідентифікатор, якого не вживає жоден канал, не дасть збігів."
       },
       enabled: {
-        label: "Enabled",
-        help: "When false, this (user, topic, channel) is muted."
+        label: "Увімкнено",
+        help: "Коли значення хибне, цей набір (користувач, тема, канал) заглушено."
       },
       digest: {
-        label: "Digest",
-        help: "Collect these notifications into one summary instead of sending each as it arrives: daily sends it at midnight, weekly on Monday at midnight, none sends each one right away. Critical notifications are always sent at once. Takes effect on a preference whose channel is * (all channels).",
+        label: "Дайджест",
+        help: "Збирати ці сповіщення в одне зведення замість надсилання кожного щойно воно приходить: daily надсилає зведення опівночі, weekly — щопонеділка опівночі, none надсилає кожне одразу. Критичні сповіщення завжди надсилаються негайно. Діє для правила, канал якого — * (усі канали).",
         options: {
           none: "none",
           daily: "daily",
@@ -234,58 +234,58 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       quiet_hours: {
-        label: "Quiet Hours",
-        help: "A daily window when notifications are held and delivered when it ends, for example { \"tz\": \"Europe/Berlin\", \"start\": \"22:00\", \"end\": \"07:00\" }. Times are HH:MM in that time zone (UTC when tz is left out), and the window may run past midnight. Critical notifications are not held. Takes effect on a preference whose channel is * (all channels)."
+        label: "Тихі години",
+        help: "Добове вікно, протягом якого сповіщення затримуються й доставляються щойно воно завершується, наприклад { \"tz\": \"Europe/Berlin\", \"start\": \"22:00\", \"end\": \"07:00\" }. Час — HH:MM у цьому часовому поясі (UTC, коли tz пропущено), а вікно може тривати після опівночі. Критичні сповіщення не затримуються. Діє для правила, канал якого — * (усі канали)."
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       }
     },
     _views: {
       all: {
-        label: "All",
+        label: "Усі",
         emptyState: {
-          title: "No preferences yet",
-          message: "Nothing is muted until a preference is added; add one to mute or allow a topic on a channel, for one user or as the default for everyone."
+          title: "Правил ще немає",
+          message: "Нічого не заглушено, доки не додано правило; додайте його, щоб заглушити чи дозволити тему в каналі — для одного користувача або як типове для всіх."
         }
       }
     }
   },
   sys_notification_template: {
-    label: "Notification Template",
-    pluralLabel: "Notification Templates",
-    description: "The email and SMS text each notification topic sends, per language. The in-app inbox never uses these templates.",
+    label: "Шаблон сповіщення",
+    pluralLabel: "Шаблони сповіщень",
+    description: "Текст електронної пошти та SMS, який надсилає кожна тема сповіщень, за мовами. Вхідні в застосунку ніколи не використовують ці шаблони.",
     fields: {
       id: {
-        label: "Template ID"
+        label: "ID шаблона"
       },
       topic: {
-        label: "Topic"
+        label: "Тема сповіщень"
       },
       channel: {
-        label: "Channel",
-        help: "Which channel uses this template: email or sms; any other value is refused. The in-app inbox never does; for in-app content, write an email template and name it in a notify step's template."
+        label: "Канал",
+        help: "Канал, який використовує цей шаблон: email або sms; будь-яке інше значення відхиляється. Вхідні в застосунку — ніколи; для вмісту в застосунку створіть email-шаблон і вкажіть його в полі template кроку сповіщення."
       },
       locale: {
-        label: "Locale",
-        help: "BCP-47 locale, e.g. 'en' / 'en-US' / 'zh-CN'."
+        label: "Локаль",
+        help: "Локаль у форматі BCP-47, наприклад 'en' / 'en-US' / 'zh-CN'."
       },
       version: {
-        label: "Version"
+        label: "Версія"
       },
       subject: {
-        label: "Subject / Title",
-        help: "The email subject; an SMS sends it only when the body is empty. Supports {{ payload.x }}."
+        label: "Тема / Заголовок",
+        help: "Тема електронного листа; SMS надсилає її, лише коли тіло порожнє. Підтримує {{ payload.x }}."
       },
       body: {
-        label: "Body",
-        help: "Template body. Supports {{ payload.x }}. Interpreted per `format`."
+        label: "Тіло",
+        help: "Тіло шаблона. Підтримує {{ payload.x }}. Обробляється за `format`."
       },
       format: {
-        label: "Body Format",
+        label: "Формат тіла",
         options: {
           markdown: "markdown",
           html: "html",
@@ -294,164 +294,164 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       is_active: {
-        label: "Active",
-        help: "Only active templates are selected at render time."
+        label: "Активний",
+        help: "Під час формування обираються лише активні шаблони."
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       }
     },
     _views: {
       all: {
-        label: "All",
+        label: "Усі",
         emptyState: {
-          title: "No templates yet",
-          message: "Add a template per topic, channel (email or SMS) and language; until then, those channels send the title and body the notification carries. In-app content comes from an email template: a notification that names one sends it by email and in the inbox, and SMS still uses the template here."
+          title: "Шаблонів ще немає",
+          message: "Додайте шаблон на кожну тему, канал (email або SMS) і мову; до того часу ці канали надсилають заголовок і тіло, які несе сповіщення. Вміст у застосунку береться з email-шаблона: сповіщення, що називає такий шаблон, розсилає його і електронною поштою, і у вхідних, а SMS і надалі використовує шаблон звідси."
         }
       }
     },
     _validations: {
       channel_renders_template: {
-        message: "Only the email and sms channels use a notification template, so a template for any other channel is refused: set channel to email or sms, or delete the template. For in-app (inbox) content, write an email template (email_template) and name it in the notify step's template; email and the inbox both render it."
+        message: "Лише канали email і sms використовують шаблон сповіщень, тож шаблон для будь-якого іншого каналу відхиляється: задайте каналу email або sms чи видаліть шаблон. Для вмісту в застосунку (вхідних) створіть email-шаблон (email_template) і вкажіть його в полі template кроку сповіщення; його рендерять і email, і вхідні."
       }
     }
   },
   sys_http_delivery: {
-    label: "HTTP Delivery",
-    pluralLabel: "HTTP Deliveries",
-    description: "Outgoing HTTP calls made by webhooks and flows, one row per call, with its delivery status.",
+    label: "HTTP-доставка",
+    pluralLabel: "HTTP-доставки",
+    description: "Вихідні HTTP-виклики, які роблять вебхуки та потоки, один рядок на виклик, зі статусом доставки.",
     fields: {
       id: {
-        label: "Delivery ID",
-        help: "UUID — also doubles as the receiver-side idempotency key"
+        label: "ID доставки",
+        help: "UUID — він же слугує ключем ідемпотентності на боці приймача"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the delivery label, when set, and its target URL (computed on read)"
+        label: "Заголовок",
+        help: "Заголовок запису: мітка доставки, коли вона задана, і цільовий URL (обчислюється під час читання)"
       },
       source: {
-        label: "Source",
-        help: "Provenance domain, e.g. 'webhook' | 'flow'. UNIQUE(source, dedup_key)."
+        label: "Джерело",
+        help: "Область походження, наприклад 'webhook' | 'flow'. UNIQUE(source, dedup_key)."
       },
       ref_id: {
-        label: "Ref ID",
-        help: "Partition/ordering anchor within source (webhook id, flow id, …)"
+        label: "Пов'язаний ID",
+        help: "Точка розділу/впорядкування в межах джерела (ідентифікатор вебхука чи потоку, …)"
       },
       dedup_key: {
-        label: "Dedup Key",
-        help: "UNIQUE(source, dedup_key) for at-most-once enqueue"
+        label: "Ключ дедуплікації",
+        help: "UNIQUE(source, dedup_key), щоб у чергу потрапляло щонайбільше один раз"
       },
       label: {
-        label: "Label",
-        help: "Diagnostic label / event type — surfaced on X-Objectstack-Event"
+        label: "Мітка",
+        help: "Діагностична мітка / тип події — виступає в заголовку X-Objectstack-Event"
       },
       url: {
-        label: "Target URL",
-        help: "Snapshotted at enqueue so config edits do not rewrite live rows"
+        label: "Цільовий URL",
+        help: "Зберігається знімком на момент постановки в чергу, щоб правки конфігурації не переписували живі рядки"
       },
       method: {
-        label: "Method"
+        label: "Метод"
       },
       headers_json: {
-        label: "Headers JSON",
-        help: "Authored request headers for this delivery — the ordinary place a credential goes, so never returned on the generic data path. The dispatcher recovers it through the engine's privileged accessor on the claim path."
+        label: "Заголовки (JSON)",
+        help: "Задані заголовки запиту цієї доставки — звичайне місце, куди кладуть облікові дані, тому вони ніколи не повертаються через загальний шлях даних. Диспетчер зчитує їх на шляху захоплення через привілейований доступ рушія."
       },
       signature: {
-        label: "HMAC Signature",
-        help: "X-Objectstack-Signature sent with this delivery (sha256=<hex>). Computed at enqueue; the signing secret is never persisted."
+        label: "HMAC-підпис",
+        help: "X-Objectstack-Signature, що надсилається разом із доставкою (sha256=<hex>). Обчислюється під час постановки в чергу; секрет підписування ніколи не зберігається."
       },
       timeout_ms: {
-        label: "Timeout (ms)"
+        label: "Тайм-аут (мс)"
       },
       payload_json: {
-        label: "Payload JSON"
+        label: "Корисне навантаження (JSON)"
       },
       partition_key: {
-        label: "Partition",
-        help: "hash(ref_id) mod partitionCount — precomputed for cheap WHERE"
+        label: "Розділ",
+        help: "hash(ref_id) mod partitionCount — обчислено заздалегідь для дешевого WHERE"
       },
       status: {
-        label: "Status",
+        label: "Статус",
         help: "pending | in_flight | success | failed | dead"
       },
       attempts: {
-        label: "Attempts",
-        help: "Number of attempts made so far. 0 on a terminal row means the delivery was PARKED — never sent, and not redeliverable, because it carries no signature; see `error` for the cause."
+        label: "Спроби",
+        help: "Кількість спроб, зроблених донині. 0 на рядку з кінцевим статусом означає, що доставку поставлено PARKED — її не надсилали й повторна доставка неможлива, бо вона не має підпису; причину дивіться в `error`."
       },
       claimed_by: {
-        label: "Claimed By"
+        label: "Взято в обробку (вузол)"
       },
       claimed_at: {
-        label: "Claimed At (ms)"
+        label: "Взято в обробку (мс)"
       },
       next_retry_at: {
-        label: "Next Retry At (ms)"
+        label: "Наступна повторна спроба (мс)"
       },
       last_attempted_at: {
-        label: "Last Attempted At (ms)"
+        label: "Остання спроба (мс)"
       },
       response_code: {
-        label: "HTTP Status"
+        label: "HTTP-статус"
       },
       response_body: {
-        label: "Response Body (capped)"
+        label: "Тіло відповіді (обмежене)"
       },
       error: {
-        label: "Error",
-        help: "Why this row is not a delivered callout: the last transport error, or — on a row with 0 attempts — why the delivery could never be prepared."
+        label: "Помилка",
+        help: "Чому цей рядок не став доставленим викликом: остання транспортна помилка або — на рядку з 0 спроб — причина, з якої доставку так і не вдалося підготувати."
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       }
     },
     _views: {
       recent: {
-        label: "Recent"
+        label: "Останні"
       },
       failures: {
-        label: "Failures"
+        label: "Збої"
       },
       pending: {
-        label: "Pending"
+        label: "На черзі"
       }
     }
   },
   sys_user_device: {
-    label: "User Device",
-    pluralLabel: "User Devices",
-    description: "A user's push device: one row per app install, holding its vendor push token.",
+    label: "Пристрій користувача",
+    pluralLabel: "Пристрої користувачів",
+    description: "Push-пристрій користувача: один рядок на встановлення застосунку, зберігає його push-токен постачальника.",
     fields: {
       id: {
-        label: "Row ID"
+        label: "ID рядка"
       },
       device_id: {
-        label: "Device ID",
-        help: "Client-held device id, stable per app install. Unique per user."
+        label: "ID пристрою",
+        help: "Ідентифікатор пристрою на боці клієнта, незмінний у межах встановлення застосунку. Унікальний для користувача."
       },
       user_id: {
-        label: "User",
-        help: "The user the device belongs to: the signed-in user who registered it."
+        label: "Користувач",
+        help: "Користувач, якому належить пристрій: той, хто був у вхід і зареєстрував його."
       },
       vendor: {
-        label: "Vendor",
-        help: "Push vendor the token belongs to.",
+        label: "Постачальник",
+        help: "Постачальник push, до якого належить токен.",
         options: {
           apns: "APNs",
           fcm: "FCM"
         }
       },
       token: {
-        label: "Push Token",
-        help: "Vendor push token. Held by one device at a time."
+        label: "Push-токен",
+        help: "Push-токен постачальника. У кожний момент належить лише одному пристрою."
       },
       platform: {
-        label: "Platform",
+        label: "Платформа",
         options: {
           ios: "iOS",
           android: "Android",
@@ -459,34 +459,34 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       app_id: {
-        label: "App ID",
-        help: "The iOS bundle ID or Android application ID the token was issued to."
+        label: "ID застосунку",
+        help: "Bundle ID iOS або application ID Android, яким видано токен."
       },
       locale: {
-        label: "Locale",
-        help: "Device locale, as the registration named it. Stored for the device; no push renders by it: a push arrives in the recipient's language (their user locale, then the deployment default)."
+        label: "Локаль",
+        help: "Локаль пристрою, як її назвала реєстрація. Зберігається для пристрою; за нею жоден push не формується: push приходить мовою одержувача (локаль його користувача, потім типова для розгортання)."
       },
       origin: {
-        label: "Server Origin",
-        help: "The origin the Console was loaded from when it registered the device (for example https://crm.example.com). Every push to the device carries it, so a mobile shell with several saved servers opens the push on this one. Empty for a device registered without one."
+        label: "Origin сервера",
+        help: "Origin, з якого було завантажено Консоль, коли вона реєструвала пристрій (наприклад https://crm.example.com). Кожен push на пристрій його несе, тож мобільна оболонка з кількома збереженими серверами відкриє push саме на цьому. Порожньо для пристрою, зареєстрованого без Origin."
       },
       name: {
-        label: "Device Name"
+        label: "Назва пристрою"
       },
       enabled: {
-        label: "Enabled",
-        help: "False once the vendor reported the token dead; nothing is delivered to a disabled device."
+        label: "Увімкнено",
+        help: "Хибно, щойно постачальник повідомив, що токен не працює; на вимкнений пристрій нічого не доставляється."
       },
       invalidated_at: {
-        label: "Invalidated At",
-        help: "When the vendor reported the token dead. Cleared by the registration that re-enables it."
+        label: "Анульовано",
+        help: "Коли постачальник повідомив, що токен не працює. Знімається реєстрацією, що знову його вмикає."
       },
       last_seen_at: {
-        label: "Last Seen At",
-        help: "When the device last registered or refreshed."
+        label: "Остання активність",
+        help: "Коли пристрій востаннє реєструвався або оновлювався."
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       }
     }
   }

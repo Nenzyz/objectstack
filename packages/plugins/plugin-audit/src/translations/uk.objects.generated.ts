@@ -16,484 +16,484 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_audit_log: {
-    label: "Audit Log",
-    pluralLabel: "Audit Logs",
-    description: "Audit trail of platform events. Rows are written only by the platform and are read-only through the data API and in Setup.",
+    label: "Журнал аудиту",
+    pluralLabel: "Журнали аудиту",
+    description: "Журнал аудиту подій платформи. Рядки записує лише платформа, і вони доступні лише для читання через API даних і в Setup.",
     fields: {
       created_at: {
-        label: "Timestamp"
+        label: "Часова мітка"
       },
       action: {
-        label: "Action",
-        help: "Action type (snake_case)",
+        label: "Дія",
+        help: "Тип дії (snake_case)",
         options: {
-          create: "Create",
-          read: "Read",
-          update: "Update",
-          delete: "Delete",
-          login: "Login",
-          logout: "Logout",
-          login_failed: "Login Failed",
-          account_locked: "Account Locked",
-          config_change: "Config Change",
-          import: "Import",
-          export: "Export",
-          platform_admin_standing_change: "Platform Admin Standing Change",
-          action_invocation: "Action Invocation",
-          package_uninstall: "Package Uninstall",
-          package_unmanaged_import: "Package Unmanaged Import",
-          credential_use: "Credential Use",
-          scim_refused: "SCIM Refused",
-          audit_signing_key_change: "Audit Signing Key Change",
-          dataset_query: "Dataset Query"
+          create: "Створення",
+          read: "Читання",
+          update: "Оновлення",
+          delete: "Видалення",
+          login: "Вхід",
+          logout: "Вихід",
+          login_failed: "Невдалий вхід",
+          account_locked: "Обліковий запис заблоковано",
+          config_change: "Зміна конфігурації",
+          import: "Імпорт",
+          export: "Експорт",
+          platform_admin_standing_change: "Зміна статусу адміністратора платформи",
+          action_invocation: "Виклик дії",
+          package_uninstall: "Видалення пакета",
+          package_unmanaged_import: "Імпорт некерованого пакета",
+          credential_use: "Використання облікових даних",
+          scim_refused: "Відмова SCIM",
+          audit_signing_key_change: "Зміна ключа підписування аудиту",
+          dataset_query: "Запит набору даних"
         }
       },
       user_id: {
-        label: "User",
-        help: "User who performed the action (null for non-user / service actions — see actor)"
+        label: "Користувач",
+        help: "Користувач, який учинив дію (null для дій, не пов'язаних із користувачем, і службових дій — див. виконавця)"
       },
       actor: {
-        label: "Actor",
-        help: "Principal that performed the action: a user id, svc:<name>, or null"
+        label: "Виконавець",
+        help: "Суб'єкт, який учинив дію: ідентифікатор користувача, svc:<name> або null"
       },
       object_name: {
-        label: "Object",
-        help: "Target object (e.g. sys_user, project_task)"
+        label: "Об'єкт",
+        help: "Об'єкт призначення (наприклад, sys_user, project_task)"
       },
       record_id: {
-        label: "Record",
-        help: "ID of the affected record"
+        label: "Запис",
+        help: "ID запису, якого стосувалася дія"
       },
       old_value: {
-        label: "Old Value",
-        help: "JSON-serialized previous state"
+        label: "Старе значення",
+        help: "Попередній стан у форматі JSON"
       },
       new_value: {
-        label: "New Value",
-        help: "JSON-serialized new state"
+        label: "Нове значення",
+        help: "Новий стан у форматі JSON"
       },
       ip_address: {
-        label: "IP Address"
+        label: "IP-адреса"
       },
       user_agent: {
         label: "User Agent"
       },
       tenant_id: {
-        label: "Tenant",
-        help: "Organization this event is about; empty for a deployment-level action"
+        label: "Організація",
+        help: "Організація, якої стосується ця подія; порожнє для дії на рівні розгортання"
       },
       metadata: {
-        label: "Metadata",
-        help: "JSON-serialized additional context"
+        label: "Метадані",
+        help: "Додатковий контекст у форматі JSON"
       },
       id: {
-        label: "Audit Log ID"
+        label: "ID журналу аудиту"
       }
     },
     _views: {
       recent: {
-        label: "Recent",
+        label: "Недавні",
         emptyState: {
-          title: "No audit events",
-          message: "Activity will appear here as users interact with the platform."
+          title: "Немає подій аудиту",
+          message: "Події з'являтимуться тут у міру взаємодії користувачів із платформою."
         }
       },
       writes_only: {
-        label: "Writes"
+        label: "Операції запису"
       },
       auth_events: {
-        label: "Auth"
+        label: "Автентифікація"
       },
       record_views: {
-        label: "Record Views",
+        label: "Перегляди записів",
         emptyState: {
-          title: "No record views recorded",
-          message: "Record-view auditing is opt-in per object. Rows appear here once an object is added to the audit plugin's readAudit.objects list and someone opens one of its records."
+          title: "Переглядів записів не зафіксовано",
+          message: "Аудит переглядів записів вмикається окремо для кожного об'єкта. Рядки з'являються тут, щойно об'єкт додано до списку readAudit.objects плагіна аудиту і хтось відкриє один із його записів."
         }
       },
       config_changes: {
-        label: "Config"
+        label: "Конфігурація"
       },
       all_events: {
-        label: "All"
+        label: "Усі"
       }
     }
   },
   sys_activity: {
-    label: "Activity Feed",
-    pluralLabel: "Activity Feed",
-    description: "What people did to records recently, newest first: who created, changed or deleted what. Entries are kept for 14 days.",
+    label: "Стрічка активності",
+    pluralLabel: "Стрічка активності",
+    description: "Що люди нещодавно робили із записами, найновіші першими: хто що створив, змінив чи видалив. Записи зберігаються 14 днів.",
     fields: {
       id: {
-        label: "Activity ID"
+        label: "ID активності"
       },
       timestamp: {
-        label: "Timestamp"
+        label: "Часова мітка"
       },
       type: {
-        label: "Type",
-        help: "Activity kind. The declared options are the platform BUILT-IN set of an open vocabulary, not a closed enum: metadata authors may contribute their own values (sanctioned channel: `activityMilestones[].type`, ADR-0052 §5b.2), and an undeclared value is stored verbatim rather than rejected. Consumers must render an unknown value instead of assuming this list is exhaustive: the vocabulary is open by decision, not a gap awaiting enforcement.",
+        label: "Тип",
+        help: "Вид активності. Оголошені варіанти — це вбудований у платформу набір відкритого словника, а не закритий перелік: автори метаданих можуть додавати власні значення (санкціонований канал: `activityMilestones[].type`, ADR-0052 §5b.2), а неоголошене значення зберігається як є, а не відкидається. Споживачі мають показувати невідоме значення, а не вважати цей список вичерпним: словник відкритий за рішенням, а не через прогалину, яка чекає на закриття.",
         options: {
-          created: "created",
-          updated: "updated",
-          deleted: "deleted",
-          commented: "commented",
-          mentioned: "mentioned",
-          shared: "shared",
-          assigned: "assigned",
-          completed: "completed",
-          scheduled: "scheduled",
-          login: "login",
-          logout: "logout",
-          system: "system"
+          created: "створено",
+          updated: "оновлено",
+          deleted: "видалено",
+          commented: "прокоментовано",
+          mentioned: "згадано",
+          shared: "поділено",
+          assigned: "призначено",
+          completed: "завершено",
+          scheduled: "заплановано",
+          login: "вхід",
+          logout: "вихід",
+          system: "система"
         }
       },
       summary: {
-        label: "Summary",
-        help: "Human-readable one-line summary"
+        label: "Короткий опис",
+        help: "Стислий опис одним рядком, зрозумілий людині"
       },
       actor_id: {
-        label: "Actor"
+        label: "Виконавець"
       },
       actor_name: {
-        label: "Actor Name"
+        label: "Ім'я виконавця"
       },
       actor_avatar_url: {
-        label: "Actor Avatar"
+        label: "Аватар виконавця"
       },
       object_name: {
-        label: "Object",
-        help: "Target object short name (e.g. account, sys_user)"
+        label: "Об'єкт",
+        help: "Коротка назва об'єкта призначення (наприклад, account, sys_user)"
       },
       record_id: {
-        label: "Record"
+        label: "Запис"
       },
       record_label: {
-        label: "Record Label",
-        help: "Display label of the target record at write time"
+        label: "Назва запису",
+        help: "Відображувана назва запису призначення на момент запису"
       },
       source_object: {
-        label: "Source Object",
-        help: "Object name of the rich source entity this activity was derived from (e.g. \"sys_email\"). Null when the activity is about the target record itself."
+        label: "Об'єкт джерела",
+        help: "Назва об'єкта повного джерела, з якого похідна ця активність (наприклад, \"sys_email\"). Null, коли активність стосується самого запису призначення."
       },
       source_id: {
-        label: "Source ID",
-        help: "Record id of the rich source entity (paired with source_object) — lets the timeline drill to the full email/call/meeting record."
+        label: "ID джерела",
+        help: "ID запису повного джерела (у парі з source_object) — дозволяє зі стрічки перейти до повного запису електронного листа/дзвінка/зустрічі."
       },
       url: {
         label: "URL",
-        help: "Optional deep-link to the activity target"
+        help: "Необов'язкове глибоке посилання на ціль активності"
       },
       environment_id: {
-        label: "Environment",
-        help: "Environment context (multi-environment deployments)"
+        label: "Середовище",
+        help: "Контекст середовища (розгортання з кількома середовищами)"
       },
       metadata: {
-        label: "Metadata",
-        help: "JSON-serialized additional context"
+        label: "Метадані",
+        help: "Додатковий контекст у форматі JSON"
       },
       origin: {
-        label: "Origin",
-        help: "The app code that added this entry through the activity door, as \"<package>/<kind>:<name>\" (for example \"com.acme.crm/action:send_email\"). Empty on an entry not written through the activity door."
+        label: "Походження",
+        help: "Код застосунку, який додав цей запис у канал активності, у вигляді \"<package>/<kind>:<name>\" (наприклад, \"com.acme.crm/action:send_email\"). Порожнє для запису, який не було написано в канал активності."
       },
       changed_fields: {
-        label: "Changed Fields",
-        help: "The key set of the recorded change: for an update, every field its recorded old/new values name; empty for every other row. Stamped by the platform at write time; served narrowed to the fields the reader is served. NULL means the row is not stamped yet (run `os migrate activity-changed-fields`)."
+        label: "Змінені поля",
+        help: "Набір ключів записаної зміни: для оновлення — кожне поле, яке називають записані старі/нові значення; порожнє для всіх інших рядків. Проставляється платформою під час запису; віддається скороченим до полів, які доступні читачеві. NULL означає, що рядок ще не позначено (виконайте `os migrate activity-changed-fields`)."
       },
       milestone_key: {
-        label: "Milestone Key",
-        help: "For a fired activity milestone, one sorted, comma-joined key of every field the object's activityMilestones declaration watched when it fired; NULL for every other row. Stamped by the platform at write time and never served: the read rule compares it with the current declaration."
+        label: "Ключ контрольної точки",
+        help: "Для спрацьованої контрольної точки активності — один упорядкований ключ через кому з кожного поля, за яким стежило оголошення activityMilestones об'єкта в момент спрацьовування; NULL для всіх інших рядків. Проставляється платформою під час запису і ніколи не віддається: правило читання порівнює його з поточним оголошенням."
       }
     },
     _views: {
       recent: {
-        label: "Recent activity",
+        label: "Недавня активність",
         emptyState: {
-          title: "No recent activity",
-          message: "Changes people make to records appear here, newest first."
+          title: "Немає недавньої активності",
+          message: "Зміни, які люди вносять до записів, з'являються тут, найновіші першими."
         }
       },
       all: {
-        label: "All entries"
+        label: "Усі елементи"
       }
     }
   },
   sys_comment: {
-    label: "Comment",
-    pluralLabel: "Comments",
-    description: "Threaded comments attached to records via thread_id",
+    label: "Коментар",
+    pluralLabel: "Коментарі",
+    description: "Коментарі з гілками, приєднані до записів через thread_id",
     fields: {
       id: {
-        label: "Comment ID"
+        label: "ID коментаря"
       },
       thread_id: {
-        label: "Thread",
-        help: "Thread identifier — conventionally `{object}:{record_id}` (e.g. `account:9001`)"
+        label: "Гілка",
+        help: "Ідентифікатор гілки — зазвичай у форматі `{object}:{record_id}` (наприклад, `account:9001`)"
       },
       object_name: {
-        label: "Parent Object",
-        help: "The object of the record `thread_id` names — stamped by the platform, never written by authors"
+        label: "Батьківський об'єкт",
+        help: "Об'єкт запису, який вказує `thread_id`, — проставляється платформою, автори ніколи його не пишуть"
       },
       record_id: {
-        label: "Parent Record",
-        help: "The id of the record `thread_id` names — stamped by the platform, never written by authors"
+        label: "Батьківський запис",
+        help: "ID запису, який вказує `thread_id`, — проставляється платформою, автори ніколи його не пишуть"
       },
       parent_id: {
-        label: "Parent Comment",
-        help: "Optional parent comment for nested replies"
+        label: "Батьківський коментар",
+        help: "Необов'язковий батьківський коментар для вкладених відповідей"
       },
       author_id: {
-        label: "Author"
+        label: "Автор"
       },
       author_name: {
-        label: "Author Name"
+        label: "Ім'я автора"
       },
       author_avatar_url: {
-        label: "Author Avatar"
+        label: "Аватар автора"
       },
       body: {
-        label: "Body",
-        help: "Comment text (Markdown supported)"
+        label: "Текст",
+        help: "Текст коментаря (підтримується Markdown)"
       },
       mentions: {
-        label: "Mentions",
-        help: "JSON array of the user ids @mentioned in the comment"
+        label: "Згадки",
+        help: "Масив JSON з ідентифікаторами користувачів, згаданих через @ у коментарі"
       },
       is_edited: {
-        label: "Edited"
+        label: "Змінено"
       },
       edited_at: {
-        label: "Edited At"
+        label: "Дата зміни"
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Дата оновлення"
       }
     }
   },
   sys_comment_reaction: {
-    label: "Comment Reaction",
-    pluralLabel: "Comment Reactions",
-    description: "An emoji reaction to a comment, owned by the user who reacted",
+    label: "Реакція на коментар",
+    pluralLabel: "Реакції на коментар",
+    description: "Емодзі-реакція на коментар, що належить користувачу, який її поставив",
     fields: {
       id: {
-        label: "Reaction ID"
+        label: "ID реакції"
       },
       comment_id: {
-        label: "Comment",
-        help: "The id of the sys_comment this reaction is on. The reaction is readable exactly when that comment is."
+        label: "Коментар",
+        help: "ID коментаря sys_comment, на який поставлено цю реакцію. Реакцію можна прочитати тоді й лише тоді, коли доступний сам коментар."
       },
       emoji: {
-        label: "Emoji",
-        help: "The emoji, as the character sequence the client renders (for example 👍)"
+        label: "Емодзі",
+        help: "Емодзі як послідовність символів, яку показує клієнт (наприклад 👍)"
       },
       user_id: {
-        label: "User",
-        help: "The user who reacted. Stamped from the session on create; a client-supplied value is replaced."
+        label: "Користувач",
+        help: "Користувач, який поставив реакцію. Проставляється із сеансу під час створення; значення від клієнта замінюється."
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       }
     }
   },
   sys_audit_checkpoint: {
-    label: "Audit Checkpoint",
-    pluralLabel: "Audit Checkpoints",
-    description: "Signed Merkle checkpoints of the audit ledger. Written only by the platform sealer.",
+    label: "Контрольна точка аудиту",
+    pluralLabel: "Контрольні точки аудиту",
+    description: "Підписані контрольні точки Меркла журналу аудиту. Записуються лише запечатувачем платформи.",
     fields: {
       id: {
-        label: "Checkpoint ID"
+        label: "ID контрольної точки"
       },
       sealed_object: {
-        label: "Sealed Object",
-        help: "The object whose rows this checkpoint seals"
+        label: "Запечатаний об'єкт",
+        help: "Об'єкт, рядки якого запечатує ця контрольна точка"
       },
       chain_key: {
-        label: "Chain Key",
-        help: "`org:` and the organization id, or `deployment` for rows about no organization"
+        label: "Ключ ланцюга",
+        help: "`org:` та ідентифікатор організації, або `deployment` для рядків, що не стосуються жодної організації"
       },
       tenant_id: {
-        label: "Organization",
-        help: "The organization this chain is about; empty for the deployment chain"
+        label: "Організація",
+        help: "Організація, якої стосується цей ланцюг; порожнє для ланцюга розгортання"
       },
       sequence: {
-        label: "Sequence",
-        help: "Position in the chain, from 0"
+        label: "Порядковий номер",
+        help: "Позиція в ланцюзі, починаючи з 0"
       },
       kind: {
-        label: "Kind",
-        help: "A window sealed on time, or rows that arrived after their window was sealed",
+        label: "Вид",
+        help: "Вікно, запечатане вчасно, або рядки, що надійшли після запечатування їх вікна",
         options: {
-          window: "Window",
-          late: "Late"
+          window: "Вікно",
+          late: "Запізнілі"
         }
       },
       window_start: {
-        label: "Window Start"
+        label: "Початок вікна"
       },
       window_end: {
-        label: "Window End"
+        label: "Кінець вікна"
       },
       sealed_through: {
-        label: "Sealed Through",
-        help: "The end of the last window the sealing pass had completed for every chain of the object"
+        label: "Запечатано до",
+        help: "Кінець останнього вікна, яке запечатувальний прохід завершив для всіх ланцюгів об'єкта"
       },
       leaf_count: {
-        label: "Leaf Count"
+        label: "Кількість листків"
       },
       row_ids: {
-        label: "Row IDs",
-        help: "JSON array of the sealed row ids"
+        label: "ID рядків",
+        help: "Масив JSON з ID запечатаних рядків"
       },
       leaf_hashes: {
-        label: "Leaf Hashes",
-        help: "JSON array of each sealed row's leaf hash, in the order of the row ids; checked against the signed root"
+        label: "Хеші листків",
+        help: "Масив JSON з хешем листка кожного запечатаного рядка, у порядку ID рядків; звіряється з підписаним коренем"
       },
       root: {
-        label: "Merkle Root"
+        label: "Корінь Меркла"
       },
       previous_digest: {
-        label: "Previous Digest",
-        help: "SHA-256 of the chain's previous checkpoint's signed body; empty for the first"
+        label: "Попередній дайджест",
+        help: "SHA-256 підписаного тіла попередньої контрольної точки ланцюга; порожнє для першої"
       },
       columns: {
-        label: "Columns",
-        help: "JSON: the columns sealed in clear and as commitments"
+        label: "Стовпці",
+        help: "JSON: стовпці, запечатані відкрито, та як зобов'язання"
       },
       canon_version: {
-        label: "Canonical Form Version"
+        label: "Версія канонічної форми"
       },
       seed_handle: {
-        label: "Seed Handle",
-        help: "The sys_secret row holding the sealed seed that salts the value columns of this checkpoint"
+        label: "Дескриптор сіду",
+        help: "Рядок sys_secret, що зберігає запечатаний сід, яким засолюються стовпці значень цієї контрольної точки"
       },
       fencing_token: {
-        label: "Fencing Token"
+        label: "Fencing-токен"
       },
       sealed_at: {
-        label: "Sealed At"
+        label: "Дата запечатування"
       },
       signing_key_id: {
-        label: "Signing Key"
+        label: "Ключ підписування"
       },
       signature: {
-        label: "Signature"
+        label: "Підпис"
       }
     }
   },
   sys_audit_signing_key: {
-    label: "Audit Signing Key",
-    pluralLabel: "Audit Signing Keys",
-    description: "Public halves of the keys that sign audit checkpoints. Written only by the platform.",
+    label: "Ключ підписування аудиту",
+    pluralLabel: "Ключі підписування аудиту",
+    description: "Публічні половини ключів, якими підписуються контрольні точки аудиту. Записуються лише платформою.",
     fields: {
       id: {
-        label: "Key Row ID"
+        label: "ID рядка ключа"
       },
       fingerprint: {
-        label: "Fingerprint",
-        help: "The key id: lowercase hex SHA-256 of the raw public key"
+        label: "Відбиток",
+        help: "Ідентифікатор ключа: SHA-256 необробленого публічного ключа у шістнадцятковому вигляді малими літерами"
       },
       public_key: {
-        label: "Public Key",
-        help: "Raw Ed25519 public key, base64"
+        label: "Публічний ключ",
+        help: "Необроблений публічний ключ Ed25519, base64"
       },
       status: {
-        label: "Status",
+        label: "Статус",
         options: {
-          active: "Active",
-          retired: "Retired"
+          active: "Активний",
+          retired: "Відкликаний"
         }
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       retired_at: {
-        label: "Retired At"
+        label: "Дата відкликання"
       },
       private_handle: {
-        label: "Private Key Handle",
-        help: "The sys_secret row holding the wrapped private half"
+        label: "Дескриптор приватного ключа",
+        help: "Рядок sys_secret, що зберігає загорнуту приватну половину"
       }
     }
   },
   sys_audit_amendment: {
-    label: "Audit Amendment",
-    pluralLabel: "Audit Amendments",
-    description: "Signed records of redactions and expiries of sealed audit rows. Written only by the platform.",
+    label: "Поправка аудиту",
+    pluralLabel: "Поправки аудиту",
+    description: "Підписані записи про вилучення даних і закінчення терміну зберігання запечатаних рядків аудиту. Записуються лише платформою.",
     fields: {
       id: {
-        label: "Amendment ID"
+        label: "ID поправки"
       },
       kind: {
-        label: "Kind",
+        label: "Вид",
         options: {
-          redaction: "Redaction",
-          expiry: "Expiry"
+          redaction: "Вилучення",
+          expiry: "Закінчення терміну"
         }
       },
       sealed_object: {
-        label: "Sealed Object"
+        label: "Запечатаний об'єкт"
       },
       chain_key: {
-        label: "Chain Key",
-        help: "`org:` and the organization id, or `deployment` for rows about no organization"
+        label: "Ключ ланцюга",
+        help: "`org:` та ідентифікатор організації, або `deployment` для рядків, що не стосуються жодної організації"
       },
       tenant_id: {
-        label: "Organization",
-        help: "The organization of the amended chain; empty for the deployment chain"
+        label: "Організація",
+        help: "Організація ланцюга, якого стосується поправка; порожнє для ланцюга розгортання"
       },
       amended_at: {
-        label: "Amended At"
+        label: "Дата поправки"
       },
       checkpoint_sequence: {
-        label: "Checkpoint Sequence",
-        help: "The sequence, in this chain, of the checkpoint that sealed the row"
+        label: "Порядковий номер контрольної точки",
+        help: "Порядковий номер у цьому ланцюзі контрольної точки, яка запечатала рядок"
       },
       row_id: {
-        label: "Row ID"
+        label: "ID рядка"
       },
       column_name: {
-        label: "Column"
+        label: "Стовпець"
       },
       sealed_commitment: {
-        label: "Sealed Commitment"
+        label: "Запечатане зобов'язання"
       },
       rewritten_commitment: {
-        label: "Rewritten Commitment"
+        label: "Переписане зобов'язання"
       },
       rewritten_by: {
-        label: "Rewritten By",
-        help: "The migration that rewrote the value"
+        label: "Ким переписано",
+        help: "Міграція, яка переписала значення"
       },
       first_sequence: {
-        label: "First Sequence"
+        label: "Початковий номер"
       },
       last_sequence: {
-        label: "Last Sequence"
+        label: "Кінцевий номер"
       },
       covered_from: {
-        label: "Covered From"
+        label: "Покрито з"
       },
       covered_to: {
-        label: "Covered To"
+        label: "Покрито до"
       },
       last_removed_digest: {
-        label: "Last Removed Digest"
+        label: "Останній видалений дайджест"
       },
       policy: {
-        label: "Policy",
-        help: "The retention policy that expired the range, e.g. archive.keep"
+        label: "Політика",
+        help: "Політика зберігання, за якою закінчився строк діапазону, наприклад archive.keep"
       },
       policy_value: {
-        label: "Policy Value"
+        label: "Значення політики"
       },
       signing_key_id: {
-        label: "Signing Key"
+        label: "Ключ підписування"
       },
       signature: {
-        label: "Signature"
+        label: "Підпис"
       }
     }
   }

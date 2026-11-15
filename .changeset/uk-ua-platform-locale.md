@@ -6,6 +6,7 @@
 '@objectstack/plugin-security': patch
 '@objectstack/plugin-sharing': patch
 '@objectstack/plugin-webhooks': patch
+'@objectstack/plugin-email': patch
 '@objectstack/service-settings': patch
 '@objectstack/service-storage': patch
 '@objectstack/service-datasource': patch

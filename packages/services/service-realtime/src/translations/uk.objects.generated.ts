@@ -16,59 +16,59 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_presence: {
-    label: "Presence",
-    pluralLabel: "Presences",
-    description: "Real-time user presence and activity tracking",
+    label: "Присутність",
+    pluralLabel: "Стани присутності",
+    description: "Відстеження присутності та активності користувачів у реальному часі",
     fields: {
       id: {
-        label: "Presence ID"
+        label: "ID присутності"
       },
       display_title: {
-        label: "Title",
-        help: "Record title: the user and their presence status (computed on read)"
+        label: "Заголовок",
+        help: "Заголовок запису: користувач і його статус присутності (обчислюється під час читання)"
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       },
       user_id: {
-        label: "User"
+        label: "Користувач"
       },
       session_id: {
-        label: "Session"
+        label: "Сеанс"
       },
       status: {
-        label: "Status",
+        label: "Статус",
         options: {
-          online: "Online",
-          away: "Away",
-          busy: "Busy",
-          offline: "Offline"
+          online: "У мережі",
+          away: "Відійшов",
+          busy: "Зайнятий",
+          offline: "Поза мережею"
         }
       },
       last_seen: {
-        label: "Last Seen"
+        label: "Остання активність"
       },
       current_location: {
-        label: "Current Location"
+        label: "Поточне розташування"
       },
       device: {
-        label: "Device",
+        label: "Пристрій",
         options: {
-          desktop: "Desktop",
-          mobile: "Mobile",
-          tablet: "Tablet",
-          other: "Other"
+          desktop: "Настільний",
+          mobile: "Мобільний",
+          tablet: "Планшет",
+          other: "Інше"
         }
       },
       custom_status: {
-        label: "Custom Status"
+        label: "Власний статус"
       },
       metadata: {
-        label: "Metadata",
-        help: "Arbitrary JSON metadata associated with the presence state (matches PresenceStateSchema.metadata)."
+        label: "Метадані",
+        help: "Довільні JSON-метадані, пов'язані зі станом присутності (збігається з PresenceStateSchema.metadata)."
       }
     }
   }

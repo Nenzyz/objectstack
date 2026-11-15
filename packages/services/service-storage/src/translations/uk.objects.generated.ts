@@ -16,166 +16,166 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_file: {
-    label: "System File",
-    pluralLabel: "System Files",
-    description: "Storage service file metadata (fileId ↔ key mapping)",
+    label: "Системний файл",
+    pluralLabel: "Системні файли",
+    description: "Метадані файла служби сховища (пара fileId ↔ key)",
     fields: {
       id: {
-        label: "File ID"
+        label: "ID файла"
       },
       key: {
-        label: "Storage Key"
+        label: "Ключ сховища"
       },
       name: {
-        label: "File Name"
+        label: "Ім'я файла"
       },
       mime_type: {
-        label: "MIME Type"
+        label: "Тип MIME"
       },
       size: {
-        label: "Size (bytes)"
+        label: "Розмір (байти)"
       },
       scope: {
-        label: "Scope",
+        label: "Область",
         options: {
-          user: "User",
-          tenant: "Tenant",
-          private: "Private",
-          temp: "Temp",
-          attachments: "Attachments"
+          user: "Користувач",
+          tenant: "Тенант",
+          private: "Приватна",
+          temp: "Тимчасова",
+          attachments: "Вкладення"
         }
       },
       bucket: {
-        label: "Bucket"
+        label: "Бакет"
       },
       acl: {
         label: "ACL",
         options: {
-          private: "Private",
-          public_read: "Public Read"
+          private: "Приватний доступ",
+          public_read: "Публічний доступ на читання"
         }
       },
       status: {
-        label: "Status",
+        label: "Статус",
         options: {
-          pending: "Pending Upload",
-          committed: "Committed",
-          deleted: "Deleted"
+          pending: "Очікує завантаження",
+          committed: "Зафіксовано",
+          deleted: "Видалено"
         }
       },
       etag: {
         label: "ETag"
       },
       owner_id: {
-        label: "Owner ID",
-        help: "User who uploaded the file (authorship, not the field-reference owner)"
+        label: "ID власника",
+        help: "Користувач, який завантажив файл (авторство, а не власник із польового посилання)"
       },
       ref_object: {
-        label: "Referencing Object",
-        help: "Short object name of the record whose field owns this file"
+        label: "Об'єкт посилання",
+        help: "Коротка назва об'єкта запису, поле якого володіє цим файлом"
       },
       ref_id: {
-        label: "Referencing Record",
-        help: "Primary key of the record whose field owns this file"
+        label: "Запис посилання",
+        help: "Первинний ключ запису, поле якого володіє цим файлом"
       },
       ref_field: {
-        label: "Referencing Field",
-        help: "Field name on the owning record that holds this file id"
+        label: "Поле посилання",
+        help: "Назва поля запису-власника, що містить ID цього файла"
       },
       released_ref_object: {
-        label: "Released From Object",
-        help: "Short object name of the record that last owned this file, after it let the file go"
+        label: "Об'єкт, з якого відпущено",
+        help: "Коротка назва об'єкта запису, який востаннє володів цим файлом, після того як він його відпустив"
       },
       released_ref_id: {
-        label: "Released From Record",
-        help: "Primary key of the record that last owned this file, after it let the file go"
+        label: "Запис, з якого відпущено",
+        help: "Первинний ключ запису, який востаннє володів цим файлом, після того як він його відпустив"
       },
       metadata: {
-        label: "Metadata (JSON)"
+        label: "Метадані (JSON)"
       },
       created_at: {
-        label: "Created At"
+        label: "Створено"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       },
       deleted_at: {
-        label: "Deleted At",
-        help: "Tombstone timestamp — set when the last sys_attachment reference to an attachments-scope file is removed; the lifecycle TTL reaps the row (and its storage bytes, via the sys_file reap guard) after the grace window. Also set on a committed file uploaded through an upload link that named no record, cleared when a record takes it, so the same TTL reclaims an upload no record ever took. NULL for every other live row."
+        label: "Видалено",
+        help: "Мітка часу надгробка — проставляється, коли видалено останнє посилання sys_attachment на файл у області вкладень; TTL життєвого циклу прибирає рядок (і його байти в сховищі, через захисний перевір sys_file) після пільгового вікна. Також проставляється на зафіксованому файлі, завантаженому через посилання на завантаження, що не назвало запису, і знімається, коли запис його забирає, — тож той самий TTL вертає собі завантаження, яке жоден запис так і не забрав. NULL для всіх інших живих рядків."
       }
     }
   },
   sys_upload_session: {
-    label: "System Upload Session",
-    pluralLabel: "System Upload Sessions",
-    description: "Resumable multipart upload sessions tracked by service-storage",
+    label: "Системний сеанс завантаження",
+    pluralLabel: "Системні сеанси завантаження",
+    description: "Сеанси багаточастинкового завантаження з поновленням, які відстежує service-storage",
     fields: {
       id: {
-        label: "Upload Session ID"
+        label: "ID сеансу завантаження"
       },
       file_id: {
-        label: "File ID"
+        label: "ID файла"
       },
       key: {
-        label: "Storage Key"
+        label: "Ключ сховища"
       },
       filename: {
-        label: "Filename"
+        label: "Ім'я файла"
       },
       mime_type: {
-        label: "MIME Type"
+        label: "Тип MIME"
       },
       total_size: {
-        label: "Total Size (bytes)"
+        label: "Загальний розмір (байти)"
       },
       chunk_size: {
-        label: "Chunk Size (bytes)"
+        label: "Розмір фрагмента (байти)"
       },
       total_chunks: {
-        label: "Total Chunks"
+        label: "Усього фрагментів"
       },
       uploaded_chunks: {
-        label: "Uploaded Chunks"
+        label: "Завантажені фрагменти"
       },
       uploaded_size: {
-        label: "Uploaded Size (bytes)"
+        label: "Завантажено (байти)"
       },
       parts: {
-        label: "Uploaded Parts (JSON)"
+        label: "Завантажені частини (JSON)"
       },
       resume_token: {
-        label: "Resume Token"
+        label: "Токен відновлення"
       },
       backend_upload_id: {
-        label: "Backend Upload ID"
+        label: "ID завантаження в бекенді"
       },
       scope: {
-        label: "Scope"
+        label: "Область"
       },
       bucket: {
-        label: "Bucket"
+        label: "Бакет"
       },
       metadata: {
-        label: "Metadata (JSON)"
+        label: "Метадані (JSON)"
       },
       status: {
-        label: "Status",
+        label: "Статус",
         options: {
-          in_progress: "In Progress",
-          completing: "Completing",
-          completed: "Completed",
-          failed: "Failed",
-          expired: "Expired"
+          in_progress: "Триває",
+          completing: "Завершується",
+          completed: "Завершено",
+          failed: "Не вдалося",
+          expired: "Термін минув"
         }
       },
       started_at: {
-        label: "Started At"
+        label: "Розпочато"
       },
       expires_at: {
-        label: "Expires At"
+        label: "Термін дії до"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Оновлено"
       }
     }
   }

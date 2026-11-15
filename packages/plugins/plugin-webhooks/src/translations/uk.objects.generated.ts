@@ -16,27 +16,27 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_webhook: {
-    label: "Webhook",
-    pluralLabel: "Webhooks",
-    description: "An outbound HTTP webhook your organization creates here or through the API. Webhooks that come built into an app are not listed here. Both kinds are sent through the same delivery queue.",
+    label: "Вебхук",
+    pluralLabel: "Вебхуки",
+    description: "Вихідний HTTP-вебхук, який ваша організація створює тут або через API. Вебхуки, вбудовані в застосунки, тут не перелічуються. Обидва види надсилаються через одну чергу доставки.",
     fields: {
       id: {
-        label: "Webhook ID"
+        label: "ID вебхука"
       },
       name: {
-        label: "Name",
-        help: "snake_case name, unique per organization — referenced in logs and audit"
+        label: "Назва",
+        help: "Назва у snake_case, унікальна в межах організації — на неї посилаються журнали та аудит"
       },
       label: {
-        label: "Display Label"
+        label: "Відображувана назва"
       },
       object_name: {
-        label: "Object",
-        help: "Short object name whose record events (create/update/delete) fire this webhook"
+        label: "Об'єкт",
+        help: "Коротка назва об'єкта, події записів якого (create/update/delete) запускають цей вебхук"
       },
       triggers: {
-        label: "Triggers",
-        help: "Record events that fire this webhook (bulk_* deliver a count, not a record)",
+        label: "Тригери",
+        help: "Події записів, що запускають цей вебхук (bulk_* доставляють кількість, а не запис)",
         options: {
           create: "create",
           update: "update",
@@ -46,12 +46,12 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       url: {
-        label: "Target URL",
-        help: "External endpoint that receives the POST"
+        label: "Цільовий URL",
+        help: "Зовнішня кінцева точка, яка отримує POST"
       },
       method: {
-        label: "HTTP Method",
-        help: "HTTP method used for the callback request",
+        label: "HTTP-метод",
+        help: "HTTP-метод, який використовується для запиту зворотного виклику",
         options: {
           get: "GET",
           post: "POST",
@@ -61,27 +61,27 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       description: {
-        label: "Description"
+        label: "Опис"
       },
       active: {
-        label: "Active",
-        help: "Inactive webhooks are skipped by the dispatcher"
+        label: "Активний",
+        help: "Неактивні вебхуки диспетчер пропускає"
       },
       definition_json: {
-        label: "Definition",
-        help: "Serialised Webhook JSON (see @objectstack/spec/automation/webhook) — timeout and the rest of the authored envelope. Credentials are NOT stored here: the signing secret lives in the encrypted `signing_secret` field and the custom headers in the encrypted `headers_secret` field."
+        label: "Визначення",
+        help: "Серіалізований JSON вебхука (див. @objectstack/spec/automation/webhook) — час очікування та решта авторського наповнення. Облікові дані тут НЕ зберігаються: секрет підписування живе в зашифрованому полі `signing_secret`, а власні заголовки — у зашифрованому полі `headers_secret`."
       },
       headers_secret: {
-        label: "Custom Headers",
-        help: "Custom HTTP headers sent with each delivery, as a JSON object ({\"Authorization\": \"Bearer …\"}). Encrypted at rest into sys_secret; reads return a mask, never the headers. Leave the mask untouched to keep the current value."
+        label: "Власні заголовки",
+        help: "Власні HTTP-заголовки, що надсилаються з кожною доставкою, у вигляді JSON-об'єкта ({\"Authorization\": \"Bearer …\"}). Шифруються при зберіганні в sys_secret; читання повертає маску, а не заголовки. Не змінюйте маску, щоб зберегти поточне значення."
       },
       signing_secret: {
-        label: "Signing Secret",
-        help: "HMAC-SHA256 key used to sign deliveries (X-Objectstack-Signature). Encrypted at rest into sys_secret; reads return a mask, never the key. Leave the mask untouched to keep the current value."
+        label: "Секрет підписування",
+        help: "Ключ HMAC-SHA256, яким підписуються доставки (X-Objectstack-Signature). Шифруються при зберіганні в sys_secret; читання повертає маску, а не ключ. Не змінюйте маску, щоб зберегти поточне значення."
       },
       managed_by: {
-        label: "Managed By",
-        help: "Record provenance: admin = created in Setup or through the API / package = a copy of a code-declared webhook that the retired 18.0 boot seeder wrote (nothing writes one now: a declared webhook is read from the metadata registry and is not a row) / platform = reserved.",
+        label: "Походження",
+        help: "Походження запису: admin = створено в Setup або через API / package = копія вебхука, оголошеного в коді, яку записав відкликаний boot-заповнювач 18.0 (тепер ніхто таких не пише: оголошений вебхук читається з реєстру метаданих і не є рядком) / platform = зарезервовано.",
         options: {
           platform: "platform",
           package: "package",
@@ -89,28 +89,28 @@ export const ukObjects: NonNullable<TranslationData['objects']> = {
         }
       },
       customized: {
-        label: "Customized",
-        help: "Set when an admin edits a package row (a copy the retired 18.0 boot seeder wrote). The ownership ceremony reads it: an edited copy under a declared name is kept as a clone, a pristine one is deleted. Meaningless on admin rows."
+        label: "Змінено користувачем",
+        help: "Встановлюється, коли адміністратор редагує рядок пакета (копію, яку записав відкликаний boot-заповнювач 18.0). Церемонія визначення власника читає його: змінену копію під оголошеною назвою збережено як клон, а незмінену — видалено. Для рядків admin цього поля не має значення."
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Дата оновлення"
       }
     },
     _views: {
       active: {
-        label: "Active"
+        label: "Активні"
       },
       inactive: {
-        label: "Inactive"
+        label: "Неактивні"
       },
       by_object: {
-        label: "By Object"
+        label: "За об'єктом"
       },
       all_webhooks: {
-        label: "All"
+        label: "Усі"
       }
     }
   }
