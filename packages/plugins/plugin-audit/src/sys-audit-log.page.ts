@@ -86,7 +86,7 @@ export const SysAuditLogDetailPage: Page = {
               {
                 label: {
                   en: 'Event', 'zh-CN': '事件', 'zh-Hant': '事件', 'ja-JP': 'イベント', ko: '이벤트', de: 'Ereignis',
-                  fr: 'Événement', 'es-ES': 'Evento', 'pt-BR': 'Evento', ru: 'Событие', ar: 'الحدث',
+                  fr: 'Événement', 'es-ES': 'Evento', 'pt-BR': 'Evento', ru: 'Событие', uk: 'Подія', ar: 'الحدث',
                 },
                 fields: ['created_at', 'action', 'user_id', 'actor'],
               },
@@ -94,7 +94,7 @@ export const SysAuditLogDetailPage: Page = {
                 label: {
                   en: 'Target', 'zh-CN': '目标记录', 'zh-Hant': '目標記錄', 'ja-JP': '対象レコード', ko: '대상 레코드',
                   de: 'Zieldatensatz', fr: 'Enregistrement cible', 'es-ES': 'Registro de destino',
-                  'pt-BR': 'Registro de destino', ru: 'Целевая запись', ar: 'السجل المستهدف',
+                  'pt-BR': 'Registro de destino', ru: 'Целевая запись', uk: 'Цільовий запис', ar: 'السجل المستهدف',
                 },
                 fields: ['object_name', 'record_id'],
               },
@@ -102,21 +102,21 @@ export const SysAuditLogDetailPage: Page = {
                 label: {
                   en: 'Changes', 'zh-CN': '变更内容', 'zh-Hant': '變更內容', 'ja-JP': '変更内容', ko: '변경 내용',
                   de: 'Änderungen', fr: 'Modifications', 'es-ES': 'Cambios', 'pt-BR': 'Alterações', ru: 'Изменения',
-                  ar: 'التغييرات',
+                  uk: 'Зміни', ar: 'التغييرات',
                 },
                 fields: ['old_value', 'new_value'],
               },
               {
                 label: {
                   en: 'Client', 'zh-CN': '客户端', 'zh-Hant': '用戶端', 'ja-JP': 'クライアント', ko: '클라이언트', de: 'Client',
-                  fr: 'Client', 'es-ES': 'Cliente', 'pt-BR': 'Cliente', ru: 'Клиент', ar: 'العميل',
+                  fr: 'Client', 'es-ES': 'Cliente', 'pt-BR': 'Cliente', ru: 'Клиент', uk: 'Клієнт', ar: 'العميل',
                 },
                 fields: ['ip_address', 'user_agent'],
               },
               {
                 label: {
                   en: 'Context', 'zh-CN': '上下文', 'zh-Hant': '上下文', 'ja-JP': 'コンテキスト', ko: '컨텍스트', de: 'Kontext',
-                  fr: 'Contexte', 'es-ES': 'Contexto', 'pt-BR': 'Contexto', ru: 'Контекст', ar: 'السياق',
+                  fr: 'Contexte', 'es-ES': 'Contexto', 'pt-BR': 'Contexto', ru: 'Контекст', uk: 'Контекст', ar: 'السياق',
                 },
                 fields: ['tenant_id', 'metadata'],
               },
@@ -147,6 +147,7 @@ export const SysAuditLogDetailPage: Page = {
               'es-ES': 'Cambios en el mismo registro',
               'pt-BR': 'Alterações no mesmo registro',
               ru: 'Изменения той же записи',
+              uk: 'Зміни того самого запису',
               ar: 'التغييرات على السجل نفسه',
             },
           },

@@ -55,6 +55,7 @@ import { ptBRObjects } from '../src/translations/pt-BR.objects.generated.js';
 import { ruObjects } from '../src/translations/ru.objects.generated.js';
 import { deObjects } from '../src/translations/de.objects.generated.js';
 import { koObjects } from '../src/translations/ko.objects.generated.js';
+import { ukObjects } from '../src/translations/uk.objects.generated.js';
 import { SysQueueDetailPage } from '../src/sys-queue.page.js';
 import { sharingPageTranslations } from '../src/translations/pages.js';
 
@@ -87,6 +88,7 @@ const config: ObjectStackDefinition = defineStack({
     { 'ru': { objects: ruObjects, pages: sharingPageTranslations['ru'] } },
     { 'de': { objects: deObjects, pages: sharingPageTranslations['de'] } },
     { 'ko': { objects: koObjects, pages: sharingPageTranslations['ko'] } },
+    { 'uk': { objects: ukObjects, pages: sharingPageTranslations['uk'] } },
   ],
 });
 

@@ -165,12 +165,12 @@ describe('[#30335] storage/test answers in the caller\'s language', () => {
 });
 
 describe('[#30335] the storage/test copy table', () => {
-  const KEYS = ['ar', 'de', 'en', 'es-ES', 'fr', 'ja-JP', 'ko', 'pt-BR', 'ru', 'zh-CN', 'zh-Hant'];
+  const KEYS = ['ar', 'de', 'en', 'es-ES', 'fr', 'ja-JP', 'ko', 'pt-BR', 'ru', 'uk', 'zh-CN', 'zh-Hant'];
 
-  it('carries all 11 languages of the platform locale table, each with every sentence', () => {
+  it('carries all 12 languages of the platform locale table, each with every sentence', () => {
     expect(Object.keys(STORAGE_TEST_COPY).sort()).toEqual(KEYS);
     // Every table tag finds its own entry (none falls through to English).
-    expect(PLATFORM_LOCALE_TAGS).toHaveLength(11);
+    expect(PLATFORM_LOCALE_TAGS).toHaveLength(12);
     for (const tag of PLATFORM_LOCALE_TAGS) {
       expect(storageTestCopyLocaleOf(tag), tag).toBeDefined();
     }
@@ -200,7 +200,7 @@ describe('[#30335] the storage/test copy table', () => {
       ['zh-TW', 'zh-Hant'], ['zh-HK', 'zh-Hant'], ['zh-Hant', 'zh-Hant'], ['zh-Hant-TW', 'zh-Hant'],
       ['ja', 'ja-JP'], ['ja-JP', 'ja-JP'], ['es', 'es-ES'], ['es-MX', 'es-ES'],
       ['pt', 'pt-BR'], ['pt-BR', 'pt-BR'], ['fr-FR', 'fr'], ['de-DE', 'de'], ['ko-KR', 'ko'],
-      ['ru', 'ru'], ['ar-SA', 'ar'], ['en-US', 'en'], ['EN-gb', 'en'],
+      ['ru', 'ru'], ['uk', 'uk'], ['ar-SA', 'ar'], ['en-US', 'en'], ['EN-gb', 'en'],
       ['xx-YY', undefined], ['', undefined], [undefined, undefined],
     ];
     for (const [code, key] of cases) {

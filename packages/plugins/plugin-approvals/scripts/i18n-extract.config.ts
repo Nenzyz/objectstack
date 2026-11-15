@@ -67,6 +67,7 @@ import { ptBRObjects } from '../src/translations/pt-BR.objects.generated.js';
 import { ruObjects } from '../src/translations/ru.objects.generated.js';
 import { deObjects } from '../src/translations/de.objects.generated.js';
 import { koObjects } from '../src/translations/ko.objects.generated.js';
+import { ukObjects } from '../src/translations/uk.objects.generated.js';
 import { approvalsPageTranslations } from '../src/translations/pages.js';
 
 /**
@@ -98,6 +99,7 @@ const config: ObjectStackDefinition = defineStack({
     { ru: { objects: ruObjects, pages: approvalsPageTranslations['ru'] } },
     { de: { objects: deObjects, pages: approvalsPageTranslations['de'] } },
     { ko: { objects: koObjects, pages: approvalsPageTranslations['ko'] } },
+    { uk: { objects: ukObjects, pages: approvalsPageTranslations['uk'] } },
   ],
 });
 

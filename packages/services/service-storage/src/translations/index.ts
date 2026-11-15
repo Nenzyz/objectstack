@@ -23,6 +23,7 @@ import { arObjects } from './ar.objects.generated.js';
 import { frObjects } from './fr.objects.generated.js';
 import { ptBRObjects } from './pt-BR.objects.generated.js';
 import { ruObjects } from './ru.objects.generated.js';
+import { ukObjects } from './uk.objects.generated.js';
 import { deObjects } from './de.objects.generated.js';
 import { koObjects } from './ko.objects.generated.js';
 import { zhCNGeneratedSourceHashes } from './zh-CN.source-hashes.generated.js';
@@ -33,6 +34,7 @@ import { arGeneratedSourceHashes } from './ar.source-hashes.generated.js';
 import { frGeneratedSourceHashes } from './fr.source-hashes.generated.js';
 import { ptBRGeneratedSourceHashes } from './pt-BR.source-hashes.generated.js';
 import { ruGeneratedSourceHashes } from './ru.source-hashes.generated.js';
+import { ukGeneratedSourceHashes } from './uk.source-hashes.generated.js';
 import { deGeneratedSourceHashes } from './de.source-hashes.generated.js';
 import { koGeneratedSourceHashes } from './ko.source-hashes.generated.js';
 
@@ -75,6 +77,7 @@ export const StorageTranslations: TranslationBundle = {
   'fr': withSourceFallback({ objects: frObjects }, enSource, undefined, frGeneratedSourceHashes),
   'pt-BR': withSourceFallback({ objects: ptBRObjects }, enSource, undefined, ptBRGeneratedSourceHashes),
   'ru': withSourceFallback({ objects: ruObjects }, enSource, undefined, ruGeneratedSourceHashes),
+  'uk': withSourceFallback({ objects: ukObjects }, enSource, undefined, ukGeneratedSourceHashes),
   'de': withSourceFallback({ objects: deObjects }, enSource, undefined, deGeneratedSourceHashes),
   'ko': withSourceFallback({ objects: koObjects }, enSource, undefined, koGeneratedSourceHashes),
 };

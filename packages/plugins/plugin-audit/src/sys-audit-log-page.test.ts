@@ -130,7 +130,7 @@ describe('sys_audit_log record page — the body', () => {
     expect(columns).toEqual(expect.arrayContaining(['old_value', 'new_value']));
   });
 
-  it('every inline label carries the eleven locales this plugin ships', () => {
+  it('every inline label carries the twelve locales this plugin ships', () => {
     const locales = Object.keys(auditPageTranslations).sort();
     const labels: AnyRec[] = [
       ...(nodeOf('record:details').properties.sections as AnyRec[]).map((s) => s.label),

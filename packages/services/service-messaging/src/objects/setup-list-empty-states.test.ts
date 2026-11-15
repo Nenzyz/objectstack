@@ -33,6 +33,7 @@ import { arObjects } from '../translations/ar.objects.generated.js';
 import { frObjects } from '../translations/fr.objects.generated.js';
 import { ptBRObjects } from '../translations/pt-BR.objects.generated.js';
 import { ruObjects } from '../translations/ru.objects.generated.js';
+import { ukObjects } from '../translations/uk.objects.generated.js';
 import { deObjects } from '../translations/de.objects.generated.js';
 import { koObjects } from '../translations/ko.objects.generated.js';
 
@@ -62,6 +63,7 @@ const BUNDLES = {
   'fr': frObjects,
   'pt-BR': ptBRObjects,
   'ru': ruObjects,
+  'uk': ukObjects,
   'de': deObjects,
   'ko': koObjects,
 } as const;

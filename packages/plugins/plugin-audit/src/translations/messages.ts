@@ -108,6 +108,16 @@ export const ruMessages: Messages = {
   mentionedYouAnonymous: 'Вас упомянули',
 };
 
+export const ukMessages: Messages = {
+  activityCreated: 'Створив(ла) {{object}} «{{label}}»',
+  activityUpdated: 'Змінив(ла) {{object}} «{{label}}»',
+  activityUpdatedFields: 'Змінив(ла) {{object}} «{{label}}»: {{fields}}',
+  activityMoreFields: 'ще {{count}}',
+  activityDeleted: 'Видалив(ла) {{object}} «{{label}}»',
+  mentionedYou: '{{actor}} згадав(ла) вас',
+  mentionedYouAnonymous: 'Вас згадали',
+};
+
 export const deMessages: Messages = {
   activityCreated: 'Hat {{object}} „{{label}}“ erstellt',
   activityUpdated: 'Hat {{object}} „{{label}}“ aktualisiert',

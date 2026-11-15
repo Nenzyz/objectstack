@@ -80,6 +80,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     html: '6d037485fc10a5dd96ff347d2e963eb16e56f9b405a2b7a4cd17c92cdff046d8',
     text: 'f876214c50d2c5af9a3927ca9b92373389264c1d225675ac556652bc35d09eab',
   },
+  'auth.password_reset@uk': {
+    subject: 'Скидання пароля Acme & <Co>',
+    html: '0fe9e161450855d16193c32017504a39bce09e68b0b30f2006ca938b58c1ad1c',
+    text: '864608861b7ae4a031f4b4ae95e2f3acdcc8dfc30c4425fd674a62be9091dfe8',
+  },
   'auth.verify_email@en-US': {
     subject: 'Verify your Acme & <Co> email address',
     html: '6762966601763f062f4d94fd4ce92fefc5e70f3c633dfb36192e0b49fe6435da',
@@ -100,6 +105,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     html: '663f7eeff9a5f300e7603b5f83301565b1c09e278525e351dd4cd89ddcd01b85',
     text: '13ec3fae02bbf5ec0a984705d290f5a1c86d5516736cb82a42887f5be235be11',
   },
+  'auth.verify_email@uk': {
+    subject: 'Підтвердіть свою адресу електронної пошти Acme & <Co>',
+    html: '3c00d7ff848299268324d57e8c799e56773eb570e13ef9d66d4a06f8e83152e3',
+    text: '295538fcf9f0c119bb8941d1f853e6f5a36178e4a2d12bc4095c7ab6647147af',
+  },
   'auth.magic_link@en-US': {
     subject: 'Your Acme & <Co> sign-in link',
     html: 'cc0adefd59a0230a2eabe638e7af9fa949f4e565bc57daf1590d05c25d89a50c',
@@ -119,6 +129,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     subject: 'Tu enlace de acceso a Acme & <Co>',
     html: '0367cfe001dbc9aedb210b2d14af3de8b623be6d2b0c9ca62910da405ad5678f',
     text: '0e8fe995b762d65a08152d727bfd393877783b86bb90d30f0d6a5f1b7ab76dac',
+  },
+  'auth.magic_link@uk': {
+    subject: 'Ваше посилання для входу до Acme & <Co>',
+    html: 'a668381c5a9ef89312555039b5a43879f6ecce839af8494d536d78f0656e697b',
+    text: 'fee558f77038c0ca507526065d35fbe454ad4fbd7f381d52f84b5d289a782b57',
   },
   // #24154 — the four invitation TEXT digests were re-captured when the text
   // bodies gained the role clause their HTML bodies carry (each recomputed
@@ -147,6 +162,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     html: '58f4b3f845eb870fc6cc494e8e4b95e102d988ba7e97cbc384267275fddc70ae',
     text: 'fb576ed4a00198bd02ac3e54aa1d27239b2f1025562fa5be7a8da15ff3d78388',
   },
+  'auth.invitation@uk': {
+    subject: 'Grace <Hopper> запрошує вас до Analytical & Engines',
+    html: 'd0dc1ba7dca45a6e6b01f12402ebeea76da15fd55f20a5c446fe572d9e4d5282',
+    text: '415970f76ae8acb2f0a0dc9858a8b369f052e0e27d86128c6bc4c9254e5d9381',
+  },
   // [#23343] Declared after the row path was deleted, so these four never had
   // a seeded row: they are pinned against their first registry render, in the
   // commit that added them. Every byte is still pinned from here on.
@@ -173,6 +193,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     html: 'b00b54ee7e8dfdb0a08575e959b636bbabe25632ddfcb7a4bbb5aa27551d2dba',
     text: '1553e8324220c45d2d183a66b7224faa7d07cf7ea25aabd46e4e945bd535b937',
   },
+  'auth.account_invitation@uk': {
+    subject: 'Grace <Hopper> запрошує вас до Acme & <Co>',
+    html: '2095adc29a67b9c60684087965f3c0398ca4a1b808300cfbb7212af54c0f4ab1',
+    text: '7125f610774c44b68fb39eb18675678aee02cd47f702f34957a7bc5e0c367125',
+  },
   'auth.two_factor_otp@en-US': {
     subject: 'Your Acme & <Co> verification code',
     html: '3ff1c9565d4c5b9fb98964395062a0f702bb14fb290ccb17e24a0538d3353b5e',
@@ -193,6 +218,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     html: 'a6bc07041a34a40a2e4933c77587c97975bb73181643ea8d5c970fb8282560b5',
     text: 'd7ad07b890ab2749209cf4e6333c7ad818f9b8a85c0e8f43dbc8050d5cec4293',
   },
+  'auth.two_factor_otp@uk': {
+    subject: 'Ваш код підтвердження Acme & <Co>',
+    html: 'bee7421460bbd730b774b0d7d3a6e78b2b82d47117dc94c59e33eae0e3a490eb',
+    text: '0acb9187cb9f2d44cf1d6eb8e9fd7ae2d0e0678f415774091a2a4e2ba25f8474',
+  },
   'auth.email_change_notice@en-US': {
     subject: 'Security notice: the email address on your Acme & <Co> account is being changed',
     html: '9e24ed352d228f4f23023a40840fbb23591b5e828298aa107bdd106706f901e5',
@@ -212,6 +242,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     subject: 'Aviso de seguridad: se está cambiando el correo de tu cuenta de Acme & <Co>',
     html: 'cc817fe06bbf628a98b1ad06d34ad51fcfc4749b3ee0d2536cad94632cb6edbb',
     text: '13e8e63f4df3367b410fa2ca7a0acdf47eb3b8b060d1e5e96119f17cfbfd03bd',
+  },
+  'auth.email_change_notice@uk': {
+    subject: 'Сповіщення безпеки: адресу електронної пошти вашого облікового запису Acme & <Co> змінюють',
+    html: '2de530776bc7bb0911a46d374f337d11e75cb25ecd797aa112629cba2dfdcb06',
+    text: '77ba652b3a2058e8cbfeebeb8f6c75f3969c6df23c9dedb0001923af8a2acf62',
   },
   // Added after the row path was deleted (#25060), so these four were never
   // seeded rows: they are captured from this same registry render in the
@@ -235,6 +270,11 @@ const RENDERED: Record<string, { subject: string; html: string; text: string }> 
     subject: 'Ya tienes una cuenta de Acme & <Co>',
     html: 'c6abe9c3fc761d1dc88b0517ee65bce3dcedb01a425e6cdd3daebdd77aff1a00',
     text: '7d65c60ed0e8b415fe7aae7aff5c544318f81e3ab6c87525067af112a30d238b',
+  },
+  'auth.existing_account_sign_up@uk': {
+    subject: 'У вас уже є обліковий запис у Acme & <Co>',
+    html: 'ebdd242070a4591b05612c20d855321745f0f17b03ad7b4a7b1233bac0ad47ee',
+    text: 'e5dad9a76cc2d0ecdf9a9f657f9e673ba8435373e02ec5d3dfe4a82988d27b96',
   },
 };
 
@@ -297,7 +337,7 @@ describe('every built-in auth mail renders byte-identical from the registry', ()
       };
     }
 
-    expect(Object.keys(rendered)).toHaveLength(32);
+    expect(Object.keys(rendered)).toHaveLength(40);
     expect(rendered).toEqual(RENDERED);
   });
 });

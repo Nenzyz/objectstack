@@ -16,405 +16,405 @@ import type { TranslationData } from '@objectstack/spec/system';
 
 export const ukObjects: NonNullable<TranslationData['objects']> = {
   sys_record_share: {
-    label: "Record Share",
-    pluralLabel: "Record Shares",
-    description: "Records shared beyond their owner, one row per grant.",
+    label: "Спільний доступ до запису",
+    pluralLabel: "Спільний доступ до записів",
+    description: "Записи, які відкрито для спільного доступу крім їхнього власника, — по одному рядку на надання.",
     fields: {
       id: {
-        label: "Share ID"
+        label: "ID спільного доступу"
       },
       object_name: {
-        label: "Object",
-        help: "Short object name of the shared record"
+        label: "Об'єкт",
+        help: "Коротка назва об'єкта запису, до якого надано спільний доступ"
       },
       record_id: {
-        label: "Record",
-        help: "Primary key of the shared record within object_name"
+        label: "Запис",
+        help: "Первинний ключ запису, до якого надано спільний доступ, в межах object_name"
       },
       recipient_type: {
-        label: "Recipient Type",
-        help: "Kind of principal that holds the grant",
+        label: "Тип отримувача",
+        help: "Тип суб'єкта, якому належить надання",
         options: {
-          user: "User",
-          group: "Group",
-          position: "Position",
-          unit_and_subordinates: "Business unit and subordinates"
+          user: "Користувач",
+          group: "Група",
+          position: "Посада",
+          unit_and_subordinates: "Підрозділ і підпорядковані підрозділи"
         }
       },
       recipient_id: {
-        label: "Recipient",
-        help: "ID of the user/group/position that receives access"
+        label: "Отримувач",
+        help: "ID користувача, групи чи посади, що отримує доступ"
       },
       access_level: {
-        label: "Access Level",
-        help: "What the recipient can do — read, or read and edit",
+        label: "Рівень доступу",
+        help: "Що може робити отримувач — читання або читання й редагування",
         options: {
-          read: "Read",
-          edit: "Read and edit"
+          read: "Читання",
+          edit: "Читання й редагування"
         }
       },
       source: {
-        label: "Source",
-        help: "Why this grant exists — used by the rule evaluator to reconcile",
+        label: "Джерело",
+        help: "Навіщо існує це надання — оцінювач правил використовує його для узгодження",
         options: {
-          manual: "manual",
-          rule: "rule",
-          team: "team",
-          inherited: "inherited"
+          manual: "вручну",
+          rule: "правило",
+          team: "команда",
+          inherited: "успадковано"
         }
       },
       source_id: {
-        label: "Source ID",
-        help: "Rule name / team id when source != manual"
+        label: "ID джерела",
+        help: "Назва правила або ID команди, якщо source != manual"
       },
       granted_by: {
-        label: "Granted By",
-        help: "User that created the grant (manual only)"
+        label: "Ким надано",
+        help: "Користувач, який створив надання (лише вручну)"
       },
       reason: {
-        label: "Reason",
-        help: "Optional free-text explanation surfaced to the recipient"
+        label: "Причина",
+        help: "Необов'язкове пояснення у вільному тексті, яке бачить отримувач"
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Дата оновлення"
       }
     },
     _views: {
       all_shares: {
-        label: "All"
+        label: "Усі"
       },
       granted_to_me: {
-        label: "Granted to Me"
+        label: "Надано мені"
       },
       granted_by_me: {
-        label: "Granted by Me"
+        label: "Надано мною"
       },
       by_object: {
-        label: "By Object"
+        label: "За об'єктом"
       },
       manual_grants: {
-        label: "Manual Grants"
+        label: "Надані вручну"
       },
       rule_grants: {
-        label: "Rule Grants"
+        label: "Надані правилами"
       }
     }
   },
   sys_sharing_rule: {
-    label: "Sharing Rule",
-    pluralLabel: "Sharing Rules",
-    description: "Grants a group of people access to the records that match a condition.",
+    label: "Правило спільного доступу",
+    pluralLabel: "Правила спільного доступу",
+    description: "Надає групі людей доступ до записів, що відповідають умові.",
     fields: {
       id: {
-        label: "Rule ID"
+        label: "ID правила"
       },
       organization_id: {
-        label: "Organization",
-        help: "The organization this rule belongs to."
+        label: "Організація",
+        help: "Організація, до якої належить це правило."
       },
       name: {
-        label: "Name",
-        help: "Identifies the rule. Lowercase letters, digits and underscores only."
+        label: "Назва",
+        help: "Ідентифікує правило. Лише малі літери, цифри та підкреслення."
       },
       label: {
-        label: "Display Label"
+        label: "Відображувана назва"
       },
       description: {
-        label: "Description"
+        label: "Опис"
       },
       object_name: {
-        label: "Object",
-        help: "The object whose records this rule shares."
+        label: "Об'єкт",
+        help: "Об'єкт, записи якого це правило віддає у спільний доступ."
       },
       criteria_json: {
-        label: "Criteria",
-        help: "Which records to share. Required — a rule must narrow the records it shares, so there is no \"share every record\" setting."
+        label: "Умови",
+        help: "Які записи відкривати у спільний доступ. Обов'язково — правило має звужувати коло записів, які воно відкриває, тому налаштування «спільний доступ до кожного запису» не передбачено."
       },
       recipient_type: {
-        label: "Recipient Type",
-        help: "Who receives access. Picking a team, business unit, position or queue gives access to everyone in it. \"Business unit and subordinates\" also covers every unit below the one you pick. \"Field\" shares each record with the user or users held in one of its own fields — name that field as the recipient.",
+        label: "Тип отримувача",
+        help: "Хто отримує доступ. Вибір команди, підрозділу, посади або черги відкриває доступ усім, хто в них перебуває. «Підрозділ і підпорядковані підрозділи» охоплює також кожен підрозділ нижче обраного. «Поле» відкриває кожен запис у спільний доступ користувачу чи користувачам, записаним в одному з його власних полів — вкажіть це поле як отримувача.",
         options: {
-          user: "User",
-          team: "Team",
-          business_unit: "Business unit",
-          position: "Position",
-          unit_and_subordinates: "Business unit and subordinates",
-          queue: "Queue",
-          field: "Field"
+          user: "Користувач",
+          team: "Команда",
+          business_unit: "Підрозділ",
+          position: "Посада",
+          unit_and_subordinates: "Підрозділ і підпорядковані підрозділи",
+          queue: "Черга",
+          field: "Поле"
         }
       },
       recipient_id: {
-        label: "Recipient",
-        help: "The specific user, team, business unit, position or queue that receives access — or, for the \"Field\" recipient type, the name of the record field that holds the user or users to share with."
+        label: "Отримувач",
+        help: "Конкретний користувач, команда, підрозділ, посада або черга, які отримують доступ — або, для типу отримувача «Поле», назва поля запису, в якому записано користувача чи користувачів, з якими відкрити спільний доступ."
       },
       access_level: {
-        label: "Access Level",
-        help: "What the recipients may do with the matching records — read them, or read and edit them.",
+        label: "Рівень доступу",
+        help: "Що отримувачі можуть робити з відповідними записами — читати їх або читати й редагувати.",
         options: {
-          read: "Read",
-          edit: "Read and edit"
+          read: "Читання",
+          edit: "Читання й редагування"
         }
       },
       active: {
-        label: "Active",
-        help: "Turn off to withdraw the access this rule granted, without deleting the rule."
+        label: "Активне",
+        help: "Вимкніть, щоб відкликати доступ, який надало це правило, не видаляючи самого правила."
       },
       managed_by: {
-        label: "Managed By",
-        help: "Where this rule came from: built into the platform, installed with an app, or created here in Setup.",
+        label: "Ким керується",
+        help: "Звідки взялося це правило: вбудоване в платформу, встановлене разом із застосунком або створене тут, у Налаштуванні.",
         options: {
-          platform: "Platform",
-          package: "Package",
-          admin: "Admin"
+          platform: "Платформа",
+          package: "Пакет",
+          admin: "Адміністратор"
         }
       },
       package_id: {
-        label: "Package",
-        help: "The app a rule that came with an app belongs to. Filled in by the platform; empty for rules created here."
+        label: "Пакет",
+        help: "Застосунок, до якого належить правило, що прийшло разом із застосунком. Заповнюється платформою; порожньо для правил, створених тут."
       },
       customized: {
-        label: "Customized",
-        help: "Set once you edit a rule that came with an app, so your changes are kept when the app is updated."
+        label: "Змінено",
+        help: "Встановлюється, щойно ви зміните правило, що прийшло разом із застосунком, щоб ваші зміни збереглися під час оновлення застосунка."
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       updated_at: {
-        label: "Updated At"
+        label: "Дата оновлення"
       }
     },
     _views: {
       active: {
-        label: "Active"
+        label: "Активні"
       },
       inactive: {
-        label: "Inactive"
+        label: "Неактивні"
       },
       by_object: {
-        label: "By Object"
+        label: "За об'єктом"
       },
       all_rules: {
-        label: "All"
+        label: "Усі"
       }
     }
   },
   sys_share_link: {
-    label: "Share Link",
-    pluralLabel: "Share Links",
-    description: "Opaque capability token granting access to a single record. Notion/Figma-style public link sharing.",
+    label: "Посилання для спільного доступу",
+    pluralLabel: "Посилання для спільного доступу",
+    description: "Непрозорий токен, який надає доступ до одного запису. Спільний доступ за публічним посиланням у стилі Notion/Figma.",
     fields: {
       id: {
-        label: "Link ID"
+        label: "ID посилання"
       },
       token: {
-        label: "Token",
-        help: "Opaque URL-safe random token (≥ 22 chars). The only secret in this row."
+        label: "Токен",
+        help: "Непрозорий випадковий токен, безпечний для URL (≥ 22 символів). Єдиний секрет у цьому рядку."
       },
       object_name: {
-        label: "Object",
-        help: "Short object name of the shared record (e.g. ai_conversation, contracts_contract)"
+        label: "Об'єкт",
+        help: "Коротка назва об'єкта запису, до якого надано спільний доступ (наприклад, ai_conversation, contracts_contract)"
       },
       record_id: {
-        label: "Record",
-        help: "Primary key of the shared record within object_name"
+        label: "Запис",
+        help: "Первинний ключ запису, до якого надано спільний доступ, в межах object_name"
       },
       permission: {
-        label: "Permission",
-        help: "What the link holder can do with the record",
+        label: "Дозвіл",
+        help: "Що може робити із записом той, у кого є посилання",
         options: {
-          view: "View",
-          comment: "Comment",
-          edit: "Edit"
+          view: "Перегляд",
+          comment: "Коментування",
+          edit: "Редагування"
         }
       },
       audience: {
-        label: "Audience",
-        help: "Gating layer applied on top of the token check",
+        label: "Аудиторія",
+        help: "Рівень обмеження доступу, накладений поверх перевірки токена",
         options: {
-          public: "Public (indexable)",
-          link_only: "Anyone with the link",
-          signed_in: "Signed-in users",
-          email: "Specific emails"
+          public: "Публічний (індексується)",
+          link_only: "Усі, хто має посилання",
+          signed_in: "Користувачі, що увійшли в систему",
+          email: "Конкретні електронні адреси"
         }
       },
       expires_at: {
-        label: "Expires At",
-        help: "When set, resolveToken returns null after this timestamp"
+        label: "Діє до",
+        help: "Якщо задано, resolveToken повертає null після цього часу"
       },
       email_allowlist: {
-        label: "Email Allowlist",
-        help: "Lowercased addresses checked when audience=email"
+        label: "Список дозволених електронних адрес",
+        help: "Адреси в нижньому регістрі, що перевіряються, коли audience=email"
       },
       password_hash: {
-        label: "Password Hash",
-        help: "Argon2/bcrypt hash. When set, the UI prompts for a password before rendering."
+        label: "Хеш пароля",
+        help: "Хеш Argon2/bcrypt. Якщо задано, інтерфейс запитує пароль перед показом."
       },
       redact_fields: {
-        label: "Per-Link Redactions",
-        help: "Extra fields stripped from the response, on top of the object-default set"
+        label: "Приховані поля посилання",
+        help: "Додаткові поля, які вилучаються з відповіді понад усталений набір об'єкта"
       },
       label: {
-        label: "Label",
-        help: "Free-text shown in the share dialog (e.g. \"ACME Q3 contract\")"
+        label: "Назва",
+        help: "Вільний текст, що показується у вікні спільного доступу (наприклад, «Договір ACME на 3-й квартал»)"
       },
       revoked_at: {
-        label: "Revoked At",
-        help: "When set, the link is permanently disabled"
+        label: "Дата відкликання",
+        help: "Якщо задано, посилання вимкнено назавжди"
       },
       created_by: {
-        label: "Created By",
-        help: "Issuer of the link"
+        label: "Ким створено",
+        help: "Видавець посилання"
       },
       created_at: {
-        label: "Created At"
+        label: "Дата створення"
       },
       last_used_at: {
-        label: "Last Used At",
-        help: "Stamped by resolveToken; used by the dashboard to highlight active links"
+        label: "Дата останнього використання",
+        help: "Проставляється resolveToken; дашборд використовує це, щоб виділяти активні посилання"
       },
       use_count: {
-        label: "Use Count",
-        help: "Incremented by resolveToken on every successful resolution"
+        label: "Кількість використань",
+        help: "Збільшується resolveToken за кожне успішне розпізнавання токена"
       }
     },
     _views: {
       active_links: {
-        label: "Active"
+        label: "Активні"
       },
       by_me: {
-        label: "Created by Me"
+        label: "Створені мною"
       },
       revoked: {
-        label: "Revoked"
+        label: "Відкликані"
       },
       all_links: {
-        label: "All"
+        label: "Усі"
       }
     }
   },
   sys_queue: {
-    label: "Queue",
-    pluralLabel: "Queues",
-    description: "A named group of people that unassigned records can wait in until one of them takes the record.",
+    label: "Черга",
+    pluralLabel: "Черги",
+    description: "Іменована група людей, у якій непризначені записи можуть чекати, доки хтось із учасників не візьме запис.",
     fields: {
       name: {
-        label: "Name",
-        help: "Identifies the queue everywhere it is used — on records, in assignment rules, approvals and sharing rules. Lowercase letters, digits and underscores only."
+        label: "Назва",
+        help: "Ідентифікує чергу всюди, де її використано — на записах, у правилах призначення, запитах на затвердження та правилах спільного доступу. Лише малі літери, цифри та підкреслення."
       },
       label: {
-        label: "Display Label"
+        label: "Відображувана назва"
       },
       description: {
-        label: "Description"
+        label: "Опис"
       }
     },
     _views: {
       all_queues: {
-        label: "All"
+        label: "Усі"
       }
     }
   },
   sys_queue_member: {
-    label: "Queue Member",
-    pluralLabel: "Queue Members",
-    description: "Who belongs to a queue: a user, a team, a position or a business unit.",
+    label: "Учасник черги",
+    pluralLabel: "Учасники черги",
+    description: "Хто належить до черги: користувач, команда, посада або підрозділ.",
     fields: {
       queue: {
-        label: "Queue",
-        help: "The name of the queue this member belongs to."
+        label: "Черга",
+        help: "Назва черги, до якої належить цей учасник."
       },
       queue_package: {
-        label: "Queue Package",
-        help: "The app the queue comes from. Filled in by the platform; empty for queues created here."
+        label: "Пакет черги",
+        help: "Застосунок, з якого походить черга. Заповнюється платформою; порожньо для черг, створених тут."
       },
       recipient_type: {
-        label: "Member Type",
-        help: "What kind of member this is. A team, position or business unit makes everyone in it a member. \"Business unit and subordinates\" also covers every unit below the one you pick.",
+        label: "Тип учасника",
+        help: "Що це за учасник. Команда, посада або підрозділ робить учасниками всіх, хто в них перебуває. «Підрозділ і підпорядковані підрозділи» охоплює також кожен підрозділ нижче обраного.",
         options: {
-          user: "User",
-          team: "Team",
-          position: "Position",
-          business_unit: "Business unit",
-          unit_and_subordinates: "Business unit and subordinates"
+          user: "Користувач",
+          team: "Команда",
+          position: "Посада",
+          business_unit: "Підрозділ",
+          unit_and_subordinates: "Підрозділ і підпорядковані підрозділи"
         }
       },
       recipient_id: {
-        label: "Member",
-        help: "The specific user, team, position or business unit."
+        label: "Учасник",
+        help: "Конкретний користувач, команда, посада або підрозділ."
       }
     },
     _views: {
       by_queue: {
-        label: "By Queue"
+        label: "За чергою"
       }
     }
   },
   sys_assignment_rule: {
-    label: "Assignment Rule",
-    pluralLabel: "Assignment Rules",
-    description: "Sends each new record that matches a condition to a queue or a person.",
+    label: "Правило призначення",
+    pluralLabel: "Правила призначення",
+    description: "Надсилає кожен новий запис, що відповідає умові, до черги або людини.",
     fields: {
       organization_id: {
-        label: "Organization",
-        help: "The organization this rule belongs to."
+        label: "Організація",
+        help: "Організація, до якої належить це правило."
       },
       name: {
-        label: "Name",
-        help: "Identifies the rule. Lowercase letters, digits and underscores only, and not the name of a rule an installed app provides."
+        label: "Назва",
+        help: "Ідентифікує правило. Лише малі літери, цифри та підкреслення, і не назва правила, яке надає встановлений застосунок."
       },
       label: {
-        label: "Display Label"
+        label: "Відображувана назва"
       },
       description: {
-        label: "Description"
+        label: "Опис"
       },
       object_name: {
-        label: "Object",
-        help: "The object whose new records this rule sends somewhere. Only objects whose records have an owner can be assigned."
+        label: "Об'єкт",
+        help: "Об'єкт, чиї нові записи це правило кудись надсилає. Призначати можна лише об'єкти, записи яких мають власника."
       },
       criteria: {
-        label: "Condition",
-        help: "Which new records this rule takes; leave it empty to take every new record that no earlier rule took. Written as an expression over the record — for example record.priority == \"high\"."
+        label: "Умова",
+        help: "Які нові записи бере це правило; залишіть порожнім, щоб брати всі нові записи, які не взяло жодне попереднє правило. Записується як вираз над записом — наприклад record.priority == \"high\"."
       },
       sort_order: {
-        label: "Order",
-        help: "When several of your rules could take the same record, the one with the lowest order is tried first. Your rules are always tried before the rules installed apps provide."
+        label: "Порядок",
+        help: "Коли кілька ваших правил могли б взяти той самий запис, першим пробується те, що має найменший порядок. Ваші правила завжди пробуються перед правилами, які надають встановлені застосунки."
       },
       recipient_type: {
-        label: "Assign To",
-        help: "Send the record to a queue, where its members can take it, or straight to one person.",
+        label: "Кому призначити",
+        help: "Надіслати запис до черги, де його учасники можуть його забрати, або прямо одній людині.",
         options: {
-          queue: "Queue",
-          user: "User"
+          queue: "Черга",
+          user: "Користувач"
         }
       },
       recipient_id: {
-        label: "Queue or User",
-        help: "The queue, or the person, the record goes to. A person must be an active member of this organization."
+        label: "Черга або користувач",
+        help: "Черга або людина, якій піде запис. Людина має бути активним учасником цієї організації."
       },
       strategy: {
-        label: "Pick a Member",
-        help: "For a queue: give the record straight to one member, taking turns or choosing whoever has the least open work. Leave it empty to leave the record in the queue until a member takes it.",
+        label: "Вибір учасника",
+        help: "Для черги: передати запис одразу одному учаснику — почергово або тому, у кого найменше незавершеної роботи. Залишіть порожнім, щоб запис лишався в черзі, доки його не візьме учасник.",
         options: {
-          round_robin: "Round robin",
-          least_loaded: "Least loaded"
+          round_robin: "За чергою",
+          least_loaded: "За найменшим навантаженням"
         }
       },
       load: {
-        label: "Open Work",
-        help: "Required for \"Least loaded\": which records count as a member's open work, written as an expression over the record — for example record.status != \"closed\"."
+        label: "Незавершена робота",
+        help: "Обов'язково для «За найменшим навантаженням»: які записи вважаються незавершеною роботою учасника; записується як вираз над записом — наприклад record.status != \"closed\"."
       },
       active: {
-        label: "Active",
-        help: "Turn off to stop this rule from assigning new records, without deleting it."
+        label: "Активне",
+        help: "Вимкніть, щоб це правило перестало призначати нові записи, не видаляючи його."
       }
     },
     _views: {
       by_object: {
-        label: "By Object"
+        label: "За об'єктом"
       }
     }
   }

@@ -202,6 +202,7 @@ const EXPECTED_SELF_SERVE: Record<Locale, string> = {
   'zh-CN': '如果链接已失效，请在登录页点击「忘记密码？」并输入 ada@acme.test，获取新的链接；如仍无法设置，请联系 Dana Admin。',
   'ja-JP': 'リンクの有効期限が切れた場合は、サインイン画面の「パスワードをお忘れですか？」から ada@acme.test を入力して、新しいリンクを受け取ってください。それでも設定できない場合は、Dana Admin さんにお問い合わせください。',
   'es-ES': 'Si el enlace ha caducado, solicita uno nuevo desde la página de inicio de sesión: elige «¿Olvidaste tu contraseña?» e introduce ada@acme.test. Si así no puedes, ponte en contacto con Dana Admin.',
+  uk: 'Якщо термін дії посилання минув, отримайте нове на сторінці входу: оберіть «Забули пароль?» і введіть ada@acme.test. Якщо це не допоможе, зверніться до Dana Admin.',
 };
 
 /** The line it replaces: the administrator as the only way out. */
@@ -210,6 +211,7 @@ const OLD_ADMIN_ONLY: Record<Locale, string> = {
   'zh-CN': '如果链接已失效，请联系 Dana Admin。',
   'ja-JP': 'リンクの有効期限が切れた場合は、Dana Admin さんにお問い合わせください。',
   'es-ES': 'Si el enlace ha caducado, ponte en contacto con Dana Admin.',
+  uk: 'Якщо термін дії посилання минув, зверніться до Dana Admin.',
 };
 
 describe('[#30212] auth.account_invitation points an expired link at a new one first', () => {

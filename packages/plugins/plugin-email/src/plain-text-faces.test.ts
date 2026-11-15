@@ -31,7 +31,7 @@ import type {
   TransportSendResult,
 } from '@objectstack/spec/contracts';
 
-const LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES'] as const;
+const LOCALES = ['en-US', 'zh-CN', 'ja-JP', 'es-ES', 'uk'] as const;
 
 /** A link whose second query parameter is the one the defect dropped. */
 const LINK = 'https://acme.test/api/v1/auth/verify-email?token=TOK123&callbackURL=%2Faccept-invitation%2Finv_1';

@@ -21,6 +21,7 @@ import { arObjects } from './ar.objects.generated.js';
 import { frObjects } from './fr.objects.generated.js';
 import { ptBRObjects } from './pt-BR.objects.generated.js';
 import { ruObjects } from './ru.objects.generated.js';
+import { ukObjects } from './uk.objects.generated.js';
 import { deObjects } from './de.objects.generated.js';
 import { koObjects } from './ko.objects.generated.js';
 import { zhCNGeneratedSourceHashes } from './zh-CN.source-hashes.generated.js';
@@ -31,6 +32,7 @@ import { arGeneratedSourceHashes } from './ar.source-hashes.generated.js';
 import { frGeneratedSourceHashes } from './fr.source-hashes.generated.js';
 import { ptBRGeneratedSourceHashes } from './pt-BR.source-hashes.generated.js';
 import { ruGeneratedSourceHashes } from './ru.source-hashes.generated.js';
+import { ukGeneratedSourceHashes } from './uk.source-hashes.generated.js';
 import { deGeneratedSourceHashes } from './de.source-hashes.generated.js';
 import { koGeneratedSourceHashes } from './ko.source-hashes.generated.js';
 import {
@@ -43,6 +45,7 @@ import {
   frMessages,
   ptBRMessages,
   ruMessages,
+  ukMessages,
   deMessages,
   koMessages,
 } from './messages.js';
@@ -88,6 +91,7 @@ export const AuditTranslations: TranslationBundle = {
   'fr': withSourceFallback({ objects: frObjects, pages: auditPageTranslations['fr'], messages: frMessages }, enSource, auditPageSourceHashes['fr'], frGeneratedSourceHashes),
   'pt-BR': withSourceFallback({ objects: ptBRObjects, pages: auditPageTranslations['pt-BR'], messages: ptBRMessages }, enSource, auditPageSourceHashes['pt-BR'], ptBRGeneratedSourceHashes),
   'ru': withSourceFallback({ objects: ruObjects, pages: auditPageTranslations['ru'], messages: ruMessages }, enSource, auditPageSourceHashes['ru'], ruGeneratedSourceHashes),
+  'uk': withSourceFallback({ objects: ukObjects, pages: auditPageTranslations['uk'], messages: ukMessages }, enSource, auditPageSourceHashes['uk'], ukGeneratedSourceHashes),
   'de': withSourceFallback({ objects: deObjects, pages: auditPageTranslations['de'], messages: deMessages }, enSource, auditPageSourceHashes['de'], deGeneratedSourceHashes),
   'ko': withSourceFallback({ objects: koObjects, pages: auditPageTranslations['ko'], messages: koMessages }, enSource, auditPageSourceHashes['ko'], koGeneratedSourceHashes),
 };

@@ -56,6 +56,7 @@ import { ptBRObjects } from '../src/translations/pt-BR.objects.generated.js';
 import { ruObjects } from '../src/translations/ru.objects.generated.js';
 import { deObjects } from '../src/translations/de.objects.generated.js';
 import { koObjects } from '../src/translations/ko.objects.generated.js';
+import { ukObjects } from '../src/translations/uk.objects.generated.js';
 
 /**
  * The annotation is load-bearing, not decoration (#10868). `defineStack`
@@ -93,6 +94,7 @@ const config: ObjectStackDefinition = defineStack({
     { 'ru': { objects: ruObjects } },
     { 'de': { objects: deObjects } },
     { 'ko': { objects: koObjects } },
+    { 'uk': { objects: ukObjects } },
   ],
 });
 

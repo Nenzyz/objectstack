@@ -39,13 +39,14 @@
  * interpolates `{{name}}` holes and nothing else. The count is always two or
  * more, and in most shipped locales every count from two up takes ONE form
  * (en, es-ES, fr, pt-BR, de: the plural; zh-CN, zh-Hant, ja-JP, ko: no plural
- * inflection). Russian and Arabic do vary above two (ru: 2–4 vs 5+; ar: 3–10
- * vs 11+), so their sentences are worded count-neutrally — the number stands
- * after a colon as a tally (`Уведомлений: {{count}}`, `عدد الإشعارات لديك:
- * {{count}}`), which reads correctly for every count without choosing a noun
- * form (#30512). A sentence that cannot be phrased that way needs plural
- * selection in the catalog, which is the `i18n` service's to add, not this
- * bundle's.
+ * inflection). Ukrainian, Russian and Arabic do vary above two (uk: 2–4 vs 5+;
+ * ru: 2–4 vs 5+; ar: 3–10 vs 11+), so their sentences are worded
+ * count-neutrally — the number stands after a colon as a tally
+ * (`Повідомлень: {{count}}`, `Уведомлений: {{count}}`,
+ * `عدد الإشعارات لديك: {{count}}`), which reads correctly for every count
+ * without choosing a noun form (#30512). A sentence that cannot be phrased
+ * that way needs plural selection in the catalog, which is the `i18n`
+ * service's to add, not this bundle's.
  */
 
 import type { TranslationData } from '@objectstack/spec/system';
@@ -94,6 +95,10 @@ export const ruMessages: MessagingMessages = {
     notificationDigestTitle: 'Уведомлений: {{count}}',
 };
 
+export const ukMessages: MessagingMessages = {
+    notificationDigestTitle: 'Повідомлень: {{count}}',
+};
+
 export const deMessages: MessagingMessages = {
     notificationDigestTitle: 'Sie haben {{count}} Benachrichtigungen',
 };
@@ -105,7 +110,7 @@ export const koMessages: MessagingMessages = {
 /** The shipped locales, keyed as the bundle beside this file keys them. */
 export type MessagingLocale =
     | 'en' | 'zh-CN' | 'ja-JP' | 'es-ES'
-    | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ko';
+    | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ko';
 
 export const messagingMessages: Readonly<Record<MessagingLocale, MessagingMessages>> = {
     en: enMessages,
@@ -117,6 +122,7 @@ export const messagingMessages: Readonly<Record<MessagingLocale, MessagingMessag
     'fr': frMessages,
     'pt-BR': ptBRMessages,
     'ru': ruMessages,
+    'uk': ukMessages,
     'de': deMessages,
     'ko': koMessages,
 };

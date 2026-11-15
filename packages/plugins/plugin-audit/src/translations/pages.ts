@@ -36,8 +36,8 @@ import type { SourceHashes } from '@objectstack/platform-objects/apps';
 
 type PageTranslations = NonNullable<TranslationData['pages']>;
 
-/** The shipped locales, the eleven the generated bundles carry. */
-export type AuditLocale = 'en' | 'zh-CN' | 'ja-JP' | 'es-ES' | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'de' | 'ko';
+/** The shipped locales, the twelve the generated bundles carry. */
+export type AuditLocale = 'en' | 'zh-CN' | 'ja-JP' | 'es-ES' | 'zh-Hant' | 'ar' | 'fr' | 'pt-BR' | 'ru' | 'uk' | 'de' | 'ko';
 
 export const auditPageTranslations: Readonly<Record<AuditLocale, PageTranslations>> = {
   en: { sys_audit_log_detail: { label: 'Audit Log' } },
@@ -49,6 +49,7 @@ export const auditPageTranslations: Readonly<Record<AuditLocale, PageTranslation
   fr: { sys_audit_log_detail: { label: 'Journal d’audit' } },
   'pt-BR': { sys_audit_log_detail: { label: 'Log de auditoria' } },
   ru: { sys_audit_log_detail: { label: 'Журнал аудита' } },
+  uk: { sys_audit_log_detail: { label: 'Журнал аудиту' } },
   de: { sys_audit_log_detail: { label: 'Audit-Protokoll' } },
   ko: { sys_audit_log_detail: { label: '감사 로그' } },
 };
@@ -69,6 +70,7 @@ export const auditPageSourceHashes: Readonly<Record<Exclude<AuditLocale, 'en'>, 
   fr: { 'pages.sys_audit_log_detail.label': AUDIT_LOG_LABEL_HASH },
   'pt-BR': { 'pages.sys_audit_log_detail.label': AUDIT_LOG_LABEL_HASH },
   ru: { 'pages.sys_audit_log_detail.label': AUDIT_LOG_LABEL_HASH },
+  uk: { 'pages.sys_audit_log_detail.label': AUDIT_LOG_LABEL_HASH },
   de: { 'pages.sys_audit_log_detail.label': AUDIT_LOG_LABEL_HASH },
   ko: { 'pages.sys_audit_log_detail.label': AUDIT_LOG_LABEL_HASH },
 };
