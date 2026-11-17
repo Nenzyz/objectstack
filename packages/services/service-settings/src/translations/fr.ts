@@ -122,6 +122,10 @@ export const fr: PlatformTranslationData = {
           label: 'URL du logo',
           help: 'Affiché sur la page de connexion, l’écran de chargement et l’en-tête d’accueil. Exemple : https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'Barre latérale sombre',
+          help: 'Affiche la barre latérale de navigation de la console en couleurs sombres, les pages restant claires. Un utilisateur qui a déjà choisi le thème sombre ne voit aucun changement.',
+        },
       },
     },
     company: {

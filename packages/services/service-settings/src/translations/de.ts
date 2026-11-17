@@ -116,6 +116,10 @@ export const de: PlatformTranslationData = {
           label: 'Logo-URL',
           help: 'Wird auf der Anmeldeseite, dem Ladebildschirm und im Startseiten-Header angezeigt. Beispiel: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'Dunkle Seitenleiste',
+          help: 'Zeigt die Navigationsleiste der Konsole in dunklen Farben, während die Seiten hell bleiben. Wer bereits das dunkle Design gewählt hat, sieht keine Änderung.',
+        },
       },
     },
     company: {

@@ -17,7 +17,7 @@
  *     singleEnvironment: boolean,
  *     defaultOrgId?, defaultEnvironmentId?,   // multi-tenant, per-hostname
  *     features: { installLocal, marketplace, deploymentNotice, aiStudio, autoPublishAiBuilds, ... },
- *     branding: { productName, productShortName, stage?, logoUrl, faviconUrl, brandColor, pwaDescription, pwaThemeColor },
+ *     branding: { productName, productShortName, stage?, logoUrl, faviconUrl, brandColor, pwaDescription, pwaThemeColor, darkSidebar },
  *     telemetry: { errorReporting?: { dsn, sendDefaultPii, environment?, tracesSampleRate, replaysOnErrorSampleRate } }
  *   }
  *
@@ -97,6 +97,18 @@
  * A read that fails is not this door's failure: the deployment's branding is
  * served and one `warn` names the cause, so the sign-in page never 500s over a
  * settings outage.
+ *
+ * ## `branding.darkSidebar` — the operator's dark-sidebar appearance
+ *
+ * Always a boolean; `true` asks the Console to render its navigation sidebar
+ * with the dark theme tokens while the page body keeps the user's theme.
+ * Resolved like the three fields above: a set `branding.dark_sidebar_enabled`
+ * setting (saved in Setup, or pinned by `OS_BRANDING_DARK_SIDEBAR_ENABLED`
+ * through the settings layer) wins, then the host's `darkSidebar` option, then
+ * the same `OS_BRANDING_DARK_SIDEBAR_ENABLED` read here, so the one variable
+ * also works where the namespace is not offered (a walled posture), then off.
+ * The env spellings that read as on are the settings layer's own boolean
+ * coercion (`true` / `1` / `yes`), so both readers of the variable agree.
  *
  * ## `branding.stage` — a documented knob that this runtime never sent (#9252)
  *
@@ -380,8 +392,28 @@ const BRANDING_SETTINGS_KEYS = {
 
 type SettingsBrandedField = keyof typeof BRANDING_SETTINGS_KEYS;
 
+/** Which boolean `branding` settings key each served flag reads. */
+const BRANDING_SETTINGS_TOGGLES = {
+    darkSidebar: 'dark_sidebar_enabled',
+} as const;
+
+type SettingsBrandedToggle = keyof typeof BRANDING_SETTINGS_TOGGLES;
+
+/**
+ * The operator's dark-sidebar switch: the settings layer's env override of
+ * `branding.dark_sidebar_enabled` (its `envKeyOf` spelling), read here too as
+ * the deployment fallback.
+ */
+const DARK_SIDEBAR_ENV = 'OS_BRANDING_DARK_SIDEBAR_ENABLED';
+
+/** The env spellings the settings layer coerces to `true` for a boolean key. */
+function readEnvFlag(raw: string | undefined): boolean {
+    const value = raw?.trim();
+    return value === 'true' || value === '1' || value === 'yes';
+}
+
 /** The served fields a saved Branding setting supplied, each only when one was set. */
-type SavedBranding = Partial<Record<SettingsBrandedField, string>>;
+type SavedBranding = Partial<Record<SettingsBrandedField, string>> & Partial<Record<SettingsBrandedToggle, boolean>>;
 
 /**
  * The slice of the `settings` service this door reads. Declared structurally,
@@ -805,6 +837,13 @@ export interface RuntimeConfigPluginConfig {
     /** PWA theme color hex. Falls back to OS_PWA_THEME_COLOR env var. Default: brandColor or '#4f46e5'. */
     pwaThemeColor?: string;
     /**
+     * Render the Console's navigation sidebar dark while the page body stays
+     * light. Falls back to the `OS_BRANDING_DARK_SIDEBAR_ENABLED` env var, then
+     * off. A set `branding.dark_sidebar_enabled` setting outranks both, read
+     * per request.
+     */
+    darkSidebar?: boolean;
+    /**
      * The Console's client error-reporting sink and the closed set of knobs
      * that travel with it (#12681). Each field falls back to its own env var:
      * `OS_TELEMETRY_CLIENT_ERROR_REPORTING_DSN` and siblings.
@@ -911,6 +950,8 @@ export class RuntimeConfigPlugin implements Plugin {
     private readonly configuredPwaDescription: string | undefined;
     /** Configured (host option or env), or `undefined` to derive from the served brand colour. */
     private readonly configuredPwaThemeColor: string | undefined;
+    /** The deployment's dark-sidebar switch (host option, then `OS_BRANDING_DARK_SIDEBAR_ENABLED`). */
+    private readonly darkSidebar: boolean;
     /**
      * Whether the last Branding settings read failed and was reported — one
      * `warn` per run of failures, not one per request.
@@ -978,6 +1019,9 @@ export class RuntimeConfigPlugin implements Plugin {
         // from the name and colour actually served (#24766).
         this.configuredPwaDescription = config.pwaDescription ?? envPwaDescription;
         this.configuredPwaThemeColor = config.pwaThemeColor ?? envPwaThemeColor;
+        this.darkSidebar = typeof config.darkSidebar === 'boolean'
+            ? config.darkSidebar
+            : readEnvFlag(typeof process !== 'undefined' ? process.env?.[DARK_SIDEBAR_ENV] : undefined);
 
         // Client error reporting (#12681). Same precedence as every branding
         // key above — the HOST's explicit option wins, the env var is the
@@ -1285,6 +1329,7 @@ export class RuntimeConfigPlugin implements Plugin {
             brandColor,
             pwaDescription: this.configuredPwaDescription ?? `${productName} — runtime console`,
             pwaThemeColor: this.configuredPwaThemeColor ?? brandColor ?? '#4f46e5',
+            darkSidebar: saved.darkSidebar ?? this.darkSidebar,
         };
     }
 
@@ -1313,10 +1358,15 @@ export class RuntimeConfigPlugin implements Plugin {
             const declared = new Set((manifest.specifiers ?? []).map((s) => s?.key));
             const fields = (Object.keys(BRANDING_SETTINGS_KEYS) as SettingsBrandedField[])
                 .filter((field) => declared.has(BRANDING_SETTINGS_KEYS[field]));
-            if (fields.length === 0) return {};
+            const toggles = (Object.keys(BRANDING_SETTINGS_TOGGLES) as SettingsBrandedToggle[])
+                .filter((field) => declared.has(BRANDING_SETTINGS_TOGGLES[field]));
+            if (fields.length === 0 && toggles.length === 0) return {};
             const resolved = await settings.getMany(
                 BRANDING_SETTINGS_NAMESPACE,
-                fields.map((field) => BRANDING_SETTINGS_KEYS[field]),
+                [
+                    ...fields.map((field) => BRANDING_SETTINGS_KEYS[field]),
+                    ...toggles.map((field) => BRANDING_SETTINGS_TOGGLES[field]),
+                ],
                 {},
             );
             const saved: SavedBranding = {};
@@ -1325,6 +1375,13 @@ export class RuntimeConfigPlugin implements Plugin {
                 if (!entry || entry.source === 'default') continue;
                 const value = typeof entry.value === 'string' ? entry.value.trim() : '';
                 if (value !== '') saved[field] = value;
+            }
+            // A set toggle is served only as a real boolean; anything else is
+            // treated as unset, so the deployment's switch applies.
+            for (const field of toggles) {
+                const entry = resolved?.[BRANDING_SETTINGS_TOGGLES[field]];
+                if (!entry || entry.source === 'default') continue;
+                if (typeof entry.value === 'boolean') saved[field] = entry.value;
             }
             this.reportedBrandingReadFailure = false;
             return saved;

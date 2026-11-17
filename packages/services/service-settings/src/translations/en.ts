@@ -92,6 +92,10 @@ export const en: PlatformTranslationData = {
           label: 'Logo URL',
           help: 'Shown on the sign-in page, the loading screen and the home header. Example: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'Dark sidebar',
+          help: 'Shows the console navigation sidebar in dark colours while pages stay light. A user who already chose the dark theme sees no change.',
+        },
       },
     },
 

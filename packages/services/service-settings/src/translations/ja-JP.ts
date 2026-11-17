@@ -88,6 +88,10 @@ export const jaJP: PlatformTranslationData = {
           label: 'ロゴ URL',
           help: 'サインインページ、読み込み画面、ホームのヘッダーに表示されます。例: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'ダークサイドバー',
+          help: 'コンソールのナビゲーションサイドバーを暗い配色で表示し、ページ本体は明るいままにします。すでにダークテーマを選んでいるユーザーには変化はありません。',
+        },
       },
     },
 

@@ -95,6 +95,10 @@ export const ko: PlatformTranslationData = {
         },
         accent_color: { label: '강조 색상', help: '브라우저와 설치된 앱의 테마 색상입니다. 각 앱은 자체 색상을 유지합니다.' },
         logo_url: { label: '로고 URL', help: '로그인 페이지, 로딩 화면, 홈 헤더에 표시됩니다. 예: https://…/logo.svg' },
+        dark_sidebar_enabled: {
+          label: '어두운 사이드바',
+          help: '콘솔 탐색 사이드바를 어두운 색으로 표시하고 페이지 본문은 밝게 유지합니다. 이미 어두운 테마를 선택한 사용자에게는 변화가 없습니다.',
+        },
       },
     },
     company: {

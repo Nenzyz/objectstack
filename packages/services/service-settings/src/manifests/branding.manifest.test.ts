@@ -34,11 +34,21 @@ describe('brandingSettingsManifest', () => {
     expect(parsed.version).toBe(2);
   });
 
-  it('offers exactly the three keys the runtime config serves, in identity/appearance', () => {
+  it('offers exactly the keys the runtime config serves, in identity/appearance', () => {
     expect(specs.filter((s) => s.key).map((s) => s.key)).toEqual([
-      'workspace_name', 'accent_color', 'logo_url',
+      'workspace_name', 'accent_color', 'logo_url', 'dark_sidebar_enabled',
     ]);
     expect(specs.filter((s) => s.type === 'group').map((s) => s.id)).toEqual(['identity', 'appearance']);
+  });
+
+  it('dark_sidebar_enabled is an optional toggle, off by default, so the env override reads as a boolean', () => {
+    // The settings layer coerces an `OS_BRANDING_DARK_SIDEBAR_ENABLED` value by
+    // the declared default's type; without a boolean default `'true'` would
+    // stay a string the runtime config does not read as on.
+    const toggle = byKey('dark_sidebar_enabled')!;
+    expect(toggle.type).toBe('toggle');
+    expect(toggle.default).toBe(false);
+    expect(toggle.required).toBe(false);
   });
 
   it('offers neither retired key: theme_mode and support_email had no reader (#24766)', () => {
