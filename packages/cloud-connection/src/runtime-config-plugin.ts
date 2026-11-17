@@ -17,7 +17,7 @@
  *     singleEnvironment: boolean,
  *     defaultOrgId?, defaultEnvironmentId?,   // multi-tenant, per-hostname
  *     features: { installLocal, marketplace, deploymentNotice, aiStudio, autoPublishAiBuilds, ... },
- *     branding: { productName, productShortName, stage?, logoUrl, faviconUrl, brandColor, pwaDescription, pwaThemeColor, darkSidebar },
+ *     branding: { productName, productShortName, stage?, logoUrl, faviconUrl, brandColor, pwaDescription, pwaThemeColor, darkSidebar, sidebarScale },
  *     telemetry: { errorReporting?: { dsn, sendDefaultPii, environment?, tracesSampleRate, replaysOnErrorSampleRate } }
  *   }
  *
@@ -109,6 +109,14 @@
  * also works where the namespace is not offered (a walled posture), then off.
  * The env spellings that read as on are the settings layer's own boolean
  * coercion (`true` / `1` / `yes`), so both readers of the variable agree.
+ *
+ * ## `branding.sidebarScale` — the operator's sidebar size preset
+ *
+ * Always one of `default` / `large` / `x-large`, resolved in the same order
+ * from `branding.sidebar_scale`, the host's `sidebarScale` option and
+ * `OS_BRANDING_SIDEBAR_SCALE`. A value outside the set is never forwarded: it
+ * reads as unset (so the next source applies, and finally `default`), and an
+ * unrecognised host option or env value is named once at mount.
  *
  * ## `branding.stage` — a documented knob that this runtime never sent (#9252)
  *
@@ -406,6 +414,18 @@ type SettingsBrandedToggle = keyof typeof BRANDING_SETTINGS_TOGGLES;
  */
 const DARK_SIDEBAR_ENV = 'OS_BRANDING_DARK_SIDEBAR_ENABLED';
 
+/** The operator's sidebar size preset: the settings layer's env override of `branding.sidebar_scale`. */
+const SIDEBAR_SCALE_ENV = 'OS_BRANDING_SIDEBAR_SCALE';
+
+/** The sidebar size presets the Console draws; the first is today's size. */
+export const SIDEBAR_SCALES = ['default', 'large', 'x-large'] as const;
+export type SidebarScale = (typeof SIDEBAR_SCALES)[number];
+
+function asSidebarScale(value: unknown): SidebarScale | undefined {
+    const v = typeof value === 'string' ? value.trim() : value;
+    return (SIDEBAR_SCALES as readonly unknown[]).includes(v) ? (v as SidebarScale) : undefined;
+}
+
 /** The env spellings the settings layer coerces to `true` for a boolean key. */
 function readEnvFlag(raw: string | undefined): boolean {
     const value = raw?.trim();
@@ -413,7 +433,12 @@ function readEnvFlag(raw: string | undefined): boolean {
 }
 
 /** The served fields a saved Branding setting supplied, each only when one was set. */
-type SavedBranding = Partial<Record<SettingsBrandedField, string>> & Partial<Record<SettingsBrandedToggle, boolean>>;
+type SavedBranding = Partial<Record<SettingsBrandedField, string>>
+    & Partial<Record<SettingsBrandedToggle, boolean>>
+    & { sidebarScale?: SidebarScale };
+
+/** The `branding` settings key the served `sidebarScale` reads. */
+const SIDEBAR_SCALE_SETTINGS_KEY = 'sidebar_scale';
 
 /**
  * The slice of the `settings` service this door reads. Declared structurally,
@@ -844,6 +869,13 @@ export interface RuntimeConfigPluginConfig {
      */
     darkSidebar?: boolean;
     /**
+     * The Console sidebar's size preset: `'default'` (today's), `'large'` or
+     * `'x-large'`. Falls back to the `OS_BRANDING_SIDEBAR_SCALE` env var, then
+     * `'default'`; an unrecognised value is refused and named at mount. A set
+     * `branding.sidebar_scale` setting outranks both, read per request.
+     */
+    sidebarScale?: SidebarScale;
+    /**
      * The Console's client error-reporting sink and the closed set of knobs
      * that travel with it (#12681). Each field falls back to its own env var:
      * `OS_TELEMETRY_CLIENT_ERROR_REPORTING_DSN` and siblings.
@@ -952,6 +984,10 @@ export class RuntimeConfigPlugin implements Plugin {
     private readonly configuredPwaThemeColor: string | undefined;
     /** The deployment's dark-sidebar switch (host option, then `OS_BRANDING_DARK_SIDEBAR_ENABLED`). */
     private readonly darkSidebar: boolean;
+    /** The deployment's sidebar size preset (host option, then `OS_BRANDING_SIDEBAR_SCALE`), else `'default'`. */
+    private readonly sidebarScale: SidebarScale;
+    /** An unrecognised sidebar size spelling, kept so `start()` can name it once. */
+    private readonly refusedSidebarScale: string | undefined;
     /**
      * Whether the last Branding settings read failed and was reported — one
      * `warn` per run of failures, not one per request.
@@ -1022,6 +1058,12 @@ export class RuntimeConfigPlugin implements Plugin {
         this.darkSidebar = typeof config.darkSidebar === 'boolean'
             ? config.darkSidebar
             : readEnvFlag(typeof process !== 'undefined' ? process.env?.[DARK_SIDEBAR_ENV] : undefined);
+        const envSidebarScale = (typeof process !== 'undefined' ? process.env?.[SIDEBAR_SCALE_ENV] : undefined)?.trim();
+        const requestedSidebarScale: unknown = config.sidebarScale ?? (envSidebarScale || undefined);
+        this.sidebarScale = asSidebarScale(requestedSidebarScale) ?? 'default';
+        this.refusedSidebarScale = requestedSidebarScale !== undefined && asSidebarScale(requestedSidebarScale) === undefined
+            ? String(requestedSidebarScale)
+            : undefined;
 
         // Client error reporting (#12681). Same precedence as every branding
         // key above — the HOST's explicit option wins, the env var is the
@@ -1100,6 +1142,13 @@ export class RuntimeConfigPlugin implements Plugin {
                     `[RuntimeConfigPlugin] ignoring unrecognised product stage ${JSON.stringify(this.refusedStage)} `
                     + `(OS_PRODUCT_STAGE / the \`stage\` option) — branding.stage will be omitted and the Console `
                     + `keeps its default preview badge. Accepted values: ${PLATFORM_STAGES.join(', ')}.`,
+                );
+            }
+            if (this.refusedSidebarScale !== undefined) {
+                ctx.logger?.warn?.(
+                    `[RuntimeConfigPlugin] ignoring unrecognised sidebar scale ${JSON.stringify(this.refusedSidebarScale)} `
+                    + `(OS_BRANDING_SIDEBAR_SCALE / the \`sidebarScale\` option) — the Console sidebar keeps its `
+                    + `default size. Accepted values: ${SIDEBAR_SCALES.join(', ')}.`,
                 );
             }
 
@@ -1330,6 +1379,7 @@ export class RuntimeConfigPlugin implements Plugin {
             pwaDescription: this.configuredPwaDescription ?? `${productName} — runtime console`,
             pwaThemeColor: this.configuredPwaThemeColor ?? brandColor ?? '#4f46e5',
             darkSidebar: saved.darkSidebar ?? this.darkSidebar,
+            sidebarScale: saved.sidebarScale ?? this.sidebarScale,
         };
     }
 
@@ -1360,12 +1410,14 @@ export class RuntimeConfigPlugin implements Plugin {
                 .filter((field) => declared.has(BRANDING_SETTINGS_KEYS[field]));
             const toggles = (Object.keys(BRANDING_SETTINGS_TOGGLES) as SettingsBrandedToggle[])
                 .filter((field) => declared.has(BRANDING_SETTINGS_TOGGLES[field]));
-            if (fields.length === 0 && toggles.length === 0) return {};
+            const scaleDeclared = declared.has(SIDEBAR_SCALE_SETTINGS_KEY);
+            if (fields.length === 0 && toggles.length === 0 && !scaleDeclared) return {};
             const resolved = await settings.getMany(
                 BRANDING_SETTINGS_NAMESPACE,
                 [
                     ...fields.map((field) => BRANDING_SETTINGS_KEYS[field]),
                     ...toggles.map((field) => BRANDING_SETTINGS_TOGGLES[field]),
+                    ...(scaleDeclared ? [SIDEBAR_SCALE_SETTINGS_KEY] : []),
                 ],
                 {},
             );
@@ -1382,6 +1434,11 @@ export class RuntimeConfigPlugin implements Plugin {
                 const entry = resolved?.[BRANDING_SETTINGS_TOGGLES[field]];
                 if (!entry || entry.source === 'default') continue;
                 if (typeof entry.value === 'boolean') saved[field] = entry.value;
+            }
+            if (scaleDeclared) {
+                const entry = resolved?.[SIDEBAR_SCALE_SETTINGS_KEY];
+                const scale = entry && entry.source !== 'default' ? asSidebarScale(entry.value) : undefined;
+                if (scale) saved.sidebarScale = scale;
             }
             this.reportedBrandingReadFailure = false;
             return saved;

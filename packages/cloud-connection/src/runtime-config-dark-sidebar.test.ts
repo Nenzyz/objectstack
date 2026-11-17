@@ -125,3 +125,59 @@ describe('RuntimeConfigPlugin — branding.darkSidebar', () => {
         expect(walled.calls).toEqual([]);
     });
 });
+
+describe('RuntimeConfigPlugin — branding.sidebarScale', () => {
+    const SCALE_ENV = 'OS_BRANDING_SIDEBAR_SCALE';
+    let before: string | undefined;
+    beforeEach(() => { before = process.env[SCALE_ENV]; delete process.env[SCALE_ENV]; });
+    afterEach(() => {
+        if (before === undefined) delete process.env[SCALE_ENV];
+        else process.env[SCALE_ENV] = before;
+    });
+
+    it('is served as default when nothing sets it', async () => {
+        expect((await serveBranding()).sidebarScale).toBe('default');
+        expect((await serveBranding({ settings: settingsServiceWithScale(newStub()) })).sidebarScale).toBe('default');
+    });
+
+    it.each(['large', 'x-large', ' large '])('OS_BRANDING_SIDEBAR_SCALE=%j is served', async (raw) => {
+        process.env[SCALE_ENV] = raw;
+        expect((await serveBranding()).sidebarScale).toBe(raw.trim());
+    });
+
+    it.each(['huge', 'LARGE', '1.25', 'xl'])('an unknown env value %j falls back to default', async (raw) => {
+        process.env[SCALE_ENV] = raw;
+        expect((await serveBranding()).sidebarScale).toBe('default');
+    });
+
+    it('the host option outranks the env var; a set setting outranks both', async () => {
+        process.env[SCALE_ENV] = 'x-large';
+        expect((await serveBranding({ pluginConfig: { sidebarScale: 'large' } })).sidebarScale).toBe('large');
+        const set = newStub({ saved: { sidebar_scale: { value: 'x-large', source: 'tenant' } } });
+        expect((await serveBranding({ settings: settingsServiceWithScale(set), pluginConfig: { sidebarScale: 'large' } }))
+            .sidebarScale).toBe('x-large');
+        expect(set.calls[0]).toContain('sidebar_scale');
+    });
+
+    it('a stored value outside the preset set is treated as unset, never forwarded', async () => {
+        const odd = newStub({ saved: { sidebar_scale: { value: 'giant', source: 'tenant' } } });
+        expect((await serveBranding({ settings: settingsServiceWithScale(odd), pluginConfig: { sidebarScale: 'large' } }))
+            .sidebarScale).toBe('large');
+    });
+});
+
+function settingsServiceWithScale(stub: Stub) {
+    const base = settingsService(stub);
+    return {
+        listManifests: () => base.listManifests().map((m) => ({
+            ...m, specifiers: [...m.specifiers, { key: 'sidebar_scale' }],
+        })),
+        getMany: async (namespace: string, keys: readonly string[]) => {
+            const out = await base.getMany(namespace, keys);
+            if (keys.includes('sidebar_scale') && !stub.saved.sidebar_scale) {
+                out.sidebar_scale = { value: 'default', source: 'default' };
+            }
+            return out;
+        },
+    };
+}

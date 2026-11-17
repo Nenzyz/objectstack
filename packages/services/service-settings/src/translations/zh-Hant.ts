@@ -93,6 +93,15 @@ export const zhHant: PlatformTranslationData = {
           label: '深色側邊欄',
           help: '主控台導覽側邊欄以深色顯示,頁面主體保持淺色。已選擇深色主題的使用者不會看到變化。',
         },
+        sidebar_scale: {
+          label: '側邊欄尺寸',
+          help: '放大主控台導覽側邊欄的文字與圖示,頁面本身維持原尺寸。',
+          options: {
+            default: '預設',
+            large: '大',
+            'x-large': '特大',
+          },
+        },
       },
     },
     company: {

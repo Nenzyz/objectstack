@@ -36,7 +36,7 @@ describe('brandingSettingsManifest', () => {
 
   it('offers exactly the keys the runtime config serves, in identity/appearance', () => {
     expect(specs.filter((s) => s.key).map((s) => s.key)).toEqual([
-      'workspace_name', 'accent_color', 'logo_url', 'dark_sidebar_enabled',
+      'workspace_name', 'accent_color', 'logo_url', 'dark_sidebar_enabled', 'sidebar_scale',
     ]);
     expect(specs.filter((s) => s.type === 'group').map((s) => s.id)).toEqual(['identity', 'appearance']);
   });
@@ -49,6 +49,14 @@ describe('brandingSettingsManifest', () => {
     expect(toggle.type).toBe('toggle');
     expect(toggle.default).toBe(false);
     expect(toggle.required).toBe(false);
+  });
+
+  it('sidebar_scale is an optional select of three presets, default first and by default', () => {
+    const scale = byKey('sidebar_scale')! as { type: string; default?: unknown; required?: boolean; options?: Array<{ value: string }> };
+    expect(scale.type).toBe('select');
+    expect(scale.default).toBe('default');
+    expect(scale.required).toBe(false);
+    expect(scale.options!.map((o) => o.value)).toEqual(['default', 'large', 'x-large']);
   });
 
   it('offers neither retired key: theme_mode and support_email had no reader (#24766)', () => {

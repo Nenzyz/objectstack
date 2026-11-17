@@ -29,15 +29,20 @@ import type { SettingsManifest } from '@objectstack/spec/system';
  *    `OS_BRANDING_DARK_SIDEBAR_ENABLED=true`, the settings layer's own env
  *    override, which the runtime config also reads directly where this
  *    namespace is not offered (a walled posture).
+ *  - `sidebar_scale` → `branding.sidebarScale`: the console's navigation
+ *    sidebar draws its text, icons, rows and collapsed rail at `default`,
+ *    `large` or `x-large`; the page body keeps its size. Pinned with
+ *    `OS_BRANDING_SIDEBAR_SCALE`, read the same two ways as the dark sidebar.
  *
  * A value nobody saved (`source: 'default'`) is not served: the deployment's
  * own branding applies (`OS_PRODUCT_NAME`, `OS_LOGO_URL`, `OS_BRAND_COLOR`, or
  * the host's `RuntimeConfigPlugin` options; `OS_APP_NAME` for the auth
  * readers). That is why no text key here declares a `default`: a default would
- * be shown on the settings page as a value the console never uses. The one
- * toggle, `dark_sidebar_enabled`, declares `default: false` because off IS what
- * the console does when nothing is set, and the settings layer needs the
- * boolean default to read its env override as a boolean. The name's
+ * be shown on the settings page as a value the console never uses. The two
+ * appearance keys do declare one — `dark_sidebar_enabled: false` and
+ * `sidebar_scale: 'default'` — because that IS what the console does when
+ * nothing is set, and the settings layer coerces an env override by the
+ * declared default's type. The name's
  * `'ObjectStack'` default did exactly that (#25347): an unsaved page read
  * "ObjectStack" while the console read "ObjectOS". So `workspace_name` is not
  * `required` either: an empty value means "use the deployment's name", and
@@ -102,5 +107,13 @@ export const brandingSettingsManifest: SettingsManifest = {
       description:
         'Shows the console navigation sidebar in dark colours while pages stay light. ' +
         'A user who already chose the dark theme sees no change.' },
+    { type: 'select', key: 'sidebar_scale', label: 'Sidebar size', required: false, default: 'default',
+      description:
+        'Makes the text and icons of the console navigation sidebar larger. The page itself keeps its size.',
+      options: [
+        { value: 'default', label: 'Default' },
+        { value: 'large', label: 'Large' },
+        { value: 'x-large', label: 'Extra large' },
+      ] },
   ],
 };

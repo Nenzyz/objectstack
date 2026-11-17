@@ -141,6 +141,7 @@ describe('dark sidebar appearance — off (the default)', () => {
     const frame = screen.getByTestId('console-sidebar-frame');
     expect(frame.className).toBe('contents');
     expect(frame).not.toHaveAttribute('data-sidebar-appearance');
+    expect(frame).not.toHaveAttribute('data-sidebar-scale');
     expect(document.querySelector('.dark')).toBeNull();
     expect(screen.getByText('Leads')).toBeInTheDocument();
   });
@@ -150,6 +151,7 @@ describe('dark sidebar appearance — off (the default)', () => {
     renderShell(375);
     await screen.findByText('Leads');
     expect(document.querySelector('[data-sidebar-appearance]')).toBeNull();
+    expect(document.querySelector('[data-sidebar-scale]')).toBeNull();
     expect(document.querySelector('.dark')).toBeNull();
   });
 });
@@ -181,6 +183,49 @@ describe('dark sidebar appearance — on', () => {
   });
 });
 
+describe('sidebar size preset', () => {
+  it.each(['large', 'x-large'] as const)('desktop: %s puts its preset on the frame, and nothing on the page body', async (scale) => {
+    await serveBranding({ sidebarScale: scale });
+    renderShell(1280);
+    const frame = screen.getByTestId('console-sidebar-frame');
+    expect(frame).toHaveAttribute('data-sidebar-scale', scale);
+    expect(frame.className).toBe('contents');
+    expect(frame).not.toHaveAttribute('data-sidebar-appearance');
+    expect(screen.getByTestId('page-body').closest('[data-sidebar-scale]')).toBeNull();
+  });
+
+  it.each([['default'], ['huge'], [1.25], [undefined]])('an explicit default or unknown preset %j renders today\'s frame', async (scale) => {
+    await serveBranding({ sidebarScale: scale });
+    renderShell(1280);
+    const frame = screen.getByTestId('console-sidebar-frame');
+    expect(frame).not.toHaveAttribute('data-sidebar-scale');
+    expect(frame.className).toBe('contents');
+  });
+
+  it('phone drawer: the portaled content carries the preset without going dark', async () => {
+    await serveBranding({ sidebarScale: 'x-large' });
+    renderShell(375);
+    const scope = (await screen.findByText('Leads')).closest<HTMLElement>('[data-sidebar-scale="x-large"]')!;
+    expect(scope).not.toBeNull();
+    expect(scope).not.toHaveClass('dark');
+    expect(scope).not.toHaveAttribute('data-sidebar-appearance');
+  });
+
+  it('combines with the dark sidebar, on desktop and in the drawer', async () => {
+    await serveBranding({ darkSidebar: true, sidebarScale: 'large' });
+    renderShell(1280);
+    const frame = screen.getByTestId('console-sidebar-frame');
+    expect(frame).toHaveClass('dark');
+    expect(frame).toHaveAttribute('data-sidebar-appearance', 'dark');
+    expect(frame).toHaveAttribute('data-sidebar-scale', 'large');
+    cleanup();
+    renderShell(375);
+    const scope = (await screen.findByText('Leads')).closest<HTMLElement>('[data-sidebar-scale="large"]')!;
+    expect(scope).toHaveClass('dark', 'bg-sidebar');
+    expect(scope).toHaveAttribute('data-sidebar-appearance', 'dark');
+  });
+});
+
 describe('a nested dark scope re-resolves every colour token the host theme maps', () => {
   // `@theme` resolves `--color-*` once at `:root`; a nested `.dark` must
   // redeclare each mapping or the light value is inherited inside it.
@@ -199,5 +244,33 @@ describe('a nested dark scope re-resolves every colour token the host theme maps
     expect(at).toBeGreaterThan(-1);
     const scoped = mappings(shellCss.slice(at, shellCss.indexOf('}', at)));
     expect([...theme].filter((m) => !scoped.has(m))).toEqual([]);
+  });
+});
+
+describe('styles.css: the scoped sidebar rules', () => {
+  // jsdom computes no cascade, so these pin the rule text the browser applies.
+  const css = readFileSync(new URL('../../styles.css', import.meta.url), 'utf8');
+  const block = (selectorStart: string) => {
+    const at = css.indexOf(selectorStart);
+    expect(at, selectorStart).toBeGreaterThan(-1);
+    return css.slice(css.indexOf('{', at) + 1, css.indexOf('}', at));
+  };
+
+  it('the dark sidebar panel is painted opaque, in both the frame and the drawer form', () => {
+    expect(css).toContain('[data-sidebar-appearance="dark"] [data-sidebar="sidebar"],\n[data-sidebar="sidebar"] [data-sidebar-appearance="dark"] {');
+    const body = block('[data-sidebar-appearance="dark"] [data-sidebar="sidebar"],');
+    expect(body.trim()).toBe('background-color: hsl(var(--sidebar)) !important;');
+  });
+
+  it.each([['large', '1.125'], ['x-large', '1.25']])('preset %s is the factor %s', (preset, factor) => {
+    expect(block(`[data-sidebar-scale="${preset}"] {`).trim()).toBe(`--sidebar-scale: ${factor};`);
+  });
+
+  it('the factor drives the spacing and text tokens on the panel, and the collapsed rail width', () => {
+    const panel = block('[data-sidebar-scale] [data-sidebar="sidebar"],');
+    for (const token of ['--spacing: calc(0.25rem', '--text-xs: calc(0.75rem', '--text-sm: calc(0.875rem', '--text-base: calc(1rem']) {
+      expect(panel).toContain(`${token} * var(--sidebar-scale))`);
+    }
+    expect(block('[data-sidebar-scale] {')).toContain('--sidebar-width-icon: calc(3rem * var(--sidebar-scale))');
   });
 });

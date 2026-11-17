@@ -126,6 +126,15 @@ export const fr: PlatformTranslationData = {
           label: 'Barre latérale sombre',
           help: 'Affiche la barre latérale de navigation de la console en couleurs sombres, les pages restant claires. Un utilisateur qui a déjà choisi le thème sombre ne voit aucun changement.',
         },
+        sidebar_scale: {
+          label: 'Taille de la barre latérale',
+          help: 'Agrandit le texte et les icônes de la barre latérale de navigation de la console. La page garde sa taille.',
+          options: {
+            default: 'Par défaut',
+            large: 'Grande',
+            'x-large': 'Très grande',
+          },
+        },
       },
     },
     company: {
