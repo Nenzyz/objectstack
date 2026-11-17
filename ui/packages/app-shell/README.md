@@ -1572,8 +1572,16 @@ or with `new RuntimeConfigPlugin({ darkSidebar: true })`.
 on the drawer content, which renders in a portal), so the existing dark token
 set applies to the sidebar subtree only. `styles.css` redeclares the `@theme`
 colour mappings on `.dark:not(:root)`, which is what lets a nested `.dark`
-re-resolve them. Off, the frame's markup is unchanged; under the dark theme the
-option changes nothing.
+re-resolve them. Inside the scope the panel is painted opaque, and the active
+row's label uses the sidebar foreground. Off, the frame's markup is unchanged;
+under the dark theme the option changes nothing.
+
+`branding.sidebarScale` (`'default' | 'large' | 'x-large'`, read with
+`getSidebarScale()`, anything else is `'default'`) sizes the same sidebar. It is
+set with **Setup → Branding → Sidebar size**, `OS_BRANDING_SIDEBAR_SCALE` or
+`new RuntimeConfigPlugin({ sidebarScale })`. The frame carries
+`data-sidebar-scale`, and `styles.css` scales the spacing and text tokens inside
+the sidebar panel by ×1.125 / ×1.25, plus the collapsed rail width.
 
 ## One app, no app switcher (host request)
 
