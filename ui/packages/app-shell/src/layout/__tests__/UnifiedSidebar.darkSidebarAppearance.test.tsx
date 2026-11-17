@@ -108,7 +108,7 @@ function setViewportWidth(width: number) {
 }
 
 async function serveBranding(branding: Record<string, unknown>) {
-  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ branding }) })) as any);
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ branding }) })) as unknown as typeof fetch);
   await initRuntimeConfig();
 }
 

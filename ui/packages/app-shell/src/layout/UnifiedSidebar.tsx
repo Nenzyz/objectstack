@@ -75,7 +75,8 @@ import {
 import { AppMark } from './AppMark.js';
 import { CONSOLE_BELOW_TOP_BAR } from './consoleTopBar.js';
 import { useConsoleSidebarRail, useConsoleSidebarRailPanel } from './consoleSidebarRail.js';
-import { DarkSidebarScope, DARK_SIDEBAR_SCOPE_CLASS, darkSidebarFrameProps } from './darkSidebarScope.js';
+import { DarkSidebarScope } from './darkSidebarScope.js';
+import { DARK_SIDEBAR_SCOPE_CLASS, darkSidebarFrameProps } from './darkSidebarAppearance.js';
 import { isDarkSidebarEnabled } from '../runtime-config.js';
 import { SidebarItemMenu, sidebarItemDesignPath, favoriteDesignPath } from './SidebarItemMenu.js';
 import { SortableFavoriteRows, type FavoriteRowDragProps } from './SortableFavoriteRows.js';

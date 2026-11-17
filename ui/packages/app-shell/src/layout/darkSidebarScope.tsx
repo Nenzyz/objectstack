@@ -12,20 +12,7 @@
  */
 
 import * as React from 'react';
-
-/** The attribute that marks a subtree rendered with the dark sidebar appearance. */
-export const SIDEBAR_APPEARANCE_ATTR = 'data-sidebar-appearance';
-
-/** The classes that put a subtree on the dark token set. */
-export const DARK_SIDEBAR_SCOPE_CLASS = 'dark';
-
-/**
- * Props for the sidebar frame: the dark scope when on, nothing at all when off,
- * so the frame's markup is unchanged with the option off.
- */
-export function darkSidebarFrameProps(enabled: boolean): { [SIDEBAR_APPEARANCE_ATTR]?: 'dark' } {
-  return enabled ? { [SIDEBAR_APPEARANCE_ATTR]: 'dark' } : {};
-}
+import { DARK_SIDEBAR_SCOPE_CLASS, darkSidebarFrameProps } from './darkSidebarAppearance.js';
 
 /**
  * The mobile drawer renders the sidebar into a portal, outside the frame, so
