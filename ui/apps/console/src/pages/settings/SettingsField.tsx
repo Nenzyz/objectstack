@@ -36,6 +36,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  CurrencyCodePicker,
+  CURRENCY_CODE_VALUE_DOMAIN,
   cn,
   getLazyIcon,
 } from '@object-ui/components';
@@ -960,6 +962,29 @@ export function SettingsField(props: SettingsFieldProps) {
       // Widening those to free input would be a regression wearing this fix's
       // clothes, so the two branches are pinned against each other in
       // `__tests__/SettingsField.valueDomain.test.tsx`.
+      //
+      // The ISO 4217 domain has its own searchable picker (ADR-0144 D2), which
+      // lists every code the domain accepts, so the curated `options` are not
+      // read here. The picker never emits a blank; the row's Reset unsets it.
+      if (spec.valueDomain === CURRENCY_CODE_VALUE_DOMAIN) {
+        return wrapper(
+          <CurrencyCodePicker
+            id={id}
+            value={value == null || value === '' ? undefined : String(value)}
+            onChange={(code) => onChange(code)}
+            locale={language || 'en'}
+            labels={{
+              placeholder: t('fields.currencyCode.placeholder', { defaultValue: 'Select currency' }),
+              search: t('fields.currencyCode.search', { defaultValue: 'Search currency…' }),
+              noResults: t('fields.currencyCode.noResults', { defaultValue: 'No currency found' }),
+              available: t('fields.currencyCode.available', { defaultValue: 'Available' }),
+              all: t('fields.currencyCode.all', { defaultValue: 'All currencies (ISO 4217)' }),
+            }}
+            invalid={Boolean(error)}
+            disabled={disabled}
+          />,
+        );
+      }
       if (spec.valueDomain) {
         return wrapper(
           <DomainCombobox

@@ -35,18 +35,6 @@ const COUNTRY: Specifier = {
   ],
 };
 
-/** `localization.currency`, whose suggestions read `CODE — Name`. */
-const CURRENCY: Specifier = {
-  type: 'select',
-  key: 'currency',
-  label: '默认货币',
-  valueDomain: 'iso_4217_currency',
-  options: [
-    { value: 'CNY', label: 'CNY — 人民币' },
-    { value: 'USD', label: 'USD — 美元' },
-  ],
-};
-
 function Row({ spec, onCommit }: { spec: Specifier; onCommit: (v: unknown) => void }) {
   const [value, setValue] = useState<unknown>(null);
   return (
@@ -95,11 +83,5 @@ describe('SettingsField: a typed option name commits the option code (objectstac
     const { input, onCommit } = renderRow(COUNTRY);
     fireEvent.change(input, { target: { value: '中' } });
     expect(onCommit).toHaveBeenLastCalledWith('中');
-  });
-
-  it('a currency name commits its code when the label leads with the code', () => {
-    const { input, onCommit } = renderRow(CURRENCY);
-    fireEvent.change(input, { target: { value: '人民币' } });
-    expect(onCommit).toHaveBeenLastCalledWith('CNY');
   });
 });
