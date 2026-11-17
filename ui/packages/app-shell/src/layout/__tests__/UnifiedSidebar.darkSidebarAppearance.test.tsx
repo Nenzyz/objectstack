@@ -276,4 +276,11 @@ describe('styles.css: the scoped sidebar rules', () => {
     }
     expect(block('[data-sidebar-scale] {')).toContain('--sidebar-width-icon: calc(3rem * var(--sidebar-scale))');
   });
+
+  it('the phone drawer\'s fixed touch sizes follow the factor', () => {
+    expect(block('[data-sidebar-scale] [data-sidebar="sidebar"] .text-\\[15px\\],').trim())
+      .toBe('font-size: calc(15px * var(--sidebar-scale));');
+    expect(block('[data-sidebar-scale] [data-sidebar="sidebar"] .min-h-\\[44px\\],').trim())
+      .toBe('min-height: calc(44px * var(--sidebar-scale));');
+  });
 });

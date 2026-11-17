@@ -340,3 +340,14 @@
   height: calc(2rem * var(--sidebar-scale)) !important;
   padding: calc(0.5rem * var(--sidebar-scale)) !important;
 }
+/* The phone drawer's rows use fixed touch-size values (15px text, 44px rows,
+ * `NavigationRenderer`'s mobile classes) rather than the tokens above; they
+ * follow the same factor inside a scaled sidebar. */
+[data-sidebar-scale] [data-sidebar="sidebar"] .text-\[15px\],
+[data-sidebar="sidebar"] [data-sidebar-scale] .text-\[15px\] {
+  font-size: calc(15px * var(--sidebar-scale));
+}
+[data-sidebar-scale] [data-sidebar="sidebar"] .min-h-\[44px\],
+[data-sidebar="sidebar"] [data-sidebar-scale] .min-h-\[44px\] {
+  min-height: calc(44px * var(--sidebar-scale));
+}
