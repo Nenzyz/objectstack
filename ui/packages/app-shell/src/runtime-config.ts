@@ -124,6 +124,12 @@ export interface RuntimeBranding {
   pwaDescription?: string;
   /** PWA theme color hex. */
   pwaThemeColor?: string;
+  /**
+   * The operator asks for a dark navigation sidebar beside a light page body
+   * (`branding.dark_sidebar_enabled` / `OS_BRANDING_DARK_SIDEBAR_ENABLED` on
+   * the server). Only a served `true` turns it on.
+   */
+  darkSidebar?: boolean;
 }
 
 /**
@@ -527,6 +533,9 @@ export async function initRuntimeConfig(baseUrl: string = ''): Promise<void> {
           pwaThemeColor: typeof body.branding.pwaThemeColor === 'string' && body.branding.pwaThemeColor.trim()
             ? body.branding.pwaThemeColor.trim()
             : current.branding.pwaThemeColor,
+          // An operator's request, so only a real `true` turns it on; an
+          // absent key (an older runtime) keeps today's sidebar.
+          darkSidebar: body.branding.darkSidebar === true,
         }
         : current.branding,
     });
@@ -602,6 +611,14 @@ export function getPwaDescription(): string {
 
 export function getPwaThemeColor(): string {
   return current.branding?.pwaThemeColor || getBrandColor();
+}
+
+/**
+ * Whether the operator asked for a dark navigation sidebar beside a light page
+ * body. Off unless the runtime served `branding.darkSidebar: true`.
+ */
+export function isDarkSidebarEnabled(): boolean {
+  return current.branding?.darkSidebar === true;
 }
 
 /** Whether `initRuntimeConfig()` has run at least once. */

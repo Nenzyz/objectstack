@@ -75,6 +75,8 @@ import {
 import { AppMark } from './AppMark.js';
 import { CONSOLE_BELOW_TOP_BAR } from './consoleTopBar.js';
 import { useConsoleSidebarRail, useConsoleSidebarRailPanel } from './consoleSidebarRail.js';
+import { DarkSidebarScope, DARK_SIDEBAR_SCOPE_CLASS, darkSidebarFrameProps } from './darkSidebarScope.js';
+import { isDarkSidebarEnabled } from '../runtime-config.js';
 import { SidebarItemMenu, sidebarItemDesignPath, favoriteDesignPath } from './SidebarItemMenu.js';
 import { SortableFavoriteRows, type FavoriteRowDragProps } from './SortableFavoriteRows.js';
 import { favoriteAppSegment } from './listViewFavorites.js';
@@ -188,6 +190,9 @@ export function UnifiedSidebar({ activeAppName, railOverlay = false }: UnifiedSi
   const rail = useConsoleSidebarRail({ enabled: railOverlay });
   const railPanel = useConsoleSidebarRailPanel(rail);
   const keepOpenLabel = t('sidebar.keepOpen', { defaultValue: 'Keep sidebar open' });
+  // The operator's dark-sidebar appearance; read once per render from the
+  // runtime config, which is in place before first paint.
+  const darkSidebar = isDarkSidebarEnabled();
 
   // Swipe-from-left-edge gesture to open sidebar on mobile
   React.useEffect(() => {
@@ -576,12 +581,17 @@ export function UnifiedSidebar({ activeAppName, railOverlay = false }: UnifiedSi
         );
 
   return (
-    <div data-testid="console-sidebar-frame" className={railPanel.frameClassName}>
+    <div
+      data-testid="console-sidebar-frame"
+      className={cn(railPanel.frameClassName, darkSidebar && DARK_SIDEBAR_SCOPE_CLASS)}
+      {...darkSidebarFrameProps(darkSidebar)}
+    >
     <Sidebar
       collapsible="icon"
       className={cn(CONSOLE_BELOW_TOP_BAR, railPanel.panelClassName)}
       {...railPanel.panelProps}
     >
+      <DarkSidebarScope enabled={darkSidebar && isMobile}>
       {/* Mobile-only drawer header — the app's glyph and name (objectui#12201
           item 3). On a phone the top bar hides the app pill, so this is the
           one place that says which app the user is in. It replaces the old
@@ -837,6 +847,7 @@ export function UnifiedSidebar({ activeAppName, railOverlay = false }: UnifiedSi
       )}
       {/* No footer trigger: the app bar's left slot holds the shell's one
           sidebar trigger at every width (objectui#12429). */}
+      </DarkSidebarScope>
     </Sidebar>
     {/* Mobile bottom-tab navigation removed — the drawer (☰) already
         surfaces the full navigation tree, so a bottom strip of the

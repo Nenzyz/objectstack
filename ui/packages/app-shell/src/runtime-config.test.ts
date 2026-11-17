@@ -9,7 +9,7 @@
  */
 
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { initRuntimeConfig, getRuntimeConfig, getPlatformStage, getProductName, isDefaultProductName, isAiStudioEnabled, isMarketplaceEnabled, isStorageUsageServed, isSingleAppSwitcherHidden, getClientErrorReporting, resetRuntimeConfigForTesting } from './runtime-config.js';
+import { initRuntimeConfig, getRuntimeConfig, getPlatformStage, getProductName, isDefaultProductName, isAiStudioEnabled, isMarketplaceEnabled, isStorageUsageServed, isSingleAppSwitcherHidden, isDarkSidebarEnabled, getClientErrorReporting, resetRuntimeConfigForTesting } from './runtime-config.js';
 
 function mockConfig(features: Record<string, unknown>) {
     vi.stubGlobal('fetch', vi.fn(async () => ({
@@ -572,4 +572,30 @@ describe('runtime-config default product name', () => {
         expect(getProductName()).toBe('ObjectOS');
         expect(isDefaultProductName()).toBe(true);
     });
+});
+
+describe('runtime-config dark sidebar', () => {
+  it('is off before init', () => {
+    resetRuntimeConfigForTesting();
+    expect(isDarkSidebarEnabled()).toBe(false);
+  });
+
+  it('is on only when the server serves darkSidebar: true', async () => {
+    mockBranding({ darkSidebar: true });
+    await initRuntimeConfig();
+    expect(isDarkSidebarEnabled()).toBe(true);
+  });
+
+  it.each([
+    ['absent (an older runtime)', {}],
+    ['false', { darkSidebar: false }],
+    ['the string "true"', { darkSidebar: 'true' }],
+    ['1', { darkSidebar: 1 }],
+  ])('stays off when the key is %s', async (_label, branding) => {
+    mockBranding({ darkSidebar: true });
+    await initRuntimeConfig();
+    mockBranding(branding as Record<string, unknown>);
+    await initRuntimeConfig();
+    expect(isDarkSidebarEnabled()).toBe(false);
+  });
 });
