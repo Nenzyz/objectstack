@@ -249,15 +249,18 @@ describe('a nested dark scope re-resolves every colour token the host theme maps
 
 describe('styles.css: the scoped sidebar rules', () => {
   // jsdom computes no cascade, so these pin the rule text the browser applies.
-  const css = readFileSync(new URL('../../styles.css', import.meta.url), 'utf8');
+  // A variable, not a literal: Vite rewrites `new URL('<literal>', import.meta.url)` into an asset URL.
+  const SHEET = '../../styles.css';
+  const sheet = () => readFileSync(new URL(SHEET, import.meta.url), 'utf8');
   const block = (selectorStart: string) => {
+    const css = sheet();
     const at = css.indexOf(selectorStart);
     expect(at, selectorStart).toBeGreaterThan(-1);
     return css.slice(css.indexOf('{', at) + 1, css.indexOf('}', at));
   };
 
   it('the dark sidebar panel is painted opaque, in both the frame and the drawer form', () => {
-    expect(css).toContain('[data-sidebar-appearance="dark"] [data-sidebar="sidebar"],\n[data-sidebar="sidebar"] [data-sidebar-appearance="dark"] {');
+    expect(sheet()).toContain('[data-sidebar-appearance="dark"] [data-sidebar="sidebar"],\n[data-sidebar="sidebar"] [data-sidebar-appearance="dark"] {');
     const body = block('[data-sidebar-appearance="dark"] [data-sidebar="sidebar"],');
     expect(body.trim()).toBe('background-color: hsl(var(--sidebar)) !important;');
   });
