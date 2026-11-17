@@ -88,6 +88,19 @@ export const jaJP: PlatformTranslationData = {
           label: 'ロゴ URL',
           help: 'サインインページ、読み込み画面、ホームのヘッダーに表示されます。例: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'ダークサイドバー',
+          help: 'コンソールのナビゲーションサイドバーを暗い配色で表示し、ページ本体は明るいままにします。すでにダークテーマを選んでいるユーザーには変化はありません。',
+        },
+        sidebar_scale: {
+          label: 'サイドバーのサイズ',
+          help: 'コンソールのナビゲーションサイドバーの文字とアイコンを大きくします。ページ本体のサイズは変わりません。',
+          options: {
+            default: '標準',
+            large: '大',
+            'x-large': '特大',
+          },
+        },
       },
     },
 

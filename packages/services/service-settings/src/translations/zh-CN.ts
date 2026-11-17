@@ -122,6 +122,19 @@ export const zhCN: PlatformTranslationData = {
           label: 'Logo 链接',
           help: '显示在登录页、加载页与首页顶栏。示例:https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: '深色侧边栏',
+          help: '控制台导航侧边栏以深色显示,页面主体保持浅色。已选择深色主题的用户不会看到变化。',
+        },
+        sidebar_scale: {
+          label: '侧边栏尺寸',
+          help: '放大控制台导航侧边栏的文字与图标,页面本身保持原尺寸。',
+          options: {
+            default: '默认',
+            large: '大',
+            'x-large': '特大',
+          },
+        },
       },
     },
 

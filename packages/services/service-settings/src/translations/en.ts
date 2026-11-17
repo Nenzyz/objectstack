@@ -92,6 +92,19 @@ export const en: PlatformTranslationData = {
           label: 'Logo URL',
           help: 'Shown on the sign-in page, the loading screen and the home header. Example: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'Dark sidebar',
+          help: 'Shows the console navigation sidebar in dark colours while pages stay light. A user who already chose the dark theme sees no change.',
+        },
+        sidebar_scale: {
+          label: 'Sidebar size',
+          help: 'Makes the text and icons of the console navigation sidebar larger. The page itself keeps its size.',
+          options: {
+            default: 'Default',
+            large: 'Large',
+            'x-large': 'Extra large',
+          },
+        },
       },
     },
 

@@ -248,3 +248,106 @@
     color-scheme: light;
   }
 }
+
+/* A nested `.dark` subtree beside a light page (the operator's dark sidebar,
+ * `layout/sidebarAppearance.ts`). `@theme` resolves each `--color-*` token
+ * once at `:root`, so a descendant that switches `--sidebar` and friends to
+ * the dark set would still inherit the light colours. Re-resolving the same
+ * mappings on the nested element puts the dark set in force inside it. Under
+ * the dark theme it re-resolves to the values already in force. The list
+ * mirrors the host's `@theme` colour mappings; `UnifiedSidebar.darkSidebarAppearance.test.tsx`
+ * fails when one is missing. */
+.dark:not(:root) {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+}
+
+/* The dark sidebar is opaque. A host theme may draw the sidebar as a
+ * translucent material over the page; over a LIGHT page that turns the dark
+ * sidebar mid-grey and drops its text and active state below contrast. Inside
+ * the scope the sidebar's own token is painted at full opacity, and the active
+ * row's label uses the sidebar foreground (its bar keeps the primary colour),
+ * so text holds 4.5:1 and the bar 3:1 on the tinted row. Global dark mode is
+ * untouched: no rule here matches without the scope attribute. */
+[data-sidebar-appearance="dark"] [data-sidebar="sidebar"],
+[data-sidebar="sidebar"] [data-sidebar-appearance="dark"] {
+  background-color: hsl(var(--sidebar)) !important;
+}
+[data-sidebar-appearance="dark"] [data-sidebar="sidebar"] [data-sidebar="menu-button"][data-active="true"],
+[data-sidebar="sidebar"] [data-sidebar-appearance="dark"] [data-sidebar="menu-button"][data-active="true"] {
+  color: hsl(var(--sidebar-foreground));
+}
+
+/* The sidebar size presets (`layout/sidebarAppearance.ts`). The factor scales
+ * the Tailwind spacing and text tokens inside the sidebar panel only, so its
+ * rows, padding, icons (`size-4`, `h-4 w-4`), group labels and badges grow
+ * together, and the collapsed rail widens by the same factor so its icons
+ * still fit. The tokens are set on the panel, not on the frame, because the
+ * frame also positions the panel under the top bar with spacing utilities. */
+[data-sidebar-scale="large"] {
+  --sidebar-scale: 1.125;
+}
+[data-sidebar-scale="x-large"] {
+  --sidebar-scale: 1.25;
+}
+[data-sidebar-scale] {
+  --sidebar-width-icon: calc(3rem * var(--sidebar-scale));
+}
+[data-sidebar-scale] [data-sidebar="sidebar"],
+[data-sidebar="sidebar"] [data-sidebar-scale] {
+  --spacing: calc(0.25rem * var(--sidebar-scale));
+  --text-xs: calc(0.75rem * var(--sidebar-scale));
+  --text-sm: calc(0.875rem * var(--sidebar-scale));
+  --text-base: calc(1rem * var(--sidebar-scale));
+}
+/* `sidebar-fixes.css` pins the collapsed icon button in rem; follow the factor. */
+[data-sidebar-scale] .group[data-collapsible="icon"][data-state="collapsed"] .sidebar-menu-button-icon-mode {
+  width: calc(2rem * var(--sidebar-scale)) !important;
+  height: calc(2rem * var(--sidebar-scale)) !important;
+  padding: calc(0.5rem * var(--sidebar-scale)) !important;
+}
+/* The phone drawer's rows use fixed touch-size values (15px text, 44px rows,
+ * `NavigationRenderer`'s mobile classes) rather than the tokens above; they
+ * follow the same factor inside a scaled sidebar. */
+[data-sidebar-scale] [data-sidebar="sidebar"] .text-\[15px\],
+[data-sidebar="sidebar"] [data-sidebar-scale] .text-\[15px\] {
+  font-size: calc(15px * var(--sidebar-scale));
+}
+[data-sidebar-scale] [data-sidebar="sidebar"] .min-h-\[44px\],
+[data-sidebar="sidebar"] [data-sidebar-scale] .min-h-\[44px\] {
+  min-height: calc(44px * var(--sidebar-scale));
+}

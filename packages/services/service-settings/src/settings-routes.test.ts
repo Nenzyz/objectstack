@@ -891,7 +891,7 @@ describe('settings-routes — the two retired Branding keys (#24766)', () => {
     for (const key of Object.keys(RETIRED_BRANDING_ROWS)) {
       expect(offered, `${key} must not be offered`).not.toContain(key);
     }
-    expect(Object.keys(state.body.data.values).sort()).toEqual(['accent_color', 'logo_url', 'workspace_name']);
+    expect(Object.keys(state.body.data.values).sort()).toEqual(['accent_color', 'dark_sidebar_enabled', 'logo_url', 'sidebar_scale', 'workspace_name']);
     expect(await storedRetiredRows()).toEqual(RETIRED_BRANDING_ROWS);
   });
 

@@ -89,6 +89,19 @@ export const zhHant: PlatformTranslationData = {
         },
         accent_color: { label: '主題色', help: '瀏覽器與已安裝應用程式的主題色。各應用程式保留自己的顏色。' },
         logo_url: { label: 'Logo 網址', help: '顯示在登入頁、載入畫面與首頁頂端列。範例：https://…/logo.svg' },
+        dark_sidebar_enabled: {
+          label: '深色側邊欄',
+          help: '主控台導覽側邊欄以深色顯示,頁面主體保持淺色。已選擇深色主題的使用者不會看到變化。',
+        },
+        sidebar_scale: {
+          label: '側邊欄尺寸',
+          help: '放大主控台導覽側邊欄的文字與圖示,頁面本身維持原尺寸。',
+          options: {
+            default: '預設',
+            large: '大',
+            'x-large': '特大',
+          },
+        },
       },
     },
     company: {

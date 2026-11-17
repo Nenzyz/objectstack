@@ -1561,6 +1561,29 @@ import { PreviewBadge, getPlatformStage } from '@object-ui/app-shell';
 
 Labels are localized under `topbar.stage.*` (`@object-ui/i18n`).
 
+## Dark sidebar (operator appearance)
+
+An operator can render the console's navigation sidebar dark while the page body
+stays light. The runtime config serves `branding.darkSidebar`; only a served
+`true` turns it on, read with `isDarkSidebarEnabled()`. Operators set it in
+**Setup → Branding → Dark sidebar**, with `OS_BRANDING_DARK_SIDEBAR_ENABLED=true`,
+or with `new RuntimeConfigPlugin({ darkSidebar: true })`.
+
+`UnifiedSidebar` puts the existing `dark` class on its frame (and, on a phone,
+on the drawer content, which renders in a portal), so the existing dark token
+set applies to the sidebar subtree only. `styles.css` redeclares the `@theme`
+colour mappings on `.dark:not(:root)`, which is what lets a nested `.dark`
+re-resolve them. Inside the scope the panel is painted opaque, and the active
+row's label uses the sidebar foreground. Off, the frame's markup is unchanged;
+under the dark theme the option changes nothing.
+
+`branding.sidebarScale` (`'default' | 'large' | 'x-large'`, read with
+`getSidebarScale()`, anything else is `'default'`) sizes the same sidebar. It is
+set with **Setup → Branding → Sidebar size**, `OS_BRANDING_SIDEBAR_SCALE` or
+`new RuntimeConfigPlugin({ sidebarScale })`. The frame carries
+`data-sidebar-scale`, and `styles.css` scales the spacing and text tokens inside
+the sidebar panel by ×1.125 / ×1.25, plus the collapsed rail width.
+
 ## One app, no app switcher (host request)
 
 Inside an app the top bar draws the app pill, `AppSwitcher`, whose dropdown

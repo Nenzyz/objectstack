@@ -112,6 +112,19 @@ export const ptBR: PlatformTranslationData = {
           label: 'URL do logotipo',
           help: 'Exibido na página de login, na tela de carregamento e no cabeçalho da página inicial. Exemplo: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'Barra lateral escura',
+          help: 'Exibe a barra lateral de navegação do console em cores escuras enquanto as páginas continuam claras. Quem já escolheu o tema escuro não vê nenhuma mudança.',
+        },
+        sidebar_scale: {
+          label: 'Tamanho da barra lateral',
+          help: 'Aumenta o texto e os ícones da barra lateral de navegação do console. A página mantém seu tamanho.',
+          options: {
+            default: 'Padrão',
+            large: 'Grande',
+            'x-large': 'Muito grande',
+          },
+        },
       },
     },
     company: {

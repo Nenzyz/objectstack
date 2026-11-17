@@ -88,6 +88,19 @@ export const esES: PlatformTranslationData = {
           label: 'URL del logotipo',
           help: 'Se muestra en la página de inicio de sesión, la pantalla de carga y el encabezado de inicio. Ejemplo: https://…/logo.svg',
         },
+        dark_sidebar_enabled: {
+          label: 'Barra lateral oscura',
+          help: 'Muestra la barra lateral de navegación de la consola en colores oscuros mientras las páginas siguen claras. Quien ya eligió el tema oscuro no ve ningún cambio.',
+        },
+        sidebar_scale: {
+          label: 'Tamaño de la barra lateral',
+          help: 'Agranda el texto y los iconos de la barra lateral de navegación de la consola. La página conserva su tamaño.',
+          options: {
+            default: 'Predeterminado',
+            large: 'Grande',
+            'x-large': 'Muy grande',
+          },
+        },
       },
     },
 

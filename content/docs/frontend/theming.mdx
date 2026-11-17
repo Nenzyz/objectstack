@@ -205,6 +205,22 @@ function ModeToggle() {
 
 There is no `darkMode` option to set on your side. ObjectUI declares the class-based dark variant in its own CSS — `@custom-variant dark (&:where(.dark, .dark *))` — so `.dark`-scoped utilities are already compiled into the stylesheet you import. What you do need is for the `dark` class to sit on an ancestor of your components; `ThemeProvider` puts it on `document.documentElement` for you.
 
+### Dark sidebar beside a light page
+
+An operator can ask for the Console's navigation sidebar to render dark while the page body stays light. It is a deployment setting, not a user preference: **Setup → Branding → Dark sidebar**, or `OS_BRANDING_DARK_SIDEBAR_ENABLED=true` on the server. The runtime config serves it as `branding.darkSidebar`, and the shell reads it with `isDarkSidebarEnabled()`.
+
+No colour is chosen for it. The sidebar frame takes the `dark` class, so the same `.dark` token set, every `dark:` utility and every `.dark …` rule apply inside it and nowhere else. Because `@theme` resolves each `--color-*` token once at `:root`, `@object-ui/app-shell/styles.css` redeclares those mappings on a nested `.dark` (`.dark:not(:root)`) so the subtree really picks up the dark values. On a phone the drawer renders into a portal, outside the frame, so its content carries the same scope itself.
+
+Inside the scope the sidebar panel is painted with `--sidebar` at full opacity, even where the host theme draws the sidebar as a translucent material, and the active row's label uses `--sidebar-foreground` while its leading bar keeps `--primary`. That keeps text above 4.5:1 and the bar above 3:1 against the dark panel.
+
+With the option off the sidebar markup is unchanged. When the user is already in dark mode the option changes nothing: the sidebar is dark already. Popovers, menus and tooltips opened from the sidebar render in a portal and keep the page's theme.
+
+### Sidebar size
+
+An operator can also make the sidebar's text and icons larger: **Setup → Branding → Sidebar size**, or `OS_BRANDING_SIDEBAR_SCALE` on the server, with one of three presets: `default`, `large` (×1.125) or `x-large` (×1.25). The runtime config serves it as `branding.sidebarScale`, and the shell reads it with `getSidebarScale()`. An unknown value reads as `default`.
+
+The preset puts a `data-sidebar-scale` attribute on the sidebar frame (on a phone, on the drawer content). `@object-ui/app-shell/styles.css` turns it into a `--sidebar-scale` factor and scales the Tailwind `--spacing` and `--text-xs` / `--text-sm` / `--text-base` tokens inside the sidebar panel only. Rows, padding, icons, group labels and badges therefore grow together, while the page body keeps its size. The collapsed rail's `--sidebar-width-icon` grows by the same factor so its icons still fit. The expanded sidebar keeps its width, so long labels truncate sooner. The size preset combines with the dark sidebar and with global dark mode.
+
 ## Custom Component Themes
 
 Register one or more theme definitions with `ThemeProvider`. Each theme is a plain JSON object:

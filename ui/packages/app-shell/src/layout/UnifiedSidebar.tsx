@@ -76,6 +76,9 @@ import {
 import { AppMark } from './AppMark.js';
 import { CONSOLE_BELOW_TOP_BAR } from './consoleTopBar.js';
 import { useConsoleSidebarRail, useConsoleSidebarRailPanel } from './consoleSidebarRail.js';
+import { SidebarAppearanceScope } from './sidebarAppearanceScope.js';
+import { DARK_SIDEBAR_SCOPE_CLASS, sidebarAppearanceAttrs, type SidebarAppearance } from './sidebarAppearance.js';
+import { getSidebarScale, isDarkSidebarEnabled } from '../runtime-config.js';
 import { SidebarItemMenu, sidebarItemDesignPath, favoriteDesignPath } from './SidebarItemMenu.js';
 import { SortableFavoriteRows, type FavoriteRowDragProps } from './SortableFavoriteRows.js';
 import { favoriteAppSegment } from './listViewFavorites.js';
@@ -197,6 +200,9 @@ export function UnifiedSidebar({ activeAppName, railOverlay = false, phoneNavBar
   const rail = useConsoleSidebarRail({ enabled: railOverlay });
   const railPanel = useConsoleSidebarRailPanel(rail);
   const keepOpenLabel = t('sidebar.keepOpen', { defaultValue: 'Keep sidebar open' });
+  // The operator's sidebar appearance; read per render from the runtime
+  // config, which is in place before first paint.
+  const appearance: SidebarAppearance = { dark: isDarkSidebarEnabled(), scale: getSidebarScale() };
 
   // Swipe-from-left-edge gesture to open sidebar on mobile
   React.useEffect(() => {
@@ -614,12 +620,17 @@ export function UnifiedSidebar({ activeAppName, railOverlay = false, phoneNavBar
         );
 
   return (
-    <div data-testid="console-sidebar-frame" className={railPanel.frameClassName}>
+    <div
+      data-testid="console-sidebar-frame"
+      className={cn(railPanel.frameClassName, appearance.dark && DARK_SIDEBAR_SCOPE_CLASS)}
+      {...sidebarAppearanceAttrs(appearance)}
+    >
     <Sidebar
       collapsible="icon"
       className={cn(CONSOLE_BELOW_TOP_BAR, railPanel.panelClassName)}
       {...railPanel.panelProps}
     >
+      <SidebarAppearanceScope appearance={appearance} enabled={isMobile}>
       {/* Mobile-only drawer header — the app's glyph and name (objectui#12201
           item 3). On a phone the top bar hides the app pill, so this is the
           one place that says which app the user is in. It replaces the old
@@ -899,6 +910,7 @@ export function UnifiedSidebar({ activeAppName, railOverlay = false, phoneNavBar
       )}
       {/* No footer trigger: the app bar's left slot holds the shell's one
           sidebar trigger at every width (objectui#12429). */}
+      </SidebarAppearanceScope>
     </Sidebar>
     {/* objectstack#34594 — the phone's bottom menu bar. After the sidebar,
         so it takes the sidebar's place before the page in reading order. */}

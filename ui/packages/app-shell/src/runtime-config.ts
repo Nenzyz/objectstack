@@ -107,6 +107,19 @@ export interface RuntimeFeatures {
  */
 export type PlatformStage = 'preview' | 'beta' | 'ga';
 
+/**
+ * The Console sidebar's size preset, chosen by the operator
+ * (`branding.sidebar_scale` / `OS_BRANDING_SIDEBAR_SCALE` on the server).
+ * `'default'` is today's size.
+ */
+export type SidebarScale = 'default' | 'large' | 'x-large';
+
+const SIDEBAR_SCALES: readonly SidebarScale[] = ['default', 'large', 'x-large'];
+
+function isSidebarScale(value: unknown): value is SidebarScale {
+  return (SIDEBAR_SCALES as readonly unknown[]).includes(value);
+}
+
 export interface RuntimeBranding {
   /** Product name shown in browser title, splash, account chrome. */
   productName: string;
@@ -124,6 +137,14 @@ export interface RuntimeBranding {
   pwaDescription?: string;
   /** PWA theme color hex. */
   pwaThemeColor?: string;
+  /**
+   * The operator asks for a dark navigation sidebar beside a light page body
+   * (`branding.dark_sidebar_enabled` / `OS_BRANDING_DARK_SIDEBAR_ENABLED` on
+   * the server). Only a served `true` turns it on.
+   */
+  darkSidebar?: boolean;
+  /** The sidebar's size preset; anything but a known preset reads as `'default'`. */
+  sidebarScale?: SidebarScale;
 }
 
 /**
@@ -527,6 +548,11 @@ export async function initRuntimeConfig(baseUrl: string = ''): Promise<void> {
           pwaThemeColor: typeof body.branding.pwaThemeColor === 'string' && body.branding.pwaThemeColor.trim()
             ? body.branding.pwaThemeColor.trim()
             : current.branding.pwaThemeColor,
+          // An operator's request, so only a real `true` turns it on; an
+          // absent key (an older runtime) keeps today's sidebar.
+          darkSidebar: body.branding.darkSidebar === true,
+          // A closed set: an unknown or absent preset is today's size.
+          sidebarScale: isSidebarScale(body.branding.sidebarScale) ? body.branding.sidebarScale : 'default',
         }
         : current.branding,
     });
@@ -602,6 +628,20 @@ export function getPwaDescription(): string {
 
 export function getPwaThemeColor(): string {
   return current.branding?.pwaThemeColor || getBrandColor();
+}
+
+/**
+ * Whether the operator asked for a dark navigation sidebar beside a light page
+ * body. Off unless the runtime served `branding.darkSidebar: true`.
+ */
+export function isDarkSidebarEnabled(): boolean {
+  return current.branding?.darkSidebar === true;
+}
+
+/** The operator's sidebar size preset; `'default'` unless the runtime served a known one. */
+export function getSidebarScale(): SidebarScale {
+  const scale = current.branding?.sidebarScale;
+  return isSidebarScale(scale) ? scale : 'default';
 }
 
 /** Whether `initRuntimeConfig()` has run at least once. */

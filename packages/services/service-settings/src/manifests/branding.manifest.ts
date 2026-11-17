@@ -22,12 +22,27 @@ import type { SettingsManifest } from '@objectstack/spec/system';
  *  - `accent_color` → `branding.brandColor`: the browser and installed-app
  *    (PWA) theme colour. It is not an app's colour: each app keeps the colours
  *    its own `AppBranding` declares, and no precedence between the two exists.
+ *  - `dark_sidebar_enabled` → `branding.darkSidebar`: the console's
+ *    navigation sidebar renders with the dark theme tokens while the page body
+ *    keeps the user's theme. Off unless set; under the dark theme it changes
+ *    nothing, because the sidebar is dark already. The operator pins it with
+ *    `OS_BRANDING_DARK_SIDEBAR_ENABLED=true`, the settings layer's own env
+ *    override, which the runtime config also reads directly where this
+ *    namespace is not offered (a walled posture).
+ *  - `sidebar_scale` → `branding.sidebarScale`: the console's navigation
+ *    sidebar draws its text, icons, rows and collapsed rail at `default`,
+ *    `large` or `x-large`; the page body keeps its size. Pinned with
+ *    `OS_BRANDING_SIDEBAR_SCALE`, read the same two ways as the dark sidebar.
  *
  * A value nobody saved (`source: 'default'`) is not served: the deployment's
  * own branding applies (`OS_PRODUCT_NAME`, `OS_LOGO_URL`, `OS_BRAND_COLOR`, or
  * the host's `RuntimeConfigPlugin` options; `OS_APP_NAME` for the auth
- * readers). That is why no key here declares a `default`: a default would be
- * shown on the settings page as a value the console never uses. The name's
+ * readers). That is why no text key here declares a `default`: a default would
+ * be shown on the settings page as a value the console never uses. The two
+ * appearance keys do declare one — `dark_sidebar_enabled: false` and
+ * `sidebar_scale: 'default'` — because that IS what the console does when
+ * nothing is set, and the settings layer coerces an env override by the
+ * declared default's type. The name's
  * `'ObjectStack'` default did exactly that (#25347): an unsaved page read
  * "ObjectStack" while the console read "ObjectOS". So `workspace_name` is not
  * `required` either: an empty value means "use the deployment's name", and
@@ -88,5 +103,17 @@ export const brandingSettingsManifest: SettingsManifest = {
       description: 'The browser and installed-app theme colour. Each app keeps its own colours.' },
     { type: 'url', key: 'logo_url', label: 'Logo URL', required: false,
       description: 'Shown on the sign-in page, the loading screen and the home header. Example: https://…/logo.svg' },
+    { type: 'toggle', key: 'dark_sidebar_enabled', label: 'Dark sidebar', required: false, default: false,
+      description:
+        'Shows the console navigation sidebar in dark colours while pages stay light. ' +
+        'A user who already chose the dark theme sees no change.' },
+    { type: 'select', key: 'sidebar_scale', label: 'Sidebar size', required: false, default: 'default',
+      description:
+        'Makes the text and icons of the console navigation sidebar larger. The page itself keeps its size.',
+      options: [
+        { value: 'default', label: 'Default' },
+        { value: 'large', label: 'Large' },
+        { value: 'x-large', label: 'Extra large' },
+      ] },
   ],
 };
