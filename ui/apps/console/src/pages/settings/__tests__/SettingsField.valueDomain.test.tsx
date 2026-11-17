@@ -31,7 +31,7 @@
  */
 
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent, within } from '@testing-library/react';
 
 import { SettingsField } from '../SettingsField';
 import type { Specifier } from '../types';
@@ -108,6 +108,12 @@ const LOCALIZATION_SELECTS: Specifier[] = [
 /** The partition, taken from the DATA — not from a list of key names. */
 const DECLARED = LOCALIZATION_SELECTS.filter((s) => s.valueDomain);
 const UNDECLARED = LOCALIZATION_SELECTS.filter((s) => !s.valueDomain);
+/**
+ * The ISO 4217 domain draws the shared currency picker, which lists the whole
+ * domain; every other declared domain draws the free-text combobox.
+ */
+const CURRENCY_PICKED = DECLARED.filter((s) => s.valueDomain === 'iso_4217_currency');
+const FREE_TEXT = DECLARED.filter((s) => s.valueDomain !== 'iso_4217_currency');
 
 /**
  * A legal member of each domain that is deliberately outside the curated
@@ -143,11 +149,13 @@ describe('SettingsField — `select` follows the specifier\'s valueDomain declar
     expect(DECLARED.length).toBeGreaterThan(0);
     expect(UNDECLARED.length).toBeGreaterThan(0);
     expect(DECLARED.length + UNDECLARED.length).toBe(LOCALIZATION_SELECTS.length);
+    expect(CURRENCY_PICKED.length).toBeGreaterThan(0);
+    expect(FREE_TEXT.length).toBeGreaterThan(0);
   });
 
   // ---- half 1: a declared domain accepts a value outside `options` ----------
 
-  for (const spec of DECLARED) {
+  for (const spec of FREE_TEXT) {
     it(`${spec.key} (${spec.valueDomain}) takes a value the curated options do not list`, () => {
       const probe = OUTSIDE_THE_CURATED_LIST[spec.valueDomain!];
       // The probe is only evidence if it really is outside the table.
@@ -173,6 +181,28 @@ describe('SettingsField — `select` follows the specifier\'s valueDomain declar
       // …and free text outside them is committed verbatim, not swallowed.
       fireEvent.change(input!, { target: { value: probe } });
       expect(onChange).toHaveBeenCalledWith(probe);
+    });
+  }
+
+  // ---- the ISO 4217 domain: the searchable picker over the whole domain -----
+
+  for (const spec of CURRENCY_PICKED) {
+    it(`${spec.key} (${spec.valueDomain}) offers every ISO 4217 code, not only the curated options`, () => {
+      const probe = OUTSIDE_THE_CURATED_LIST[spec.valueDomain!];
+      expect(optionValues(spec)).not.toContain(probe);
+      expect(optionValues(spec)).not.toContain('UAH');
+
+      const { container, onChange } = renderField(spec);
+      expect(container.querySelector('input, datalist')).toBeNull();
+
+      fireEvent.click(screen.getByRole('combobox'));
+      const all = screen.getByText('All currencies (ISO 4217)').closest('[cmdk-group]') as HTMLElement;
+      const codes = within(all).getAllByRole('option').map((o) => o.textContent?.slice(0, 3));
+      expect(codes).toContain(probe);
+      expect(codes).toContain('UAH');
+
+      fireEvent.click(within(all).getByText(/^UAH — /));
+      expect(onChange).toHaveBeenCalledWith('UAH');
     });
   }
 
@@ -206,14 +236,15 @@ describe('SettingsField — `select` follows the specifier\'s valueDomain declar
     );
 
     // No dropdown was widened by accident, and none was left behind.
-    expect(container.querySelectorAll('input[list]')).toHaveLength(DECLARED.length);
-    expect(container.querySelectorAll('datalist')).toHaveLength(DECLARED.length);
+    expect(container.querySelectorAll('input[list]')).toHaveLength(FREE_TEXT.length);
+    expect(container.querySelectorAll('datalist')).toHaveLength(FREE_TEXT.length);
     // …and `input[list]` is the ONLY input the select branch produces, so the
     // count above cannot be inflated by some other control.
-    expect(container.querySelectorAll('input')).toHaveLength(DECLARED.length);
+    expect(container.querySelectorAll('input')).toHaveLength(FREE_TEXT.length);
+    // The closed dropdowns and the currency picker are the button comboboxes.
     expect(
       screen.getAllByRole('combobox').filter((el) => el.tagName === 'BUTTON'),
-    ).toHaveLength(UNDECLARED.length);
+    ).toHaveLength(UNDECLARED.length + CURRENCY_PICKED.length);
   });
 
   // ---- the rejection the server sends still lands on the control ------------
@@ -232,5 +263,13 @@ describe('SettingsField — `select` follows the specifier\'s valueDomain declar
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(input.getAttribute('aria-describedby')).toBe(screen.getByRole('alert').id);
     expect(screen.getByRole('alert')).toHaveTextContent('not a recognized IANA time zone');
+  });
+
+  it('a server rejection marks the currency picker trigger', () => {
+    renderField(CURRENCY_PICKED[0], { error: "'XYZ' is not a recognized ISO 4217 currency code." });
+
+    const trigger = screen.getByRole('combobox');
+    expect(trigger).toHaveAttribute('aria-invalid', 'true');
+    expect(trigger.getAttribute('aria-describedby')).toBe(screen.getByRole('alert').id);
   });
 });

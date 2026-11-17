@@ -342,7 +342,7 @@ describe('the browser pre-fills; only Confirm writes (objectui#11693 B2, objects
     renderChecklist(ADMIN);
     fireEvent.click(await screen.findByTestId('first-run-checklist-set-currency'));
     const editor = screen.getByTestId('first-run-checklist-editor-currency');
-    expect((within(editor).getByRole('combobox') as HTMLInputElement).value).toBe('CNY — Chinese Yuan');
+    expect(within(editor).getByRole('combobox')).toHaveTextContent('CNY — Chinese Yuan');
     await settle();
     expect(puts()).toHaveLength(0);
 
