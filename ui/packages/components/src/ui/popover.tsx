@@ -24,6 +24,7 @@ const PopoverContent = React.forwardRef<
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
       ref={ref}
+      data-radix-scroll-lock-ignore=""
       align={align}
       sideOffset={sideOffset}
       className={cn(
