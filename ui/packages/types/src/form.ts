@@ -2547,6 +2547,12 @@ export interface FormSchema extends BaseSchema {
    */
   mobileStickyActions?: boolean;
   /**
+   * Page hosts: when true the action row is `position: sticky; bottom: 0` at
+   * EVERY viewport (no `md` reset), so Save / Cancel stay reachable on a long
+   * full-page form. Package-local hand-off key — not part of the spec.
+   */
+  stickyActions?: boolean;
+  /**
    * Field container CSS class
    */
   fieldContainerClass?: string;

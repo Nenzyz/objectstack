@@ -2187,7 +2187,21 @@ export interface ObjectFormSchema extends BaseSchema {
    * {@link onSuccess}, one line below their `onSuccess`.
    */
   onCancel?: () => void;
-  
+
+  /**
+   * Dirty-state hand-off — a page host's runtime slot (not authorable
+   * metadata). `ObjectForm` calls it whenever the form flips between pristine
+   * and edited, after its own record-invalidation report. `RecordFormPage`
+   * uses it to register its unsaved-edits leave guard.
+   */
+  onDirtyChange?: (isDirty: boolean) => void;
+
+  /**
+   * Page hosts: pin the form's action row to the viewport bottom at every
+   * viewport. Forwarded to the form renderer's `stickyActions`.
+   */
+  stickyActions?: boolean;
+
   /**
    * Read-only mode
    * @default false
@@ -2519,6 +2533,7 @@ type ObjectFormSlotKey =
   | 'navigateOnSuccess'
   | 'nextText'
   | 'onCancel'
+  | 'onDirtyChange'
   | 'onError'
   | 'onOpenChange'
   | 'onStepChange'
@@ -2537,6 +2552,7 @@ type ObjectFormSlotKey =
   | 'splitDirection'
   | 'splitResizable'
   | 'splitSize'
+  | 'stickyActions'
   | 'style'
   | 'subforms'
   | 'submitBehavior'

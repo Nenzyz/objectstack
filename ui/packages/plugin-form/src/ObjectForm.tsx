@@ -823,7 +823,17 @@ const SimpleObjectForm: React.FC<{ schema: LocalizedObjectFormSchema; dataSource
     useRecordInvalidation(schema.objectName, schema.recordId, readsRecord);
   // The same verdict reaches a hosting master-detail form, when one provides a
   // reporter (`formDirtyReport.ts`): its close guard counts the header's input.
-  const handleDirtyChange = useReportedDirtyChange(onBusDirtyChange);
+  const reportedDirtyChange = useReportedDirtyChange(onBusDirtyChange);
+  // A page host's own `schema.onDirtyChange` (RecordFormPage's leave guard) is
+  // chained after the record-invalidation / master-detail report.
+  const hostOnDirtyChange = schema.onDirtyChange;
+  const handleDirtyChange = React.useCallback(
+    (dirty: boolean) => {
+      reportedDirtyChange(dirty);
+      hostOnDirtyChange?.(dirty);
+    },
+    [reportedDirtyChange, hostOnDirtyChange],
+  );
   // The `recordRefetch` value the fetch effect last ran for — a run that moved
   // it is a re-read IN PLACE and must not enter the loading branch.
   const appliedRecordRefetchRef = React.useRef(0);
@@ -1993,6 +2003,7 @@ const SimpleObjectForm: React.FC<{ schema: LocalizedObjectFormSchema; dataSource
     onDirtyChange: handleDirtyChange,
     className: schema.className,
     mobileStickyActions: Boolean(mobileOpts?.stickyActions),
+    stickyActions: schema.stickyActions === true ? true : undefined,
   };
 
   return (

@@ -67,6 +67,7 @@ import { resolveFormViewChrome, selectRecordFormView } from '../utils/recordForm
 import { servedObjectLabel, servedObjectPluralLabel } from '../hooks/servedObjectLabel.js';
 import { readRecordFormAiChanges, readRecordFormAiDraft } from '../utils/recordFormAiDraft.js';
 import { useAuth } from '@object-ui/auth';
+import { confirmUnsavedLeave, useRegisterUnsavedEdits } from '../chrome/unsavedEdits.js';
 
 export interface RecordFormPageProps {
   /** Form mode — `'create'` for the `/new` route, `'edit'` for the `/edit` route. */
@@ -100,6 +101,12 @@ export function RecordFormPage({ mode }: RecordFormPageProps) {
   // (e.g. `features.multiOrgEnabled != false` on sys_organization's create
   // action) can see them inside the nested ExpressionProvider below.
   const [features, setFeatures] = useState<Record<string, any>>({});
+
+  // Unsaved-edits leave guard: ObjectForm reports pristine/edited through
+  // `schema.onDirtyChange`; while edited, every departure the seam sees (a link,
+  // the header's menus, tab close) asks first. Reuses plugin-form's wording.
+  const [dirty, setDirty] = useState(false);
+  useRegisterUnsavedEdits(dirty, t('form.unsavedChanges'));
   useEffect(() => {
     let cancelled = false;
     getAuthConfig()
@@ -249,10 +256,14 @@ export function RecordFormPage({ mode }: RecordFormPageProps) {
       saved,
       mode,
     }), feedback);
+    // Saved: nothing left to lose, so leaving must not prompt.
+    setDirty(false);
     goBack();
   }, [mode, t, label, objectDef, goBack]);
 
   const handleCancel = useCallback(() => {
+    // The user chose to drop the edits; the Cancel click is the confirmation.
+    setDirty(false);
     goBack();
   }, [goBack]);
 
@@ -427,7 +438,7 @@ export function RecordFormPage({ mode }: RecordFormPageProps) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={goBack}
+            onClick={() => confirmUnsavedLeave(goBack)}
             data-testid="record-form-page-back"
             aria-label={t('common.back')}
           >
@@ -509,6 +520,8 @@ export function RecordFormPage({ mode }: RecordFormPageProps) {
                       ?? (objectDef as any).formViews?.default?.subforms,
                     onSuccess: handleSuccess,
                     onCancel: handleCancel,
+                    onDirtyChange: setDirty,
+                    stickyActions: true,
                     ...formChrome,
                   }}
                   dataSource={dataSource ?? undefined}

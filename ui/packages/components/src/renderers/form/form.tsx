@@ -1390,6 +1390,7 @@ function stripRegisteredFieldProps(type: string, props: RenderFieldProps): Rende
     showActions: _showActions,
     fieldContainerClass: _fieldContainerClass,
     mobileStickyActions: _mobileStickyActions,
+    stickyActions: _stickyActions,
     mobile_fullscreen: _mobileFullscreen,
     dependentValues,
     dependsOnLabels,
@@ -4514,6 +4515,7 @@ ComponentRegistry.register('form',
           showActions: _showActions,
           fieldContainerClass: _fieldContainerClass,
           mobileStickyActions: _mobileStickyActions,
+          stickyActions: _stickyActions,
           // Remaining FormSchema-level props that are NOT valid <form> DOM
           // attributes. Some callers / the SDUI dispatch spread the whole form
           // node at the top level (in addition to `schema`), so these arrive in
@@ -4739,10 +4741,18 @@ ComponentRegistry.register('form',
             <div
               className={cn(
                 `flex flex-col sm:flex-row gap-2 ${layout === 'horizontal' ? 'sm:justify-end' : 'sm:justify-start'} mt-6`,
-                schema.mobileStickyActions &&
+                schema.stickyActions &&
+                  'sticky bottom-0 z-10 -mx-4 px-4 py-3 bg-background/95 supports-[backdrop-filter]:bg-background/80 backdrop-blur border-t sm:-mx-6 sm:px-6',
+                !schema.stickyActions && schema.mobileStickyActions &&
                   'sticky bottom-0 z-10 -mx-4 px-4 py-3 bg-background/95 supports-[backdrop-filter]:bg-background/80 backdrop-blur border-t md:static md:mx-0 md:px-0 md:py-0 md:bg-transparent md:border-0 md:backdrop-blur-none',
               )}
-              data-testid={schema.mobileStickyActions ? 'form-mobile-sticky-actions' : undefined}
+              data-testid={
+                schema.stickyActions
+                  ? 'form-sticky-actions'
+                  : schema.mobileStickyActions
+                    ? 'form-mobile-sticky-actions'
+                    : undefined
+              }
             >
               {showCancel && (
                 <Button
