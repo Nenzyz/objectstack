@@ -2203,6 +2203,12 @@ export interface ObjectFormSchema extends BaseSchema {
   stickyActions?: boolean;
 
   /**
+   * When the form renderer validates. Record hosts (modal, drawer, record page)
+   * default to `'onTouched'`; the renderer's own default stays `'onSubmit'`.
+   */
+  validationMode?: 'onSubmit' | 'onBlur' | 'onChange' | 'onTouched' | 'all';
+
+  /**
    * Read-only mode
    * @default false
    */

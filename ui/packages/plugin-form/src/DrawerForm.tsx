@@ -777,6 +777,8 @@ const DrawerFormBody: React.FC<DrawerFormProps> = ({
   const baseFormSchema: FormSchema = {
     type: 'form',
     objectName: schema.objectName,
+    // Touched fields validate on blur; untouched ones stay quiet until submit.
+    validationMode: (schema as { validationMode?: FormSchema['validationMode'] }).validationMode ?? 'onTouched',
     layout: formLayout,
     defaultValues: formData,
     // Persisted record → `previous` binding + read-only submit strip (#3484).

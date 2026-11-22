@@ -1819,6 +1819,7 @@ const SimpleObjectForm: React.FC<{ schema: LocalizedObjectFormSchema; dataSource
             schema={{
               type: 'form',
               objectName: schema.objectName,
+              ...(schema.validationMode ? { validationMode: schema.validationMode } : {}),
               fields: laidOutFields,
               layout: formLayout,
               columns: formColumns,
@@ -2004,6 +2005,7 @@ const SimpleObjectForm: React.FC<{ schema: LocalizedObjectFormSchema; dataSource
     className: schema.className,
     mobileStickyActions: Boolean(mobileOpts?.stickyActions),
     stickyActions: schema.stickyActions === true ? true : undefined,
+    ...(schema.validationMode ? { validationMode: schema.validationMode } : {}),
   };
 
   return (

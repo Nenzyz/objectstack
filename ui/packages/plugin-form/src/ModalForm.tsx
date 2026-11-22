@@ -952,6 +952,8 @@ const ModalFormBody: React.FC<ModalFormProps> = ({
   const baseFormSchema: FormSchema = {
     type: 'form',
     objectName: schema.objectName,
+    // Touched fields validate on blur; untouched ones stay quiet until submit.
+    validationMode: (schema as { validationMode?: FormSchema['validationMode'] }).validationMode ?? 'onTouched',
     layout: formLayout,
     defaultValues: formData,
     // The persisted record, for `previous`-scoped field rules and the

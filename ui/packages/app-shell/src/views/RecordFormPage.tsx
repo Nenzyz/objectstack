@@ -506,6 +506,7 @@ export function RecordFormPage({ mode }: RecordFormPageProps) {
                   key={`${mode}:${objectName}:${recordId ?? 'new'}`}
                   schema={{
                     type: 'object-form',
+                    validationMode: 'onTouched',
                     formType: pageFormType,
                     ...formLayoutProps,
                     objectName: objectDef.name,
