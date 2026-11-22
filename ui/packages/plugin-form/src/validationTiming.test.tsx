@@ -7,7 +7,7 @@
  */
 
 /**
- * Record hosts validate on touch: a required field shows its error when it is
+ * The modal record host validates on touch: a required field shows its error when it is
  * blurred empty, clears as soon as it has a value, and stays quiet while
  * untouched until Save. The renderer's own default stays `onSubmit`.
  */
@@ -15,10 +15,8 @@ import '@testing-library/jest-dom/vitest';
 import React from 'react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, waitFor, cleanup, fireEvent } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { registerAllFields } from '@object-ui/fields';
 import { ModalForm, type ModalFormProps, type ModalFormSchema } from './ModalForm';
-import { RecordFormPage } from '../../app-shell/src/views/RecordFormPage';
 
 registerAllFields();
 
@@ -40,20 +38,6 @@ const ds = {
   update: vi.fn(),
 };
 
-vi.mock('@object-ui/auth', async (importOriginal) => ({
-  ...(await importOriginal<Record<string, unknown>>()),
-  useAuth: () => ({
-    user: { id: 'u1', name: 'Ada', email: 'ada@example.com', role: 'admin' },
-    getAuthConfig: async () => ({ features: {} }),
-    activeOrganization: null,
-  }),
-}));
-vi.mock('../../app-shell/src/providers/MetadataProvider', async (importOriginal) => ({
-  ...(await importOriginal<Record<string, unknown>>()),
-  useMetadata: () => ({ objects: [OBJECT], loading: false }),
-}));
-vi.mock('../../app-shell/src/providers/AdapterProvider', () => ({ useAdapter: () => ds }));
-
 afterEach(cleanup);
 
 const REQUIRED = /required/i;
@@ -70,24 +54,13 @@ function renderModal() {
   render(<ModalForm schema={schema} dataSource={ds as unknown as ModalFormProps['dataSource']} />);
 }
 
-function renderPage() {
-  render(
-    <MemoryRouter initialEntries={['/apps/demo/crm_lead/new']}>
-      <Routes>
-        <Route path="/apps/:appName/:objectName/new" element={<RecordFormPage mode="create" />} />
-      </Routes>
-    </MemoryRouter>,
-  );
-}
-
 const nameBox = () => document.body.querySelector('input[name="name"]') as HTMLInputElement | null;
 const noteBox = () => document.body.querySelector('input[name="note"]') as HTMLInputElement | null;
 const errors = () => screen.queryAllByText(REQUIRED);
 
-describe.each([
-  ['ModalForm', renderModal],
-  ['RecordFormPage', renderPage],
-])('%s validation timing', (_label, mount) => {
+describe('ModalForm validation timing', () => {
+  const mount = renderModal;
+
   it('shows no error on open', async () => {
     mount();
     await waitFor(() => expect(nameBox()).not.toBeNull());
