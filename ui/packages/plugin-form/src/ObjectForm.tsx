@@ -1820,6 +1820,7 @@ const SimpleObjectForm: React.FC<{ schema: LocalizedObjectFormSchema; dataSource
               type: 'form',
               objectName: schema.objectName,
               ...(schema.validationMode ? { validationMode: schema.validationMode } : {}),
+              stickyActions: schema.stickyActions === true ? true : undefined,
               fields: laidOutFields,
               layout: formLayout,
               columns: formColumns,
