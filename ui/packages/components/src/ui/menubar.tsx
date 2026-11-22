@@ -121,6 +121,7 @@ const MenubarContent = React.forwardRef<
     <MenubarPrimitive.Portal>
       <MenubarPrimitive.Content
         ref={ref}
+        data-radix-scroll-lock-ignore=""
         align={align}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
